@@ -14,7 +14,7 @@
         <input
           v-model="password"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="password" id="inputPassword" class="form-control invalid-field" placeholder="Hasło">
+          type="password" id="inputPassword" class="form-control" placeholder="Hasło">
       </ValidationProvider>
 
       <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="invalid">Zaloguj</button>
