@@ -7,14 +7,14 @@
         <input
           v-model="email"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="email" id="inputEmail" class="form-control" placeholder="Email" autofocus="">
+          type="email" id="inputEmail" class="form-control mt-2" placeholder="Email" autofocus="">
       </ValidationProvider>
       <ValidationProvider name="password" rules="required" v-slot="{ errors }">
         <label for="inputPassword" class="visually-hidden mt-2">Hasło</label>
         <input
           v-model="password"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="password" id="inputPassword" class="form-control" placeholder="Hasło">
+          type="password" id="inputPassword" class="form-control  mt-2" placeholder="Hasło">
       </ValidationProvider>
 
       <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="invalid">Zaloguj</button>
@@ -57,5 +57,16 @@ export default {
 
 .invalidval {
   border: 3px solid red;
+}
+
+label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 </style>
