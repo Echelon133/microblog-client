@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <h1>Mikroblog</h1>
-  </div>
+  <h1>Mikroblog</h1>
 </template>
 
 <script>

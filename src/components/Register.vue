@@ -1,5 +1,3 @@
 <template>
-  <div id="app">
-    <h1>Rejestracja</h1>
-  </div>
+  <h1>Rejestracja</h1>
 </template>
