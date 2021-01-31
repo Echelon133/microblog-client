@@ -1,9 +1,21 @@
 <template>
-  <h1>Mikroblog</h1>
+  <div id="app">
+    <Header :loggedIn="loggedIn"/>
+  </div>
 </template>
 
 <script>
+import Header from '@/components/Header'
+
 export default {
-  name: 'Microblog'
+  name: 'Microblog',
+  components: {
+    Header
+  },
+  data () {
+    return {
+      loggedIn: false
+    }
+  }
 }
 </script>
