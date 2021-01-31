@@ -77,7 +77,7 @@ extend('passwordCorrect', {
   validate (value) {
     // accept alphanumeric and special characters
     // length between 8-64
-    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.;= "'()+,\-/\\:<>?/[/\]_`{}|~])/
+    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/
     return passwordRegex.test(value) && (value.length >= 8 && value.length <= 64)
   },
   message: 'Hasło musi mieć 8-64 znaków, zawierać wielkie i małe litery, co najmniej jedną cyfrę oraz co najmniej jeden znak specjalny'
