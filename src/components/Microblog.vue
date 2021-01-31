@@ -35,6 +35,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 main {
+  margin-top: 55px;
   background-color:#303030;
   font-family: 'Roboto', sans-serif;
 }
