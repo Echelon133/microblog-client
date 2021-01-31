@@ -4,7 +4,7 @@
       <b-navbar-brand href="/">Mikroblog</b-navbar-brand>
         <b-navbar-nav class="ml-auto">
           <b-nav-form class="d-flex me-4 mr-5" @submit.prevent="onSubmit">
-            <b-form-input size="sm" v-model="searchedUsername" class="mr-sm-2" type="search" placeholder="Nazwa użytkownika" aria-label="Search"/>
+            <b-form-input size="sm" v-model="searchedUsername" type="search" placeholder="Nazwa użytkownika" aria-label="Search"/>
             <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" type="submit">
               <b-icon icon="search"></b-icon>
             </b-button>
