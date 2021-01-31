@@ -4,7 +4,9 @@
     <main>
       <b-container fluid>
         <b-row>
-          <b-col md="3"></b-col>
+          <b-col md="3">
+            <SidePanel/>
+          </b-col>
           <b-col md="9"></b-col>
         </b-row>
       </b-container>
@@ -14,11 +16,12 @@
 
 <script>
 import Header from '@/components/Header'
+import SidePanel from '@/components/SidePanel'
 
 export default {
   name: 'Microblog',
   components: {
-    Header
+    Header, SidePanel
   },
   data () {
     return {
