@@ -38,5 +38,6 @@ main {
   margin-top: 55px;
   background-color:#303030;
   font-family: 'Roboto', sans-serif;
+  color: white;
 }
 </style>
