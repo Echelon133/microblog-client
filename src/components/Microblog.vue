@@ -1,6 +1,14 @@
 <template>
   <div id="app">
     <Header :loggedIn="loggedIn"/>
+    <main>
+      <b-container fluid>
+        <b-row>
+          <b-col md="3"></b-col>
+          <b-col md="9"></b-col>
+        </b-row>
+      </b-container>
+    </main>
   </div>
 </template>
 
@@ -19,3 +27,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+main {
+  background-color:#303030;
+  font-family: 'Roboto', sans-serif;
+}
+</style>
