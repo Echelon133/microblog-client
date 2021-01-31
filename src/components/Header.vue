@@ -1,6 +1,6 @@
 <template>
   <header>
-    <b-navbar toggleable="lg">
+    <b-navbar toggleable="lg" fixed="top">
       <b-navbar-brand href="/">Mikroblog</b-navbar-brand>
         <b-navbar-nav class="ml-auto">
           <b-nav-form class="d-flex me-4 mr-2" @submit.prevent="onSubmit">
@@ -44,3 +44,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+nav {
+  background-color:white;
+}
+</style>
