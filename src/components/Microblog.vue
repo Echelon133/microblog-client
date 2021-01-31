@@ -4,7 +4,7 @@
     <main>
       <b-container fluid>
         <b-row>
-          <b-col md="3">
+          <b-col md="2" offset-md="1">
             <SidePanel/>
           </b-col>
           <b-col md="9"></b-col>
