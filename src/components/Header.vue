@@ -3,7 +3,7 @@
     <b-navbar toggleable="lg">
       <b-navbar-brand href="/">Mikroblog</b-navbar-brand>
         <b-navbar-nav class="ml-auto">
-          <b-nav-form class="d-flex me-4 mr-5" @submit.prevent="onSubmit">
+          <b-nav-form class="d-flex me-4 mr-2" @submit.prevent="onSubmit">
             <b-form-input size="sm" v-model="searchedUsername" type="search" placeholder="Nazwa użytkownika" aria-label="Search"/>
             <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" type="submit">
               <b-icon icon="search"></b-icon>
@@ -13,8 +13,10 @@
             <b-button size="sm" class="my-2 my-sm-0">Wyloguj</b-button>
           </span>
           <span v-else>
-            <b-button size="sm" class="my-2 my-sm-0" to="/login">Zaloguj</b-button>
-            <b-button size="sm" class="my-2 my-sm-0" to="/register">Zarejestruj</b-button>
+            <b-button-group size="sm">
+              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" to="/login">Zaloguj</b-button>
+              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" to="/register">Zarejestruj</b-button>
+            </b-button-group>
           </span>
         </b-navbar-nav>
     </b-navbar>
