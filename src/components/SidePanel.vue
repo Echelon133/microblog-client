@@ -1,18 +1,20 @@
 <template>
-  <b-card class="tag-list mt-5">
-    <b-card-title class="text-center">Popularne tagi
-      <b-dropdown size="sm" id="tag-time-filter" text="Filtr" class="m-2">
-        <b-dropdown-item @click.prevent="timeFilter('hour')">Ostatnia godzina</b-dropdown-item>
-        <b-dropdown-item @click.prevent="timeFilter('day')">Ostatnie 24h</b-dropdown-item>
-        <b-dropdown-item @click.prevent="timeFilter('week')">Ostatni tydzień</b-dropdown-item>
-      </b-dropdown>
-    </b-card-title>
-    <b-list-group flush>
-      <b-list-group-item class="tag-item text-center"
-      v-for="tag in tags" :key="tag.tagname"
-      >#{{ tag.tagname }}</b-list-group-item>
-    </b-list-group>
-  </b-card>
+  <div class="pt-5">
+    <b-card class="tag-list mt-5">
+      <b-card-title class="text-center">Popularne tagi
+        <b-dropdown size="sm" id="tag-time-filter" text="Filtr" class="m-2">
+          <b-dropdown-item @click.prevent="timeFilter('hour')">Ostatnia godzina</b-dropdown-item>
+          <b-dropdown-item @click.prevent="timeFilter('day')">Ostatnie 24h</b-dropdown-item>
+          <b-dropdown-item @click.prevent="timeFilter('week')">Ostatni tydzień</b-dropdown-item>
+        </b-dropdown>
+      </b-card-title>
+      <b-list-group flush>
+        <b-list-group-item class="tag-item text-center"
+        v-for="tag in tags" :key="tag.tagname"
+        >#{{ tag.tagname }}</b-list-group-item>
+      </b-list-group>
+    </b-card>
+  </div>
 </template>
 
 <script>
