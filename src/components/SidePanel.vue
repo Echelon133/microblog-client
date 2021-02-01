@@ -1,16 +1,16 @@
 <template>
-  <b-card nobody class="profile-panel mt-5">
-    <b-card-body>
-      <img src="static/avi.png" class="avi"/>
-      <b-card-title>{{ user.displayedUsername }}</b-card-title>
-      <b-card-sub-title class="mb-2">{{ user.username }}</b-card-sub-title>
-      <b-card-text>
-        {{ user.description }}
-      </b-card-text>
-    </b-card-body>
+  <b-card class="tag-list mt-5">
+    <b-card-title class="text-center">Popularne tagi
+      <b-dropdown size="sm" id="tag-time-filter" text="Wybierz przedział czasowy" class="m-2">
+        <b-dropdown-item @click.prevent="timeFilter('hour')">Ostatnia godzina</b-dropdown-item>
+        <b-dropdown-item @click.prevent="timeFilter('day')">Ostatnie 24h</b-dropdown-item>
+        <b-dropdown-item @click.prevent="timeFilter('week')">Ostatni tydzień</b-dropdown-item>
+      </b-dropdown>
+    </b-card-title>
     <b-list-group flush>
-      <b-list-group-item class="profile-panel-item">Obserwujący {{ user.followedBy }}</b-list-group-item>
-      <b-list-group-item class="profile-panel-item">Obserwowani {{ user.following }}</b-list-group-item>
+      <b-list-group-item class="tag-item text-center"
+      v-for="tag in tags" :key="tag.tagname"
+      >#{{ tag.tagname }}</b-list-group-item>
     </b-list-group>
   </b-card>
 </template>
@@ -20,32 +20,37 @@ export default {
   name: 'SidePanel',
   data () {
     return {
-      user: {
-        displayedUsername: 'username',
-        username: '@username',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer malesuada placerat accumsan. Mauris vulputate lacus in quam posuere feugiat. Proin sit amet sollicitudin quam. Integer efficitur convallis tortor eu mattis. Cras ut fringilla urna. Praesent dapibus feugiat libero, eget faucibus leo in.',
-        following: 30,
-        followedBy: 10
-      }
+      tags: [
+        {tagname: 'tag1'},
+        {tagname: 'tag2'},
+        {tagname: 'tag3'},
+        {tagname: 'tag4'},
+        {tagname: 'tag5'}
+      ]
+    }
+  },
+  methods: {
+    timeFilter (value) {
+      console.log(value)
     }
   }
 }
 </script>
 
 <style scoped>
-.profile-panel {
+.tag-list {
   background-color:#555555;
   border-radius: 15px;
 }
 
-.profile-panel-item {
+.tag-item {
   background-color: #696464;
   border-radius: 5px;
+  font-size: 25px;
 }
 
-.avi {
-  width: 80px;
-  height: 80px;
-  border-radius:50%;
+.tag-item:hover {
+  background-color:#555555;
+  border: 1px solid #696464;
 }
 </style>
