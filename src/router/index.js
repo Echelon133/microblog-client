@@ -25,7 +25,6 @@ export default new Router({
     },
     {
       path: '',
-      name: 'Microblog',
       component: Microblog,
       children: [
         {
