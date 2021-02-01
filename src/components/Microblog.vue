@@ -43,5 +43,6 @@ main {
   background-color:#303030;
   font-family: 'Roboto', sans-serif;
   color: white;
+  min-height: calc(100vh - 55px); /* full vh - margin-top of this block */
 }
 </style>
