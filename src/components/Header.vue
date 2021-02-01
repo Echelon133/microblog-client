@@ -10,11 +10,19 @@
             </b-button>
           </b-nav-form>
           <span v-if="loggedIn">
-            <b-button size="sm" class="my-2 my-sm-0">Wyloguj</b-button>
+            <b-button-group size="sm">
+              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0">
+                @{{ user.username }}
+                <img src="static/avi.png" class="avi"/>
+                </b-button>
+              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0">Wyloguj</b-button>
+            </b-button-group>
           </span>
           <span v-else>
             <b-button-group size="sm">
-              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" to="/login">Zaloguj</b-button>
+              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" to="/login">
+              Zaloguj
+              </b-button>
               <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" to="/register">Zarejestruj</b-button>
             </b-button-group>
           </span>
@@ -31,7 +39,7 @@ export default {
   components: {
     BIcon, BIconSearch
   },
-  props: ['loggedIn'],
+  props: ['loggedIn', 'user'],
   data () {
     return {
       searchedUsername: ''
@@ -48,5 +56,11 @@ export default {
 <style scoped>
 nav {
   background-color:white;
+}
+
+.avi {
+  width: 15px;
+  height: 15px;
+  border-radius:50%;
 }
 </style>
