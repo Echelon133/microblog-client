@@ -1,7 +1,7 @@
 <template>
   <b-card class="tag-list mt-5">
     <b-card-title class="text-center">Popularne tagi
-      <b-dropdown size="sm" id="tag-time-filter" text="Wybierz przedział czasowy" class="m-2">
+      <b-dropdown size="sm" id="tag-time-filter" text="Filtr" class="m-2">
         <b-dropdown-item @click.prevent="timeFilter('hour')">Ostatnia godzina</b-dropdown-item>
         <b-dropdown-item @click.prevent="timeFilter('day')">Ostatnie 24h</b-dropdown-item>
         <b-dropdown-item @click.prevent="timeFilter('week')">Ostatni tydzień</b-dropdown-item>
