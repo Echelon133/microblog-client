@@ -8,7 +8,7 @@
           <div class="input-group">
             <b-form-textarea v-model="newPostContent" class="form-control" id="post-content" rows="4"></b-form-textarea>
             <b-button variant="secondary"
-            :disabled="newPostContent.length === 0 || newPostContent.length > maxPostLength"
+            :disabled="isPostLengthInvalid()"
             @click.prevent="onNewPost"
             >Wyślij
             </b-button>
@@ -35,6 +35,9 @@ export default {
     onNewPost () {
       console.log(this.newPostContent)
       this.newPostContent = ''
+    },
+    isPostLengthInvalid () {
+      return this.newPostContent.length === 0 || this.newPostContent.length > this.maxPostLength
     }
   }
 }
