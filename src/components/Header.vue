@@ -13,7 +13,7 @@
             <b-button-group size="sm">
               <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0">
                 @{{ user.username }}
-                <img src="static/avi.png" class="avi"/>
+                <img src="/static/avi.png" class="avi"/>
                 </b-button>
               <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0">Wyloguj</b-button>
             </b-button-group>
