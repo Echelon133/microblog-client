@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <Header :loggedIn="loggedIn"/>
+    <Header :loggedIn="loggedIn" :user="user"/>
     <main>
       <b-container fluid>
         <b-row>
-          <b-col md="2" offset-md="1">
+          <b-col md="3">
             <SidePanel/>
           </b-col>
           <b-col md="9"></b-col>
@@ -25,7 +25,11 @@ export default {
   },
   data () {
     return {
-      loggedIn: false
+      loggedIn: true,
+      user: {
+        displayedUsername: 'username',
+        username: 'username'
+      }
     }
   }
 }
