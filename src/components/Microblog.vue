@@ -7,7 +7,9 @@
           <b-col sm="4" md="3" lg="3" xl="2" offset-xl="1">
             <SidePanel/>
           </b-col>
-          <b-col sm="8" md="9" lg="9" xl="9"></b-col>
+          <b-col sm="8" md="9" lg="9" xl="9">
+            <router-view/>
+          </b-col>
         </b-row>
       </b-container>
     </main>
