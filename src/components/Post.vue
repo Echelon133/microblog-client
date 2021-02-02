@@ -46,15 +46,15 @@
         </b-row>
         <hr>
         <b-row>
-          <b-col lg="4" class="text-center post-stats-item" @click.prevent="showResponses(post.uuid)">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="showResponses(post.uuid)">
             <b-icon icon="chat-dots" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ responses }}</span>
           </b-col>
-          <b-col lg="4" class="text-center post-stats-item" @click.prevent="quote(post.uuid)">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="quote(post.uuid)">
             <b-icon icon="chat-quote" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ quotes }}</span>
           </b-col>
-          <b-col lg="4" class="text-center post-stats-item" @click.prevent="like(post.uuid)">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="like(post.uuid)">
             <b-icon v-if="liked" icon="plus-square-fill" scale="1.5"></b-icon>
             <b-icon v-else icon="plus-square" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ likes }}</span>
