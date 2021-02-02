@@ -3,28 +3,28 @@
     <b-col>
       <div class="post my-3 mx-5 pb-2">
         <b-row class="pt-2">
-          <b-col col="1" sm="4" md="2" lg="1" xl="1">
+          <b-col sm="4" md="2" lg="1" xl="1">
             <img src="/static/avi.png" class="img-fluid rounded-circle post-avi">
           </b-col>
-          <b-col col="9" sm="4" md="8" lg="7" xl="7" class="user-info">
+          <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
             <p class="mb-0"> {{ post.author.displayedUsername }} </p>
             <a class="profile-link" href="#">@{{ post.author.username }}</a>
           </b-col>
-          <b-col col="2" sm="4" md="2" lg="4" xl="4">
+          <b-col sm="4" md="2" lg="4" xl="4">
             <p class="mt-3 pr-4 date-info">DATE</p>
           </b-col>
         </b-row>
         <hr>
         <div v-if="post.quotes" class="quoted-post my-1 mx-4">
           <b-row class="pt-2">
-            <b-col col="1" sm="4" md="2" lg="1" xl="1">
+            <b-col sm="4" md="2" lg="1" xl="1">
               <img src="/static/avi.png" class="img-fluid rounded-circle post-avi p-2">
             </b-col>
-            <b-col col="9" sm="4" md="8" lg="7" xl="7" class="user-info">
+            <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
               <p class="mb-0"> Username </p>
               <a class="profile-link" href="#">@username</a>
             </b-col>
-            <b-col col="2" sm="4" md="2" lg="4" xl="4">
+            <b-col sm="4" md="2" lg="4" xl="4">
               <p class="mt-3 pr-3 date-info">DATE</p>
             </b-col>
           </b-row>
