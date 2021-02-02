@@ -16,14 +16,19 @@
         </div>
       </b-col>
     </b-row>
+  <div class="pt-5">
+    <PostList/>
+  </div>
   </div>
 </template>
 
 <script>
+import PostList from '@/components/PostList'
 
 export default {
   name: 'Feed',
   components: {
+    PostList
   },
   data () {
     return {
