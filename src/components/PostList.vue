@@ -3,7 +3,7 @@
     <b-col xl="9" offset-xl="1" class="text-center pt-5" v-if="posts.length === 0">
       <span class="no-content-text">Brak postów</span>
     </b-col>
-    <b-col xl="9" offset-xl="1" class="text-center pt-5" v-else>
+    <b-col xl="9" offset-xl="1" class="pt-5" v-else>
       <Post v-for="post in posts" :key="post.uuid" :post="post"/>
     </b-col>
   </b-row>
