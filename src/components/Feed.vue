@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-5">
+  <div class="pt-5 scrollable">
     <b-row>
       <b-col xl="9" offset-xl="1">
         <div class="new-post-input">
@@ -77,5 +77,16 @@ export default {
 <style scoped>
 .length-counter {
   float: right;
+}
+
+.scrollable {
+  overflow-y: auto;
+  height: 90vh;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollable::-webkit-scrollbar {
+  display: none;
 }
 </style>
