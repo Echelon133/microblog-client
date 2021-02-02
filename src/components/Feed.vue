@@ -17,7 +17,7 @@
       </b-col>
     </b-row>
   <div class="pt-5">
-    <PostList/>
+    <PostList :posts="posts"/>
   </div>
   </div>
 </template>
@@ -33,7 +33,8 @@ export default {
   data () {
     return {
       newPostContent: '',
-      maxPostLength: 300
+      maxPostLength: 300,
+      posts: []
     }
   },
   methods: {
