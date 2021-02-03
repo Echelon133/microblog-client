@@ -46,15 +46,15 @@
         </b-row>
         <hr>
         <b-row>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="showResponses(post.uuid)">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="showResponses()">
             <b-icon icon="chat-dots" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ responses }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="quote(post.uuid)">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="quote()">
             <b-icon icon="chat-quote" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ quotes }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="like(post.uuid)">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="like()">
             <b-icon v-if="liked" icon="plus-square-fill" scale="1.5"></b-icon>
             <b-icon v-else icon="plus-square" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ likes }}</span>
@@ -83,14 +83,14 @@ export default {
     }
   },
   methods: {
-    showResponses (uuid) {
-      console.log('Show responses to ' + uuid)
+    showResponses () {
+      console.log('Show responses to ' + this.$vnode.key)
     },
-    quote (uuid) {
-      console.log('Quote ' + uuid)
+    quote () {
+      console.log('Quote ' + this.$vnode.key)
     },
-    like (uuid) {
-      console.log('Like ' + uuid)
+    like () {
+      console.log('Like ' + this.$vnode.key)
       if (this.liked) {
         this.liked = false
         this.likes -= 1
