@@ -1,16 +1,63 @@
 <template>
-  <h1>Tag: {{ $route.params.tagname }}</h1>
+  <div class="pt-5 scrollable">
+    <b-row>
+      <b-col sm="9" offset-sm="1" class="tag-box">
+        <b-row>
+          <b-col sm="12">
+            <h1 class="tag-name">Tag #{{ $route.params.tagname }}</h1>
+          </b-col>
+        </b-row>
+      </b-col>
+      <b-col sm="12" md="12" lg="12" xl="12">
+        <PostList :posts="posts"/>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
+import PostList from '@/components/PostList'
+
 export default {
-  name: 'TagOverview'
+  name: 'TagOverview',
+  components: {
+    PostList
+  },
+  data () {
+    return {
+      posts: [
+        { uuid: 'ae25b197-4861-4a72-abc9-4c5c9c497999',
+          content: 'Test content test content test content',
+          author: {
+            username: 'testuser', displayedUsername: 'Test User'
+          },
+          quotes: null,
+          respondsTo: null
+        }
+      ]
+    }
+  }
 }
 </script>
 
 <style scoped>
-h1 {
-  padding-top:200px;
-  text-align: center;
+.scrollable {
+  overflow-y: auto;
+  height: 90vh;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+.tag-box {
+  background-color:#555555;
+  border-radius: 15px;
+}
+
+.tag-name {
+  padding: 20px 20px 20px 20px;
 }
 </style>
