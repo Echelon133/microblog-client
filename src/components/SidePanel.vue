@@ -10,8 +10,8 @@
       </b-card-title>
       <b-list-group flush>
         <b-list-group-item class="tag-item text-center"
-        v-for="tag in tags" :key="tag.tagname"
-        >#{{ tag.tagname }}</b-list-group-item>
+        v-for="tag in tags" :key="tag.uuid"
+        >#{{ tag.name }}</b-list-group-item>
       </b-list-group>
     </b-card>
   </div>
@@ -23,17 +23,19 @@ export default {
   data () {
     return {
       tags: [
-        {tagname: 'tag1'},
-        {tagname: 'tag2'},
-        {tagname: 'tag3'},
-        {tagname: 'tag4'},
-        {tagname: 'tag5'}
+        {uuid: '6884548d-8878-4f18-a81a-e655b28acfd4', name: 'tag1'},
+        {uuid: 'fcf155f6-273d-4074-8792-f4859f888d75', name: 'tag2'},
+        {uuid: '7b6160eb-7aef-4c74-b23e-1ab95f93a673', name: 'tag3'},
+        {uuid: 'a22960be-453d-428f-9100-3d379d53f4fa', name: 'tag4'},
+        {uuid: '0320ce54-10b1-44b1-9926-39a4f2e2c839', name: 'tag5'}
       ]
     }
   },
   methods: {
     timeFilter (value) {
       console.log(value)
+    },
+    getTags () {
     }
   }
 }
