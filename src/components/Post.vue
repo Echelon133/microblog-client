@@ -77,8 +77,8 @@ export default {
   data () {
     return {
       responses: 0,
-      quotes: 100,
-      likes: 200,
+      quotes: 0,
+      likes: 0,
       liked: false
     }
   },
