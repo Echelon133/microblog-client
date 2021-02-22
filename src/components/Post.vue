@@ -46,20 +46,48 @@
         </b-row>
         <hr>
         <b-row>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="showResponses()">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="toggleResponseBox()">
             <b-icon icon="chat-dots" scale="1.5"></b-icon>
-            <span class="stats-number p-2">{{ responses }}</span>
+            <span class="stats-number p-2">{{ postInfo.responses }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="quote()">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="toggleQuoteBox()">
             <b-icon icon="chat-quote" scale="1.5"></b-icon>
-            <span class="stats-number p-2">{{ quotes }}</span>
+            <span class="stats-number p-2">{{ postInfo.quotes }}</span>
           </b-col>
           <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="like()">
-            <b-icon v-if="liked" icon="plus-square-fill" scale="1.5"></b-icon>
+            <b-icon v-if="postInfo.liked" icon="plus-square-fill" scale="1.5"></b-icon>
             <b-icon v-else icon="plus-square" scale="1.5"></b-icon>
-            <span class="stats-number p-2">{{ likes }}</span>
+            <span class="stats-number p-2">{{ postInfo.likes }}</span>
           </b-col>
         </b-row>
+      </div>
+    </b-col>
+    <b-col xl="12" v-if="response.showBox">
+      <div class="response-input my-3 mx-5 pb-2">
+        <label for="response-content" class="form-label">Treść odpowiedzi: </label>
+        <span class="length-counter">{{ response.content.length }}/{{ maxContentLength }}</span>
+        <div class="input-group">
+          <b-form-textarea v-model="response.content" class="form-control" id="post-content" rows="4"></b-form-textarea>
+          <b-button variant="secondary"
+          :disabled="isResponseLengthInvalid()"
+          @click.prevent="onNewResponse"
+          >Odpowiedz
+          </b-button>
+        </div>
+      </div>
+    </b-col>
+    <b-col xl="12" v-if="quote.showBox">
+      <div class="quote-input my-3 mx-5 pb-2">
+        <label for="quote-content" class="form-label">Treść odpowiedzi cytującej: </label>
+        <span class="length-counter">{{ quote.content.length }}/{{ maxContentLength }}</span>
+        <div class="input-group">
+          <b-form-textarea v-model="quote.content" class="form-control" id="post-content" rows="4"></b-form-textarea>
+          <b-button variant="secondary"
+          :disabled="isQuoteLengthInvalid()"
+          @click.prevent="onNewQuote"
+          >Cytuj
+          </b-button>
+        </div>
       </div>
     </b-col>
   </b-row>
@@ -76,27 +104,64 @@ export default {
   },
   data () {
     return {
-      responses: 0,
-      quotes: 0,
-      likes: 0,
-      liked: false
+      postInfo: {
+        responses: 0,
+        quotes: 0,
+        likes: 0,
+        liked: false
+      },
+      response: {
+        content: '',
+        showBox: false
+      },
+      quote: {
+        content: '',
+        showBox: false
+      },
+      maxContentLength: 300
     }
   },
   methods: {
-    showResponses () {
-      console.log('Show responses to ' + this.$vnode.key)
+    toggleResponseBox () {
+      this.quote.showBox = false
+      if (this.response.showBox) {
+        this.response.showBox = false
+      } else {
+        this.response.showBox = true
+      }
     },
-    quote () {
-      console.log('Quote ' + this.$vnode.key)
+    onNewResponse () {
+      console.log(this.response.content)
+      this.response.content = ''
+      this.response.showBox = false
+    },
+    isResponseLengthInvalid () {
+      return this.response.content.length === 0 || this.response.content.length > this.maxContentLength
+    },
+    toggleQuoteBox () {
+      this.response.showBox = false
+      if (this.quote.showBox) {
+        this.quote.showBox = false
+      } else {
+        this.quote.showBox = true
+      }
+    },
+    onNewQuote () {
+      console.log(this.quote.content)
+      this.quote.content = ''
+      this.quote.showBox = false
+    },
+    isQuoteLengthInvalid () {
+      return this.quote.content.length === 0 || this.quote.content.length > this.maxContentLength
     },
     like () {
       console.log('Like ' + this.$vnode.key)
-      if (this.liked) {
-        this.liked = false
-        this.likes -= 1
+      if (this.postInfo.liked) {
+        this.postInfo.liked = false
+        this.postInfo.likes -= 1
       } else {
-        this.liked = true
-        this.likes += 1
+        this.postInfo.liked = true
+        this.postInfo.likes += 1
       }
     }
   }
@@ -161,5 +226,9 @@ export default {
 
 .post-content-text {
   font-size: 21px;
+}
+
+.length-counter {
+  float: right;
 }
 </style>
