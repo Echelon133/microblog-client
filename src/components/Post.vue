@@ -67,7 +67,7 @@
         <label for="response-content" class="form-label">Treść odpowiedzi: </label>
         <span class="length-counter">{{ response.content.length }}/{{ maxContentLength }}</span>
         <div class="input-group">
-          <b-form-textarea v-model="response.content" class="form-control" id="post-content" rows="4"></b-form-textarea>
+          <b-form-textarea v-model="response.content" class="form-control" rows="4"></b-form-textarea>
           <b-button variant="secondary"
           :disabled="isResponseLengthInvalid()"
           @click.prevent="onNewResponse"
@@ -81,7 +81,7 @@
         <label for="quote-content" class="form-label">Treść odpowiedzi cytującej: </label>
         <span class="length-counter">{{ quote.content.length }}/{{ maxContentLength }}</span>
         <div class="input-group">
-          <b-form-textarea v-model="quote.content" class="form-control" id="post-content" rows="4"></b-form-textarea>
+          <b-form-textarea v-model="quote.content" class="form-control" rows="4"></b-form-textarea>
           <b-button variant="secondary"
           :disabled="isQuoteLengthInvalid()"
           @click.prevent="onNewQuote"
