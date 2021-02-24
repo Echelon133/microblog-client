@@ -22,10 +22,30 @@
         <hr>
         <b-row>
           <b-col sm="6" class="text-center counter">
-            <p>Obserwowani: {{ user.following }}</p>
+            <b-modal ref="following" hide-footer>
+              <b-container fluid>
+                <b-row>
+                  <b-col>Lista obserwowanych</b-col>
+                </b-row>
+              </b-container>
+            </b-modal>
+            <p
+            @click="showFollowingModal()"
+            class="clickable-item"
+            >Obserwowani: {{ user.following }}</p>
           </b-col>
           <b-col sm="6" class="text-center counter">
-            <p>Obserwujący: {{ user.followedBy }}</p>
+            <b-modal ref="followedBy" hide-footer>
+              <b-container fluid>
+                <b-row>
+                  <b-col>Lista obserwujących</b-col>
+                </b-row>
+              </b-container>
+            </b-modal>
+            <p
+            @click="showFollowedByModal()"
+            class="clickable-item"
+            >Obserwujący: {{ user.followedBy }}</p>
           </b-col>
         </b-row>
       </b-col>
@@ -83,6 +103,14 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    showFollowingModal () {
+      this.$refs['following'].show()
+    },
+    showFollowedByModal () {
+      this.$refs['followedBy'].show()
+    }
   }
 }
 </script>
@@ -128,5 +156,13 @@ export default {
 .counter {
   font-size: 22px;
   padding-bottom: 15px;
+}
+
+.clickable-item {
+  cursor: pointer;
+}
+
+.clickable-item:hover {
+  text-decoration: underline;
 }
 </style>
