@@ -8,6 +8,7 @@ import UserProfile from '@/components/UserProfile'
 import TagOverview from '@/components/TagOverview'
 import UserSearch from '@/components/UserSearch'
 import PostView from '@/components/PostView'
+import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ export default new Router({
           path: '/post/:uuid',
           name: 'PostView',
           component: PostView
+        },
+        {
+          path: '*',
+          name: 'Not Found',
+          component: NotFound
         }
       ]
     }
