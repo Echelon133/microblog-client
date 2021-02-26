@@ -16,9 +16,9 @@
         </div>
       </b-col>
     </b-row>
-  <div class="pt-5">
-    <PostList :posts="posts"/>
-  </div>
+    <div class="pt-5">
+      <PostList :posts="posts"/>
+    </div>
   </div>
 </template>
 
