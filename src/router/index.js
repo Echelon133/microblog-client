@@ -7,6 +7,7 @@ import Feed from '@/components/Feed'
 import UserProfile from '@/components/UserProfile'
 import TagOverview from '@/components/TagOverview'
 import UserSearch from '@/components/UserSearch'
+import PostView from '@/components/PostView'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
           path: '/search/user/:searchname',
           name: 'UserSearch',
           component: UserSearch
+        },
+        {
+          path: '/post/:uuid',
+          name: 'PostView',
+          component: PostView
         }
       ]
     }
