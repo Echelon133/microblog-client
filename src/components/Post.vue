@@ -109,7 +109,7 @@ export default {
         quotes: 0,
         likes: 0,
         liked: false,
-        quotedPost: { 
+        quotedPost: {
           uuid: '6b808a1g-2ca0-4e38-a160-cf490bac9a86',
           content: 'quoted post content',
           author: {
