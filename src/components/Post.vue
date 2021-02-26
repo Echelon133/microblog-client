@@ -21,8 +21,8 @@
               <img src="/static/avi.png" class="img-fluid rounded-circle post-avi p-2">
             </b-col>
             <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
-              <p class="mb-0"> Username </p>
-              <a class="profile-link" href="#">@username</a>
+              <p class="mb-0"> {{ postInfo.quotedPost.author.displayedUsername }} </p>
+              <a class="profile-link" href="#">@{{ postInfo.quotedPost.author.username }}</a>
             </b-col>
             <b-col sm="4" md="2" lg="4" xl="4">
               <p class="mt-3 pr-3 date-info">DATE</p>
@@ -30,13 +30,13 @@
           </b-row>
           <b-row class="pt-3 px-5">
             <b-col>
-              <p class="post-content-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non blandit diam, quis congue augue. Phasellus sit amet tincidunt arcu, in auctor turpis. Maecenas convallis dui mi, vel rutrum quam lobortis a. Donec sed ultricies libero, eget pharetra ante. Nam sed dui ante. Quisque a nunc eu neque quis.</p>
+              <p class="post-content-text">{{ postInfo.quotedPost.content }}</p>
             </b-col>
           </b-row>
         </div>
         <b-row v-if="post.respondsTo">
           <b-col lg="12" class="ml-5">
-            <span class="response-info">W odpowiedzi do </span><a class="profile-link" href="#">@otheruser</a>
+            <span class="response-info">W odpowiedzi do </span><a class="profile-link" href="#">@{{ postInfo.respondsToPost.author.username }}</a>
           </b-col>
         </b-row>
         <b-row class="pt-2 px-5">
@@ -108,7 +108,25 @@ export default {
         responses: 0,
         quotes: 0,
         likes: 0,
-        liked: false
+        liked: false,
+        quotedPost: { 
+          uuid: '6b808a1g-2ca0-4e38-a160-cf490bac9a86',
+          content: 'quoted post content',
+          author: {
+            username: 'anotherusername', displayedUsername: 'Another User'
+          },
+          quotes: null,
+          respondsTo: null
+        },
+        respondsToPost: {
+          uuid: '30008a1g-2ca0-4e38-a160-cf490bac9a86',
+          content: 'some post content',
+          author: {
+            username: 'someusername', displayedUsername: 'Another User'
+          },
+          quotes: null,
+          respondsTo: null
+        }
       },
       response: {
         content: '',
