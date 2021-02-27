@@ -34,32 +34,7 @@ export default {
     return {
       newPostContent: '',
       maxPostLength: 300,
-      posts: [
-        { uuid: 'ae25b197-4861-4a72-abc9-4c5c9c497999',
-          content: 'Test content test content test content',
-          author: {
-            username: 'testusername', displayedUsername: 'Test User'
-          },
-          quotes: null,
-          respondsTo: null
-        },
-        { uuid: '6b808a1c-2ca0-4e38-a160-cf490bac9a86',
-          content: 'Another test content post',
-          author: {
-            username: 'diffusername', displayedUsername: 'Diff User'
-          },
-          quotes: 'ae25b197-4861-4a72-abc9-4c5c9c497999',
-          respondsTo: null
-        },
-        { uuid: '6b808a1g-2ca0-4e38-a160-cf490bac9a86',
-          content: 'Last content post test',
-          author: {
-            username: 'anotherusername', displayedUsername: 'Another User'
-          },
-          quotes: null,
-          respondsTo: '6b808a1c-2ca0-4e38-a160-cf490bac9a86'
-        }
-      ]
+      posts: []
     }
   },
   methods: {
@@ -69,7 +44,15 @@ export default {
     },
     isPostLengthInvalid () {
       return this.newPostContent.length === 0 || this.newPostContent.length > this.maxPostLength
+    },
+    loadPosts () {
+      this.axios.get('http://localhost:8080/api/posts/popular').then((response) => {
+        this.posts = response.data
+      })
     }
+  },
+  mounted () {
+    this.loadPosts()
   }
 }
 </script>
