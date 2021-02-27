@@ -15,7 +15,7 @@
           </b-col>
         </b-row>
         <hr>
-        <div v-if="post.quotes" class="quoted-post my-1 mx-4">
+        <div v-if="postInfo.quotedPost" class="quoted-post my-1 mx-4">
           <b-row class="pt-2">
             <b-col sm="4" md="2" lg="1" xl="1">
               <img src="/static/avi.png" class="img-fluid rounded-circle post-avi p-2">
@@ -34,7 +34,7 @@
             </b-col>
           </b-row>
         </div>
-        <b-row v-if="post.respondsTo">
+        <b-row v-if="postInfo.respondsToPost">
           <b-col lg="12" class="ml-5">
             <span class="response-info">W odpowiedzi do </span><a class="profile-link" href="#">@{{ postInfo.respondsToPost.author.username }}</a>
           </b-col>
@@ -109,24 +109,9 @@ export default {
         quotes: 0,
         likes: 0,
         liked: false,
-        quotedPost: {
-          uuid: '6b808a1g-2ca0-4e38-a160-cf490bac9a86',
-          content: 'quoted post content',
-          author: {
-            username: 'anotherusername', displayedUsername: 'Another User'
-          },
-          quotes: null,
-          respondsTo: null
-        },
-        respondsToPost: {
-          uuid: '30008a1g-2ca0-4e38-a160-cf490bac9a86',
-          content: 'some post content',
-          author: {
-            username: 'someusername', displayedUsername: 'Another User'
-          },
-          quotes: null,
-          respondsTo: null
-        }
+        quotedPost: null,
+        respondsToPost: null,
+        dateDelta: null
       },
       response: {
         content: '',
@@ -181,7 +166,39 @@ export default {
         this.postInfo.liked = true
         this.postInfo.likes += 1
       }
+    },
+    loadQuote () {
+      let quoteUuid = this.$props.post.quotes
+      if (quoteUuid) {
+        this.axios.get('http://localhost:8080/api/posts/' + quoteUuid).then((response) => {
+          this.postInfo.quotedPost = response.data
+        })
+      }
+    },
+    loadRespondsToPost () {
+      let respondsToPostUuid = this.$props.post.respondsTo
+      if (respondsToPostUuid) {
+        this.axios.get('http://localhost:8080/api/posts/' + respondsToPostUuid).then((response) => {
+          this.postInfo.respondsToPost = response.data
+        })
+      }
+    },
+    loadPostInfo () {
+      let postUuid = this.$props.post.uuid
+      this.axios.get('http://localhost:8080/api/posts/' + postUuid + '/info').then((response) => {
+        this.postInfo.quotes = response.data.quotes
+        this.postInfo.responses = response.data.responses
+        this.postInfo.likes = response.data.likes
+      })
+    },
+    convertDateToDeltaText () {
     }
+  },
+  mounted () {
+    this.loadQuote()
+    this.loadRespondsToPost()
+    this.loadPostInfo()
+    this.convertDateToDeltaText()
   }
 }
 </script>
