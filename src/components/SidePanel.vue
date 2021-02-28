@@ -22,21 +22,35 @@ export default {
   name: 'SidePanel',
   data () {
     return {
-      tags: [
-        {uuid: '6884548d-8878-4f18-a81a-e655b28acfd4', name: 'tag1'},
-        {uuid: 'fcf155f6-273d-4074-8792-f4859f888d75', name: 'tag2'},
-        {uuid: '7b6160eb-7aef-4c74-b23e-1ab95f93a673', name: 'tag3'},
-        {uuid: 'a22960be-453d-428f-9100-3d379d53f4fa', name: 'tag4'},
-        {uuid: '0320ce54-10b1-44b1-9926-39a4f2e2c839', name: 'tag5'}
-      ]
+      tags: []
     }
   },
   methods: {
-    timeFilter (value) {
-      console.log(value)
+    timeFilter (filter) {
+      switch (filter.toUpperCase()) {
+        case 'HOUR':
+          this.getTags('HOUR')
+          break
+        case 'DAY':
+          this.getTags('DAY')
+          break
+        case 'WEEK':
+          this.getTags('WEEK')
+          break
+        default:
+          this.getTags('HOUR')
+          break
+      }
     },
-    getTags () {
+    getTags (filter) {
+      this.tags = []
+      this.axios.get('http://localhost:8080/api/tags/popular?since=' + filter).then((response) => {
+        this.tags = response.data
+      })
     }
+  },
+  mounted () {
+    this.getTags('HOUR')
   }
 }
 </script>
