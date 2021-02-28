@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col>
-      <div class="post my-3 mx-5 pb-2">
+      <div class="post my-3 mx-5 pb-2" @click.stop.prevent="goToPost(post.uuid)">
         <b-row class="pt-2">
           <b-col sm="4" md="2" lg="1" xl="1">
             <img src="/static/avi.png" class="img-fluid rounded-circle post-avi">
@@ -15,7 +15,7 @@
           </b-col>
         </b-row>
         <hr>
-        <div v-if="postInfo.quotedPost.post" class="quoted-post my-1 mx-4">
+        <div v-if="postInfo.quotedPost.post" class="quoted-post my-1 mx-4" @click.stop.prevent="goToPost(postInfo.quotedPost.post.uuid)">
           <b-row class="pt-2">
             <b-col sm="4" md="2" lg="1" xl="1">
               <img src="/static/avi.png" class="img-fluid rounded-circle post-avi p-2">
@@ -231,6 +231,9 @@ export default {
     },
     dateDiffInYears (date1, date2) {
       return this.dateDiffInMonths(date1, date2) / 12
+    },
+    goToPost (postUuid) {
+      this.$router.push({path: `/post/${postUuid}`})
     }
   },
   mounted () {
@@ -248,6 +251,10 @@ export default {
   border-radius: 15px;
 }
 
+.post:hover {
+  background-color: #646363;
+}
+
 .post-avi {
   max-width: 70px;
   padding: 10px;
@@ -256,6 +263,10 @@ export default {
 .quoted-post {
   background-color: #444444;
   border-radius: 15px;
+}
+
+.quoted-post:hover {
+  background-color: #535252;
 }
 
 .stats-icon {
