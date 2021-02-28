@@ -26,42 +26,43 @@ export default {
   },
   data () {
     return {
-      parent: {
-        uuid: '6b808a1g-2ca0-4e38-a160-cf490bac9a86',
-        content: 'Parent content test',
-        author: {
-          username: 'anotherusername', displayedUsername: 'Another User'
-        },
-        quotes: null,
-        respondsTo: null
-      },
-      mainPost: {
-        uuid: '6b808a1g-2ca0-4e38-a160-cf490bac9a86',
-        content: 'Last content post test',
-        author: {
-          username: 'anotherusername', displayedUsername: 'Another User'
-        },
-        quotes: null,
-        respondsTo: '6b808a1c-2ca0-4e38-a160-cf490bac9a86'
-      },
-      responses: [
-        { uuid: 'ae25b197-4861-4a72-abc9-4c5c9c497999',
-          content: 'Test content test content test content',
-          author: {
-            username: 'testusername', displayedUsername: 'Test User'
-          },
-          quotes: null,
-          respondsTo: null
-        },
-        { uuid: '6b808a1c-2ca0-4e38-a160-cf490bac9a86',
-          content: 'Another test content post',
-          author: {
-            username: 'diffusername', displayedUsername: 'Diff User'
-          },
-          quotes: 'ae25b197-4861-4a72-abc9-4c5c9c497999',
-          respondsTo: null
+      parent: null,
+      mainPost: null,
+      responses: []
+    }
+  },
+  methods: {
+    loadParent () {
+      let parentUuid = this.mainPost.respondsTo
+      this.axios.get('http://localhost:8080/api/posts/' + parentUuid).then((response) => {
+        this.parent = response.data
+      })
+    },
+    loadPost () {
+      let postUuid = this.$route.params.uuid
+      this.axios.get('http://localhost:8080/api/posts/' + postUuid).then((response) => {
+        this.mainPost = response.data
+        // if the loaded mainPost is a post that responds to some other post
+        // try to load that other post
+        if (this.mainPost.respondsTo) {
+          this.loadParent()
         }
-      ]
+      })
+    },
+    loadResponses () {
+    },
+    init () {
+      this.loadPost()
+      this.loadResponses()
+    }
+  },
+  mounted () {
+    this.init()
+  },
+  watch: {
+    '$route.params.uuid': function (uuid) {
+      console.log('changed uuid: ' + uuid)
+      this.init()
     }
   }
 }
