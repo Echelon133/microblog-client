@@ -11,26 +11,26 @@
             <a class="profile-link" href="#">@{{ post.author.username }}</a>
           </b-col>
           <b-col sm="4" md="2" lg="4" xl="4">
-            <p class="mt-3 pr-4 date-info">DATE</p>
+            <p class="mt-3 pr-4 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
           </b-col>
         </b-row>
         <hr>
-        <div v-if="postInfo.quotedPost" class="quoted-post my-1 mx-4">
+        <div v-if="postInfo.quotedPost.post" class="quoted-post my-1 mx-4">
           <b-row class="pt-2">
             <b-col sm="4" md="2" lg="1" xl="1">
               <img src="/static/avi.png" class="img-fluid rounded-circle post-avi p-2">
             </b-col>
             <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
-              <p class="mb-0"> {{ postInfo.quotedPost.author.displayedUsername }} </p>
-              <a class="profile-link" href="#">@{{ postInfo.quotedPost.author.username }}</a>
+              <p class="mb-0"> {{ postInfo.quotedPost.post.author.displayedUsername }} </p>
+              <a class="profile-link" href="#">@{{ postInfo.quotedPost.post.author.username }}</a>
             </b-col>
             <b-col sm="4" md="2" lg="4" xl="4">
-              <p class="mt-3 pr-3 date-info">DATE</p>
+              <p class="mt-3 pr-3 date-info" :title="new Date(postInfo.quotedPost.post.date)">{{ postInfo.quotedPost.dateDelta }}</p>
             </b-col>
           </b-row>
           <b-row class="pt-3 px-5">
             <b-col>
-              <p class="post-content-text">{{ postInfo.quotedPost.content }}</p>
+              <p class="post-content-text">{{ postInfo.quotedPost.post.content }}</p>
             </b-col>
           </b-row>
         </div>
@@ -109,7 +109,7 @@ export default {
         quotes: 0,
         likes: 0,
         liked: false,
-        quotedPost: null,
+        quotedPost: {post: null, dateDelta: null},
         respondsToPost: null,
         dateDelta: null
       },
@@ -171,7 +171,9 @@ export default {
       let quoteUuid = this.$props.post.quotes
       if (quoteUuid) {
         this.axios.get('http://localhost:8080/api/posts/' + quoteUuid).then((response) => {
-          this.postInfo.quotedPost = response.data
+          this.postInfo.quotedPost.post = response.data
+          let quotedPostDate = new Date(this.postInfo.quotedPost.post.date)
+          this.postInfo.quotedPost.dateDelta = this.convertDateToDeltaText(quotedPostDate)
         })
       }
     },
@@ -191,14 +193,51 @@ export default {
         this.postInfo.likes = response.data.likes
       })
     },
-    convertDateToDeltaText () {
+    convertMainPostDateToDeltaText () {
+      let mainPostDate = new Date(this.$props.post.date)
+      this.postInfo.dateDelta = this.convertDateToDeltaText(mainPostDate)
+    },
+    convertDateToDeltaText (dateToConvert) {
+      let now = new Date()
+      let dateDiffInYears = Math.floor(this.dateDiffInYears(dateToConvert, now))
+      let dateDiffInMonths = Math.floor(this.dateDiffInMonths(dateToConvert, now))
+      let dateDiffInDays = Math.floor(this.dateDiffInDays(dateToConvert, now))
+      let dateDiffInHours = Math.floor(this.dateDiffInHours(dateToConvert, now))
+      let dateDiffInMinutes = Math.floor(this.dateDiffInMinutes(dateToConvert, now))
+
+      if (dateDiffInYears >= 1) {
+        return dateDiffInYears + 'y'
+      } else if (dateDiffInMonths >= 1) {
+        return dateDiffInMonths + 'm'
+      } else if (dateDiffInDays >= 1) {
+        return dateDiffInDays + 'd'
+      } else if (dateDiffInHours >= 1) {
+        return dateDiffInHours + 'h'
+      } else {
+        return dateDiffInMinutes + 'min'
+      }
+    },
+    dateDiffInMinutes (date1, date2) {
+      return (date2 - date1) / 1000 / 60
+    },
+    dateDiffInHours (date1, date2) {
+      return (date2 - date1) / 1000 / 60 / 60
+    },
+    dateDiffInDays (date1, date2) {
+      return (date2 - date1) / 1000 / 60 / 60 / 24
+    },
+    dateDiffInMonths (date1, date2) {
+      return (date2.getMonth() - date1.getMonth()) + (12 * (date2.getFullYear() - date1.getFullYear()))
+    },
+    dateDiffInYears (date1, date2) {
+      return this.dateDiffInMonths(date1, date2) / 12
     }
   },
   mounted () {
     this.loadQuote()
     this.loadRespondsToPost()
     this.loadPostInfo()
-    this.convertDateToDeltaText()
+    this.convertMainPostDateToDeltaText()
   }
 }
 </script>
@@ -243,6 +282,10 @@ export default {
 .date-info {
   color: grey;
   float: right;
+}
+
+.date-info:hover {
+  text-decoration: underline;
 }
 
 .profile-link {
