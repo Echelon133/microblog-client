@@ -10,6 +10,11 @@
       </b-col>
       <b-col sm="12" md="12" lg="12" xl="12">
         <UserProfileResult v-for="user in users" :key="user.uuid" :user="user"/>
+        <b-row>
+          <b-col sm="9" offset-sm="1" class="text-center mt-5">
+            <span v-if="users.length === 0" class="no-content-text">Brak wyników</span>
+          </b-col>
+        </b-row>
       </b-col>
     </b-row>
   </div>
@@ -25,29 +30,23 @@ export default {
   },
   data () {
     return {
-      users: [
-        {
-          uuid: '328ee4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Test User',
-          username: 'testuser',
-          description: 'Lorem Ipsum Test',
-          followed: false
-        },
-        {
-          uuid: '108ee4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Another User',
-          username: 'testuser1',
-          description: 'Placeholder description',
-          followed: false
-        },
-        {
-          uuid: '5000e4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Last User',
-          username: 'testuser2',
-          description: 'Last user\'s description',
-          followed: false
-        }
-      ]
+      users: []
+    }
+  },
+  methods: {
+    search () {
+      let phrase = this.$route.params.searchname
+      this.axios.get('http://localhost:8080/api/users?search=' + phrase).then((response) => {
+        this.users = response.data
+      })
+    }
+  },
+  mounted () {
+    this.search()
+  },
+  watch: {
+    '$route.params.searchname': function () {
+      this.search()
     }
   }
 }
@@ -72,5 +71,9 @@ export default {
 
 .searched-name {
   padding: 20px 20px 20px 20px;
+}
+
+.no-content-text {
+  font-size: 40px;
 }
 </style>
