@@ -8,7 +8,9 @@
           </b-col>
           <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
             <p class="mb-0"> {{ post.author.displayedUsername }} </p>
-            <a class="profile-link" href="#">@{{ post.author.username }}</a>
+            <a class="profile-link"
+            @click.stop.prevent="goToUser(post.author.username)"
+            >@{{ post.author.username }}</a>
           </b-col>
           <b-col sm="4" md="2" lg="4" xl="4">
             <p class="mt-3 pr-4 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
@@ -22,7 +24,9 @@
             </b-col>
             <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
               <p class="mb-0"> {{ postInfo.quotedPost.post.author.displayedUsername }} </p>
-              <a class="profile-link" href="#">@{{ postInfo.quotedPost.post.author.username }}</a>
+              <a class="profile-link"
+              @click.stop.prevent="goToUser(postInfo.quotedPost.post.author.username)"
+              >@{{ postInfo.quotedPost.post.author.username }}</a>
             </b-col>
             <b-col sm="4" md="2" lg="4" xl="4">
               <p class="mt-3 pr-3 date-info" :title="new Date(postInfo.quotedPost.post.date)">{{ postInfo.quotedPost.dateDelta }}</p>
@@ -36,7 +40,10 @@
         </div>
         <b-row v-if="postInfo.respondsToPost">
           <b-col lg="12" class="ml-5">
-            <span class="response-info">W odpowiedzi do </span><a class="profile-link" href="#">@{{ postInfo.respondsToPost.author.username }}</a>
+            <span class="response-info">W odpowiedzi do </span>
+            <a class="profile-link"
+            @click.stop.prevent="goToUser(postInfo.respondsToPost.author.username)"
+            >@{{ postInfo.respondsToPost.author.username }}</a>
           </b-col>
         </b-row>
         <b-row class="pt-2 px-5">
@@ -234,6 +241,9 @@ export default {
     },
     goToPost (postUuid) {
       this.$router.push({path: `/post/${postUuid}`})
+    },
+    goToUser (username) {
+      this.$router.push({path: `/user/${username}`})
     }
   },
   mounted () {
@@ -307,6 +317,7 @@ export default {
 .profile-link:hover {
   color:#333333;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .response-info {
