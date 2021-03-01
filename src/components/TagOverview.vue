@@ -25,17 +25,23 @@ export default {
   },
   data () {
     return {
-      posts: [
-        { uuid: 'ae25b197-4861-4a72-abc9-4c5c9c497999',
-          content: 'Test content test content test content',
-          author: {
-            username: 'testuser', displayedUsername: 'Test User'
-          },
-          quotes: null,
-          respondsTo: null
-        }
-      ]
+      posts: []
     }
+  },
+  methods: {
+    loadPosts () {
+      // first - find tag uuid
+      let name = this.$route.params.tagname
+      this.axios.get('http://localhost:8080/api/tags?name' + name).then((response) => {
+        let tagUuid = response.data.uuid
+        this.axios.get('http://localhost:8080/api/tags/' + tagUuid + '/recentPosts').then((response) => {
+          this.posts = response.data
+        })
+      })
+    }
+  },
+  mounted () {
+    this.loadPosts()
   }
 }
 </script>
