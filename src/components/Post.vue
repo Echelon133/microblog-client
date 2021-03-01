@@ -53,15 +53,15 @@
         </b-row>
         <hr>
         <b-row>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="toggleResponseBox()">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="toggleResponseBox()">
             <b-icon icon="chat-dots" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.responses }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="toggleQuoteBox()">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="toggleQuoteBox()">
             <b-icon icon="chat-quote" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.quotes }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.prevent="like()">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="like()">
             <b-icon v-if="postInfo.liked" icon="plus-square-fill" scale="1.5"></b-icon>
             <b-icon v-else icon="plus-square" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.likes }}</span>
