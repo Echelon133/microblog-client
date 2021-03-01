@@ -10,13 +10,13 @@
           <b-col sm="8" md="9" lg="9" xl="9">
             <span v-b-hover="hoverBackButton">
               <b-icon v-if="isBackButtonHovered"
-              class="mt-5 back-button"
+              class="back-button"
               icon="arrow-left-circle-fill"
               scale="3"
               @click.prevent="goBack()"
               ></b-icon>
               <b-icon v-else
-              class="mt-5 back-button"
+              class="back-button"
               icon="arrow-left-circle"
               scale="3"
               @click.prevent="goBack()"
@@ -74,5 +74,7 @@ main {
 
 .back-button {
   cursor: pointer;
+  margin-top: 45px;
+  margin-left: 15px;
 }
 </style>
