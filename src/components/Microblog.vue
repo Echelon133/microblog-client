@@ -8,6 +8,20 @@
             <SidePanel/>
           </b-col>
           <b-col sm="8" md="9" lg="9" xl="9">
+            <span v-b-hover="hoverBackButton">
+              <b-icon v-if="isBackButtonHovered"
+              class="mt-5 back-button"
+              icon="arrow-left-circle-fill"
+              scale="3"
+              @click.prevent="goBack()"
+              ></b-icon>
+              <b-icon v-else
+              class="mt-5 back-button"
+              icon="arrow-left-circle"
+              scale="3"
+              @click.prevent="goBack()"
+              ></b-icon>
+            </span>
             <router-view/>
           </b-col>
         </b-row>
@@ -19,11 +33,12 @@
 <script>
 import Header from '@/components/Header'
 import SidePanel from '@/components/SidePanel'
+import { BIcon, BIconArrowLeftCircle, BIconArrowLeftCircleFill } from 'bootstrap-vue'
 
 export default {
   name: 'Microblog',
   components: {
-    Header, SidePanel
+    Header, SidePanel, BIcon, BIconArrowLeftCircle, BIconArrowLeftCircleFill
   },
   data () {
     return {
@@ -31,7 +46,16 @@ export default {
       user: {
         displayedUsername: 'username',
         username: 'username'
-      }
+      },
+      isBackButtonHovered: false
+    }
+  },
+  methods: {
+    goBack () {
+      this.$router.go(-1)
+    },
+    hoverBackButton (status) {
+      this.isBackButtonHovered = status
     }
   }
 }
@@ -46,5 +70,9 @@ main {
   font-family: 'Roboto', sans-serif;
   color: white;
   min-height: calc(100vh - 55px); /* full vh - margin-top of this block */
+}
+
+.back-button {
+  cursor: pointer;
 }
 </style>
