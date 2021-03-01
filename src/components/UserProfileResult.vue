@@ -7,7 +7,9 @@
         </b-col>
         <b-col sm="12" md="12" lg="9" xl="10" class="profile-usernames-box">
           <p class="displayed-username">{{ user.displayedUsername }}</p>
-          <p class="username">@{{ user.username }}</p>
+          <p class="username profile-link"
+          @click.stop.prevent="goToUser(user.username)"
+          >@{{ user.username }}</p>
         </b-col>
       </b-row>
       <hr>
@@ -40,6 +42,9 @@ export default {
     follow () {
       this.followed = !this.followed
       console.log('Follow user with uuid: ' + this.$vnode.key)
+    },
+    goToUser (username) {
+      this.$router.push({path: `/user/${username}`})
     }
   }
 }
@@ -92,5 +97,16 @@ export default {
   background-color:#303030;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+
+.profile-link {
+  color:#333333;
+  text-decoration: none;
+}
+
+.profile-link:hover {
+  color:#333333;
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>
