@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     onSubmit () {
-      console.log(this.searchedUsername)
+      this.$router.push({path: `/search/user/${this.searchedUsername}`})
     }
   }
 }
