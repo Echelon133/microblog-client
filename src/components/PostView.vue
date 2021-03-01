@@ -60,8 +60,7 @@ export default {
     this.init()
   },
   watch: {
-    '$route.params.uuid': function (uuid) {
-      console.log('changed uuid: ' + uuid)
+    '$route.params.uuid': function () {
       this.init()
     }
   }
