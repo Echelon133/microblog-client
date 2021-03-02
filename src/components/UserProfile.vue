@@ -57,6 +57,13 @@
         <PostList :posts="posts"/>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col sm="9" offset-sm="1" class="my-3 px-5">
+        <b-button class="load-more-btn"
+        @click.prevent="loadMoreUserPosts()"
+        >Wczytaj więcej postów</b-button>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -117,9 +124,10 @@ export default {
     },
     loadRecentUserPosts () {
       let userUuid = this.user.user.uuid
-      this.axios.get('http://localhost:8080/api/users/' + userUuid + '/recentPosts').then((response) => {
-        this.posts = response.data
-      })
+      this.axios
+        .get('http://localhost:8080/api/users/' + userUuid + '/recentPosts?skip=' + this.posts.length).then((response) => {
+          this.posts.push(...response.data)
+        })
     },
     loadFollowedBy () {
       let userUuid = this.user.user.uuid
@@ -134,6 +142,10 @@ export default {
         .get('http://localhost:8080/api/users/' + userUuid + '/following?skip=' + this.following.length).then((response) => {
           this.following.push(...response.data)
         })
+    },
+    loadMoreUserPosts () {
+      console.log('load more posts')
+      this.loadRecentUserPosts()
     }
   },
   mounted () {
