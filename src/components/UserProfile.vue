@@ -9,14 +9,14 @@
         </b-row>
         <b-row>
           <b-col sm="12" class="profile-usernames-box">
-            <p class="displayed-username">{{ user.displayedUsername }}</p>
-            <p class="username">@{{ user.username }}</p>
+            <p class="displayed-username">{{ user.user.displayedUsername }}</p>
+            <p class="username">@{{ user.user.username }}</p>
           </b-col>
         </b-row>
         <hr>
         <b-row>
           <b-col sm="12" class="user-description-box">
-            <p>{{ user.description }}</p>
+            <p>{{ user.user.description }}</p>
           </b-col>
         </b-row>
         <hr>
@@ -72,73 +72,13 @@ export default {
   data () {
     return {
       user: {
-        uuid: '328ee4f9-d806-4d3a-a7a6-ce6d4c444deb',
-        displayedUsername: 'Test User',
-        username: 'testuser',
-        description: 'This is the description of testuser',
+        user: null,
         followedBy: 0,
         following: 0
       },
-      followedBy: [
-        {
-          uuid: '328ee4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Test User',
-          username: 'testuser'
-        },
-        {
-          uuid: '4000e4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Another User',
-          username: 'anotheruser'
-        },
-        {
-          uuid: '2000e4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Last User',
-          username: 'lastuser'
-        }
-      ],
-      following: [
-        {
-          uuid: '1000e4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Test User1',
-          username: 'testuser1'
-        },
-        {
-          uuid: '9000e4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Another User1',
-          username: 'anotheruser1'
-        },
-        {
-          uuid: '2000e4f9-d806-4d3a-a7a6-ce6d4c444deb',
-          displayedUsername: 'Last User1',
-          username: 'lastuser1'
-        }
-      ],
-      posts: [
-        { uuid: 'ae25b197-4861-4a72-abc9-4c5c9c497999',
-          content: 'Test content test content test content',
-          author: {
-            username: 'testuser', displayedUsername: 'Test User'
-          },
-          quotes: null,
-          respondsTo: null
-        },
-        { uuid: '6b808a1c-2ca0-4e38-a160-cf490bac9a86',
-          content: 'Another test content post',
-          author: {
-            username: 'testuser', displayedUsername: 'Test User'
-          },
-          quotes: 'ae25b197-4861-4a72-abc9-4c5c9c497999',
-          respondsTo: null
-        },
-        { uuid: '6b808a1g-2ca0-4e38-a160-cf490bac9a86',
-          content: 'Last content post test',
-          author: {
-            username: 'testuser', displayedUsername: 'Test User'
-          },
-          quotes: null,
-          respondsTo: '6b808a1c-2ca0-4e38-a160-cf490bac9a86'
-        }
-      ]
+      followedBy: [],
+      following: [],
+      posts: []
     }
   },
   methods: {
@@ -153,7 +93,32 @@ export default {
     },
     loadMoreFollowedBy () {
       console.log('Load more followedBy')
+    },
+    loadFullUserProfile () {
+      let username = this.$route.params.username
+      this.axios.get('http://localhost:8080/api/users?username=' + username).then((response) => {
+        this.user.user = response.data[0]
+        this.loadUserProfileInfo()
+        this.loadRecentUserPosts()
+      })
+    },
+    loadUserProfileInfo () {
+      let userUuid = this.user.user.uuid
+      this.axios.get('http://localhost:8080/api/users/' + userUuid + '/profile').then((response) => {
+        this.user.followedBy = response.data.followedBy
+        this.user.following = response.data.following
+      })
+    },
+    loadRecentUserPosts () {
+      let userUuid = this.user.user.uuid
+      this.axios.get('http://localhost:8080/api/users/' + userUuid + '/recentPosts').then((response) => {
+        console.log(response.data)
+        this.posts = response.data
+      })
     }
+  },
+  mounted () {
+    this.loadFullUserProfile()
   }
 }
 </script>
