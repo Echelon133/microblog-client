@@ -72,7 +72,7 @@ export default {
   data () {
     return {
       user: {
-        user: null,
+        user: {},
         followedBy: 0,
         following: 0
       },
@@ -84,15 +84,21 @@ export default {
   methods: {
     showFollowingModal () {
       this.$refs['following'].show()
+      if (this.following.length === 0) {
+        this.loadFollowing()
+      }
     },
     loadMoreFollowing () {
-      console.log('Load more following')
+      this.loadFollowing()
     },
     showFollowedByModal () {
       this.$refs['followedBy'].show()
+      if (this.followedBy.length === 0) {
+        this.loadFollowedBy()
+      }
     },
     loadMoreFollowedBy () {
-      console.log('Load more followedBy')
+      this.loadFollowedBy()
     },
     loadFullUserProfile () {
       let username = this.$route.params.username
@@ -112,9 +118,22 @@ export default {
     loadRecentUserPosts () {
       let userUuid = this.user.user.uuid
       this.axios.get('http://localhost:8080/api/users/' + userUuid + '/recentPosts').then((response) => {
-        console.log(response.data)
         this.posts = response.data
       })
+    },
+    loadFollowedBy () {
+      let userUuid = this.user.user.uuid
+      this.axios
+        .get('http://localhost:8080/api/users/' + userUuid + '/followedBy?skip=' + this.followedBy.length).then((response) => {
+          this.followedBy.push(...response.data)
+        })
+    },
+    loadFollowing () {
+      let userUuid = this.user.user.uuid
+      this.axios
+        .get('http://localhost:8080/api/users/' + userUuid + '/following?skip=' + this.following.length).then((response) => {
+          this.following.push(...response.data)
+        })
     }
   },
   mounted () {
