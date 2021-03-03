@@ -34,7 +34,7 @@
           </b-row>
           <b-row class="pt-3 px-5">
             <b-col>
-              <p class="post-content-text">{{ postInfo.quotedPost.post.content }}</p>
+              <PostContent :content="postInfo.quotedPost.post.content"/>
             </b-col>
           </b-row>
         </div>
@@ -48,7 +48,7 @@
         </b-row>
         <b-row class="pt-2 px-5">
           <b-col>
-            <p class="post-content-text">{{ post.content }}</p>
+            <PostContent :content="post.content"/>
           </b-col>
         </b-row>
         <hr>
@@ -102,12 +102,13 @@
 
 <script>
 import { BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote } from 'bootstrap-vue'
+import PostContent from '@/components/PostContent'
 
 export default {
   name: 'Post',
   props: ['post'],
   components: {
-    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote
+    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, PostContent
   },
   data () {
     return {
@@ -322,10 +323,6 @@ export default {
 
 .response-info {
     font-style: italic;
-}
-
-.post-content-text {
-  font-size: 21px;
 }
 
 .length-counter {
