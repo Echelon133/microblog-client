@@ -40,8 +40,7 @@ export default {
     contentItems () {
       let words = this.content.split(/(\s+)/)
       let items = []
-      for (const wordIndex in words) {
-        let word = words[wordIndex]
+      for (const word of words) {
         let tagObject = this.createTagObject(word)
         // if the word is a tag, add tagObject to the items list
         // if the word is NOT a tag, simply add that word to the list
