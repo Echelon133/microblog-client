@@ -1,13 +1,13 @@
 <template>
   <p class="post-content-text">
-    <template v-for="(word, w) in postWords">
-      <template v-if="createTagObject(word)">
+    <template v-for="(item, i) in contentItems">
+      <template v-if="typeof item === 'object'">
         <a class="clickable-tag"
-        :key="w"
-        @click.stop.prevent="goToTag(createTagObject(word).tag)"
-        >#{{createTagObject(word).tag}}</a>{{createTagObject(word).remainder}}
+        :key="i"
+        @click.stop.prevent="goToTag(item.tag)"
+        >#{{item.tag}}</a>{{item.remainder}}
       </template>
-      <template v-else>{{word}}</template>
+      <template v-else>{{item}}</template>
     </template>
   </p>
 </template>
@@ -37,8 +37,21 @@ export default {
     }
   },
   computed: {
-    postWords () {
-      return this.content.split(/(\s+)/)
+    contentItems () {
+      let words = this.content.split(/(\s+)/)
+      let items = []
+      for (const wordIndex in words) {
+        let word = words[wordIndex]
+        let tagObject = this.createTagObject(word)
+        // if the word is a tag, add tagObject to the items list
+        // if the word is NOT a tag, simply add that word to the list
+        if (tagObject) {
+          items.push(tagObject)
+        } else {
+          items.push(word)
+        }
+      }
+      return items
     }
   }
 }
