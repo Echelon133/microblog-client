@@ -65,6 +65,11 @@ export default {
   },
   watch: {
     '$route.params.uuid': function () {
+      // when the component is being reused, parent needs to be reset before
+      // calling the loadPost method, otherwise parent is the only variable
+      // that is not refreshed and the displayed structure of posts might
+      // be inaccurate in some cases
+      this.parent = null
       this.init()
     }
   }
