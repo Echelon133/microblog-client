@@ -9,8 +9,10 @@
         </b-dropdown>
       </b-card-title>
       <b-list-group flush>
-        <b-list-group-item class="tag-item text-center"
+        <b-list-group-item
+        class="tag-item text-center"
         v-for="tag in tags" :key="tag.uuid"
+        @click.prevent="goToTag(tag.name)"
         >#{{ tag.name }}</b-list-group-item>
       </b-list-group>
     </b-card>
@@ -47,6 +49,9 @@ export default {
       this.axios.get('http://localhost:8080/api/tags/popular?since=' + filter).then((response) => {
         this.tags = response.data
       })
+    },
+    goToTag (tag) {
+      this.$router.push({path: `/tag/${tag}`})
     }
   },
   mounted () {
@@ -65,10 +70,12 @@ export default {
   background-color: #696464;
   border-radius: 5px;
   font-size: 25px;
+  cursor: pointer;
 }
 
 .tag-item:hover {
   background-color:#555555;
   border: 1px solid #696464;
+  text-decoration: underline;
 }
 </style>
