@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :loggedIn="loggedIn" :user="user"/>
+    <Header :user="user"/>
     <main>
       <b-container fluid>
         <b-row>
@@ -42,11 +42,7 @@ export default {
   },
   data () {
     return {
-      loggedIn: true,
-      user: {
-        displayedUsername: 'username',
-        username: 'username'
-      },
+      user: null,
       isBackButtonHovered: false
     }
   },
