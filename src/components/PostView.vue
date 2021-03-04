@@ -50,6 +50,10 @@ export default {
       })
     },
     loadResponses () {
+      let postUuid = this.$route.params.uuid
+      this.axios.get('http://localhost:8080/api/posts/' + postUuid + '/responses').then((response) => {
+        this.responses = response.data
+      })
     },
     init () {
       this.loadPost()
