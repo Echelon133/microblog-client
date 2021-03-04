@@ -9,7 +9,7 @@
               <b-icon icon="search"></b-icon>
             </b-button>
           </b-nav-form>
-          <span v-if="loggedIn">
+          <span v-if="user">
             <b-button-group size="sm">
               <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0">
                 @{{ user.username }}
@@ -39,7 +39,7 @@ export default {
   components: {
     BIcon, BIconSearch
   },
-  props: ['loggedIn', 'user'],
+  props: ['user'],
   data () {
     return {
       searchedUsername: ''
