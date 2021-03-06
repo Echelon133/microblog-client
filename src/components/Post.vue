@@ -129,7 +129,8 @@ export default {
         content: '',
         showBox: false
       },
-      maxContentLength: 300
+      maxContentLength: 300,
+      dateDeltaRefreshTimer: null
     }
   },
   methods: {
@@ -180,8 +181,7 @@ export default {
       if (quoteUuid) {
         this.axios.get('http://localhost:8080/api/posts/' + quoteUuid).then((response) => {
           this.postInfo.quotedPost.post = response.data
-          let quotedPostDate = new Date(this.postInfo.quotedPost.post.date)
-          this.postInfo.quotedPost.dateDelta = this.convertDateToDeltaText(quotedPostDate)
+          this.convertQuotedPostDateToDeltaText()
         })
       }
     },
@@ -201,9 +201,20 @@ export default {
         this.postInfo.likes = response.data.likes
       })
     },
+    refreshDateDeltas () {
+      this.convertMainPostDateToDeltaText()
+      // only refresh quotedPost dateDelta if it's set in the first place
+      if (this.postInfo.quotedPost.dateDelta) {
+        this.convertQuotedPostDateToDeltaText()
+      }
+    },
     convertMainPostDateToDeltaText () {
       let mainPostDate = new Date(this.$props.post.date)
       this.postInfo.dateDelta = this.convertDateToDeltaText(mainPostDate)
+    },
+    convertQuotedPostDateToDeltaText () {
+      let quotedPostDate = new Date(this.postInfo.quotedPost.post.date)
+      this.postInfo.quotedPost.dateDelta = this.convertDateToDeltaText(quotedPostDate)
     },
     convertDateToDeltaText (dateToConvert) {
       let now = new Date()
@@ -252,6 +263,11 @@ export default {
     this.loadRespondsToPost()
     this.loadPostInfo()
     this.convertMainPostDateToDeltaText()
+    // refresh date deltas every minute
+    this.dateDeltaRefreshTimer = setInterval(
+      this.refreshDateDeltas,
+      1000 * 60
+    )
   }
 }
 </script>
