@@ -119,6 +119,7 @@ export default {
           this.successMsg = 'Rejestracja zakończona powodzeniem'
           this.failure = false
           this.success = true
+          this.clearForm()
         })
         .catch((error) => {
           let response = error.response
@@ -132,6 +133,12 @@ export default {
           }
           this.failure = true
         })
+    },
+    clearForm () {
+      this.registerForm.username = ''
+      this.registerForm.email = ''
+      this.registerForm.password = ''
+      this.registerForm.password2 = ''
     }
   }
 }
