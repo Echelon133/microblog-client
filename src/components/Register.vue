@@ -2,11 +2,13 @@
   <ValidationObserver v-slot="{ invalid }">
     <form class="register" @submit.prevent="onSubmit">
       <h1 class="h3 mb-3 fw-normal">Zarejestruj</h1>
+      <b-alert show v-if="success" variant="success">{{ successMsg }}</b-alert>
+      <b-alert show v-if="failure" variant="danger">{{ failureMsg }}</b-alert>
       <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
         <label for="inputEmail" class="visually-hidden mt-2">Adres email</label>
         <span class="field-error">{{ errors[0] }}</span>
         <input
-          v-model="email"
+          v-model="registerForm.email"
           v-bind:class="{invalidval: errors.length > 0}"
           type="email" id="inputEmail" class="form-control" placeholder="Email" autofocus="">
       </ValidationProvider>
@@ -14,7 +16,7 @@
         <label for="username" class="visually-hidden pt-2">Nazwa użytkownika</label>
         <span class="field-error">{{ errors[0] }}</span>
         <input
-          v-model="username"
+          v-model="registerForm.username"
           v-bind:class="{invalidval: errors.length > 0}"
           type="text" id="username" class="form-control" placeholder="Nazwa użytkownika" autofocus="">
       </ValidationProvider>
@@ -22,7 +24,7 @@
         <label for="password" class="visually-hidden mt-2">Hasło</label>
         <span class="field-error">{{ errors[0] }}</span>
         <input
-          v-model="password"
+          v-model="registerForm.password"
           v-bind:class="{invalidval: errors.length > 0}"
           type="password" id="password" class="form-control" placeholder="Hasło">
       </ValidationProvider>
@@ -30,7 +32,7 @@
         <label for="password2" class="visually-hidden mt-2">Hasło</label>
         <span class="field-error">{{ errors[0] }}</span>
         <input
-          v-model="password2"
+          v-model="registerForm.password2"
           v-bind:class="{invalidval: errors.length > 0}"
           type="password" id="password2" class="form-control" placeholder="Powtórz hasło">
       </ValidationProvider>
@@ -89,14 +91,47 @@ export default {
   },
   data () {
     return {
-      email: null,
-      username: null,
-      password: null,
-      password2: null
+      registerForm: {
+        email: null,
+        username: null,
+        password: null,
+        password2: null
+      },
+      success: false,
+      failure: false,
+      successMsg: '',
+      failureMsg: ''
     }
   },
   methods: {
     onSubmit () {
+      let newUserData = {
+        email: this.registerForm.email,
+        username: this.registerForm.username,
+        password: this.registerForm.password,
+        password2: this.registerForm.password2
+      }
+      this.axios.post(
+        'http://localhost:8080/api/users/register',
+        newUserData
+      )
+        .then((response) => {
+          this.successMsg = 'Rejestracja zakończona powodzeniem'
+          this.failure = false
+          this.success = true
+        })
+        .catch((error) => {
+          let response = error.response
+          this.success = false
+          if (response.status === 400) {
+            if (response.data.messages.includes('Username already taken')) {
+              this.failureMsg = 'Nazwa użytkownika jest już zajęta'
+            }
+          } else {
+            this.failureMsg = 'Podczas rejestracji wystąpił błąd'
+          }
+          this.failure = true
+        })
     }
   }
 }
