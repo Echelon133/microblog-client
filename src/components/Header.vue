@@ -15,7 +15,7 @@
                 @{{ user.username }}
                 <img src="/static/avi.png" class="avi"/>
                 </b-button>
-              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0">Wyloguj</b-button>
+              <b-button @click.prevent="logout" variant="outline-primary" size="sm" class="my-2 my-sm-0">Wyloguj</b-button>
             </b-button-group>
           </span>
           <span v-else>
@@ -48,6 +48,15 @@ export default {
   methods: {
     onSubmit () {
       this.$router.push({path: `/search/user/${this.searchedUsername}`})
+    },
+    logout () {
+      localStorage.removeItem('user')
+      this.removeCookieByName('accessToken')
+      this.removeCookieByName('refreshToken')
+      setTimeout(() => this.$router.go(), 1000)
+    },
+    removeCookieByName (name) {
+      document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
     }
   }
 }
