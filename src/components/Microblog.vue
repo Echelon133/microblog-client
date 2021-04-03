@@ -53,6 +53,9 @@ export default {
     hoverBackButton (status) {
       this.isBackButtonHovered = status
     }
+  },
+  mounted () {
+    this.user = JSON.parse(localStorage.getItem('user'))
   }
 }
 </script>
