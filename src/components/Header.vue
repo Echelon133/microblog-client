@@ -50,13 +50,10 @@ export default {
       this.$router.push({path: `/search/user/${this.searchedUsername}`})
     },
     logout () {
-      localStorage.removeItem('user')
-      this.removeCookieByName('accessToken')
-      this.removeCookieByName('refreshToken')
-      setTimeout(() => this.$router.go(), 1000)
-    },
-    removeCookieByName (name) {
-      document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+      this.$store.dispatch('logout')
+        .then(() => {
+          setTimeout(() => this.$router.go(), 500)
+        })
     }
   }
 }
