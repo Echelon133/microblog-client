@@ -55,7 +55,7 @@ export default {
     }
   },
   mounted () {
-    this.user = JSON.parse(localStorage.getItem('user'))
+    this.user = this.$store.state.user
   }
 }
 </script>
