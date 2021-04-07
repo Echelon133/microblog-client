@@ -61,7 +61,10 @@ export default {
     }
   },
   mounted () {
-    this.init()
+    this.$store.dispatch('check_auth')
+      .then(() => {
+        this.init()
+      })
   },
   watch: {
     '$route.params.uuid': function () {
