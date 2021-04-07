@@ -15,6 +15,12 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 
+axios.interceptors.response.use(undefined, (err) => {
+  if (err.response.status === 401) {
+    return Promise.reject(err)
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
