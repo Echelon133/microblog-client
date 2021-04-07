@@ -45,29 +45,13 @@ export default {
   methods: {
     onSubmit () {
       // get accessToken and refreshToken from the auth server
-      this.axios.post('http://localhost:8090/api/token', {}, {
-        withCredentials: true,
-        auth: {
-          username: this.username,
-          password: this.password
-        }
-      })
+      let username = this.username
+      let password = this.password
+      this.$store.dispatch('auth_attempt', {username, password})
         .then(() => {
-          // get the logged user object from the resource server
-          this.axios.get('http://localhost:8080/api/users/me', { withCredentials: true })
-            .then((response) => {
-              // cache the logged user object in the local storage
-              localStorage.setItem('user', JSON.stringify(response.data))
-              this.failure = false
-              this.success = true
-              this.username = ''
-              this.password = ''
-              // redirect to the main page
-              setTimeout(() => this.$router.push({path: '/'}), 2000)
-            })
-            .catch(() => {
-              this.failure = true
-            })
+          this.success = true
+          this.failure = false
+          setTimeout(() => this.$router.push({path: '/'}), 500)
         })
         .catch(() => {
           this.failure = true
