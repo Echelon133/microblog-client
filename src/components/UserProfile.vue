@@ -3,8 +3,11 @@
     <b-row>
       <b-col sm="9" offset-sm="1" class="profile-box">
         <b-row>
-          <b-col sm="12">
+          <b-col sm="10">
             <img src="/static/avi.png" class="img-fluid rounded-circle p-4"/>
+          </b-col>
+          <b-col sm="2" class="pt-5">
+            <b-button v-show="isLoggedUserProfile()">Edytuj profil</b-button>
           </b-col>
         </b-row>
         <b-row>
@@ -89,6 +92,12 @@ export default {
     }
   },
   methods: {
+    isLoggedUserProfile () {
+      if (this.$store.getters.userPresent()) {
+        return this.$store.state.user.uuid === this.user.user.uuid
+      }
+      return false
+    },
     showFollowingModal () {
       this.$refs['following'].show()
       if (this.following.length === 0) {
@@ -189,7 +198,7 @@ export default {
 }
 
 .profile-usernames-box {
-  margin-left: 15px;
+  padding-left: 20px;
 }
 
 .displayed-username {
