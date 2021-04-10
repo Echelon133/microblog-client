@@ -14,12 +14,12 @@
           </b-col>
         </b-row>
         <hr>
-        <b-row>
+        <b-row v-show="user.user.description">
           <b-col sm="12" class="user-description-box">
             <p>{{ user.user.description }}</p>
           </b-col>
         </b-row>
-        <hr>
+        <hr v-show="user.user.description">
         <b-row>
           <b-col sm="6" class="text-center counter">
             <b-modal body-class="modal-height" title="Lista obserwowanych" ref="following" hide-footer>
