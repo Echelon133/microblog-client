@@ -144,7 +144,6 @@ export default {
         })
     },
     loadMoreUserPosts () {
-      console.log('load more posts')
       this.loadRecentUserPosts()
     }
   },
