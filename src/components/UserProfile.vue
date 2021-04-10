@@ -4,7 +4,8 @@
       <b-col sm="9" offset-sm="1" class="profile-box">
         <b-row>
           <b-col sm="10">
-            <img src="/static/avi.png" class="img-fluid rounded-circle p-4"/>
+            <img :src="user.user.aviURL" class="avi img-fluid rounded-circle p-4" v-if="user.user.aviURL">
+            <img src="/static/avi.png" class="avi img-fluid rounded-circle p-4" v-else/>
           </b-col>
           <b-col sm="2" class="pt-5" v-if="isLoggedUserProfile()">
             <b-button
@@ -300,5 +301,10 @@ export default {
   margin-top: 15px;
   width: 100%;
   margin: 0;
+}
+
+.avi {
+  width: 170px;
+  height: 170px;
 }
 </style>

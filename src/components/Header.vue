@@ -13,7 +13,8 @@
             <b-button-group size="sm">
               <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" @click.prevent="goToUserProfile">
                 @{{ user.username }}
-                <img src="/static/avi.png" class="avi"/>
+                <img :src="user.aviURL" class="avi" v-if="user.aviURL">
+                <img src="/static/avi.png" class="avi" v-else/>
                 </b-button>
               <b-button @click.prevent="logout" variant="outline-primary" size="sm" class="my-2 my-sm-0">Wyloguj</b-button>
             </b-button-group>

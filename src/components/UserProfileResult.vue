@@ -3,7 +3,8 @@
     <b-col sm="9" offset-sm="1" class="profile-box">
       <b-row>
         <b-col sm="12" md="12" lg="3" xl="2">
-          <img src="/static/avi.png" class="img-fluid rounded-circle avi-pos"/>
+          <img :src="user.aviURL" class="avi img-fluid rounded-circle avi-pos" v-if="user.aviURL">
+          <img src="/static/avi.png" class="avi img-fluid rounded-circle avi-pos" v-else/>
         </b-col>
         <b-col sm="12" md="12" lg="9" xl="10" class="profile-usernames-box">
           <p class="displayed-username">{{ user.displayedUsername }}</p>
@@ -108,5 +109,10 @@ export default {
   color:#333333;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.avi {
+  width: 100px;
+  height: 100px;
 }
 </style>
