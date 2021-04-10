@@ -6,8 +6,10 @@
           <b-col sm="10">
             <img src="/static/avi.png" class="img-fluid rounded-circle p-4"/>
           </b-col>
-          <b-col sm="2" class="pt-5">
-            <b-button v-show="isLoggedUserProfile()">Edytuj profil</b-button>
+          <b-col sm="2" class="pt-5" v-if="isLoggedUserProfile()">
+            <b-button
+            @click.prevent="showEditProfileModal()" ref="btnShowEditProfile">Edytuj profil</b-button>
+            <EditUserProfile/>
           </b-col>
         </b-row>
         <b-row>
@@ -73,11 +75,12 @@
 <script>
 import PostList from '@/components/PostList'
 import UserProfileResultSmall from '@/components/UserProfileResultSmall'
+import EditUserProfile from '@/components/EditUserProfile'
 
 export default {
   name: 'UserProfile',
   components: {
-    PostList, UserProfileResultSmall
+    PostList, UserProfileResultSmall, EditUserProfile
   },
   data () {
     return {
@@ -92,6 +95,9 @@ export default {
     }
   },
   methods: {
+    showEditProfileModal () {
+      this.$root.$emit('bv::show::modal', 'editProfileModal', '#btnShowEditProfile')
+    },
     isLoggedUserProfile () {
       if (this.$store.getters.userPresent()) {
         return this.$store.state.user.uuid === this.user.user.uuid
