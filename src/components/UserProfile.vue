@@ -215,6 +215,17 @@ export default {
       .then(() => {
         this.loadFullUserProfile()
       })
+  },
+  watch: {
+    '$route.params.username': function () {
+      this.$store.dispatch('check_auth')
+        .then(() => {
+          this.posts = []
+          this.followedBy = []
+          this.following = []
+          this.loadFullUserProfile()
+        })
+    }
   }
 }
 </script>
