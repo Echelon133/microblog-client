@@ -1,0 +1,78 @@
+<template>
+  <b-modal title="Edytuj profil" ref="editProfile" id="editProfileModal" hide-footer>
+    <form class="edit" @submit.prevent="onEdit">
+      <b-alert show v-if="success" variant="success">Edytowanie udane</b-alert>
+      <b-alert show v-if="failure" variant="danger">Edytowanie nieudane</b-alert>
+      <label for="displayedUsername" class="visually-hidden mt-2">Wyświetlana nazwa użytkownika</label>
+      <input
+        v-model="userUpdate.displayedUsername"
+        v-bind:class="{invalidval: displayedUsernameInvalid()}"
+        type="text" id="displayedUsername" class="form-control mt-2" placeholder="Wyświetlana nazwa użytkownika" autofocus="">
+      <label for="description" class="visually-hidden mt-2">Opis użytkownika</label>
+      <textarea
+        v-model="userUpdate.description"
+        v-bind:class="{invalidval: descriptionInvalid()}"
+        type="text" id="description" class="form-control mt-2" placeholder="Opis użytkownika" autofocus="" rows="5"></textarea>
+      <label for="aviURL" class="visually-hidden mt-2">URL avatara</label>
+      <input
+        v-model="userUpdate.aviURL"
+        type="text" id="aviURL" class="form-control mt-2" placeholder="URL avatara" autofocus="">
+      <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="disableEdit()">Zapisz edycje</button>
+    </form>
+  </b-modal>
+</template>
+
+<style scoped>
+.invalidval {
+  border: 3px solid red;
+}
+</style>
+
+<script>
+export default {
+  methods: {
+    displayedUsernameInvalid () {
+      return this.userUpdate.displayedUsername.length < 1 || this.userUpdate.displayedUsername.length > 70
+    },
+    descriptionInvalid () {
+      return this.userUpdate.description.length < 1 || this.userUpdate.description.length > 200
+    },
+    disableEdit () {
+      return this.displayedUsernameInvalid() || this.descriptionInvalid()
+    },
+    onEdit () {
+      this.$store.dispatch('check_auth')
+        .then(() => {
+          let userUpdate = this.userUpdate
+          this.axios.put('http://localhost:8080/api/users/me',
+            userUpdate,
+            { withCredentials: true })
+            .then(() => {
+              this.failure = false
+              this.success = true
+              // reload the user in the localStorage
+              this.$store.dispatch('get_user')
+                .then(() => {
+                  setTimeout(() => this.$router.go(), 500)
+                })
+            })
+            .catch(() => {
+              this.success = false
+              this.failure = true
+            })
+        })
+    }
+  },
+  data () {
+    return {
+      success: false,
+      failure: false,
+      userUpdate: {
+        displayedUsername: this.$store.state.user.displayedUsername,
+        aviURL: this.$store.state.user.aviURL,
+        description: this.$store.state.user.description
+      }
+    }
+  }
+}
+</script>
