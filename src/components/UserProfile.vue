@@ -11,6 +11,16 @@
             @click.prevent="showEditProfileModal()" ref="btnShowEditProfile">Edytuj profil</b-button>
             <EditUserProfile/>
           </b-col>
+          <b-col sm="2" class="pt-5" v-else>
+            <b-button v-if="user.followed"
+            @click.prevent="executeIfLoggedIn(followUser)"
+            >Nie obserwuj
+            </b-button>
+            <b-button v-else
+            @click.prevent="executeIfLoggedIn(followUser)"
+            >Obserwuj
+            </b-button>
+          </b-col>
         </b-row>
         <b-row>
           <b-col sm="12" class="profile-usernames-box">
@@ -87,7 +97,8 @@ export default {
       user: {
         user: {},
         followedBy: 0,
-        following: 0
+        following: 0,
+        followed: false
       },
       followedBy: [],
       following: [],
@@ -95,6 +106,42 @@ export default {
     }
   },
   methods: {
+    executeIfLoggedIn (func) {
+      if (this.$store.getters.userPresent()) {
+        func()
+      } else {
+        alert('Użytkownik nie jest zalogowany')
+      }
+    },
+    followUser () {
+      let uuid = this.user.user.uuid
+      if (this.user.followed) {
+        this.axios.post('http://localhost:8080/api/users/' + uuid + '/unfollow', {}, { withCredentials: true })
+          .then((response) => {
+            this.user.followed = !response.data.unfollowed
+          })
+          .catch(() => {
+            alert('Nie udało się anulować obserwowania')
+          })
+      } else {
+        this.axios.post('http://localhost:8080/api/users/' + uuid + '/follow', {}, { withCredentials: true })
+          .then((response) => {
+            this.user.followed = response.data.followed
+          })
+          .catch(() => {
+            alert('Nie udało się obserwować użytkownika')
+          })
+      }
+    },
+    checkIfFollowed () {
+      let uuid = this.user.user.uuid
+      if (this.$store.getters.userPresent()) {
+        this.axios.get('http://localhost:8080/api/users/' + uuid + '/follow', { withCredentials: true })
+          .then((response) => {
+            this.user.followed = response.data.followed
+          })
+      }
+    },
     showEditProfileModal () {
       this.$root.$emit('bv::show::modal', 'editProfileModal', '#btnShowEditProfile')
     },
@@ -128,6 +175,7 @@ export default {
         this.user.user = response.data[0]
         this.loadUserProfileInfo()
         this.loadRecentUserPosts()
+        this.checkIfFollowed()
       })
     },
     loadUserProfileInfo () {
