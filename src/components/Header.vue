@@ -11,7 +11,7 @@
           </b-nav-form>
           <span v-if="user">
             <b-button-group size="sm">
-              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0">
+              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" @click.prevent="goToUserProfile">
                 @{{ user.username }}
                 <img src="/static/avi.png" class="avi"/>
                 </b-button>
@@ -48,6 +48,10 @@ export default {
   methods: {
     onSubmit () {
       this.$router.push({path: `/search/user/${this.searchedUsername}`})
+    },
+    goToUserProfile () {
+      let username = this.$props.user.username
+      this.$router.push({path: `/user/${username}`})
     },
     logout () {
       this.$store.dispatch('logout')
