@@ -196,14 +196,14 @@ export default {
     loadFollowedBy () {
       let userUuid = this.user.user.uuid
       this.axios
-        .get('http://localhost:8080/api/users/' + userUuid + '/followedBy?skip=' + this.followedBy.length).then((response) => {
+        .get('http://localhost:8080/api/users/' + userUuid + '/followers?skip=' + this.followedBy.length).then((response) => {
           this.followedBy.push(...response.data)
         })
     },
     loadFollowing () {
       let userUuid = this.user.user.uuid
       this.axios
-        .get('http://localhost:8080/api/users/' + userUuid + '/following?skip=' + this.following.length).then((response) => {
+        .get('http://localhost:8080/api/users/' + userUuid + '/follows?skip=' + this.following.length).then((response) => {
           this.following.push(...response.data)
         })
     },
