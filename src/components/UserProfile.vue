@@ -118,8 +118,8 @@ export default {
     loadUserProfileInfo () {
       let userUuid = this.user.user.uuid
       this.axios.get('http://localhost:8080/api/users/' + userUuid + '/profile').then((response) => {
-        this.user.followedBy = response.data.followedBy
-        this.user.following = response.data.following
+        this.user.followedBy = response.data.followers
+        this.user.following = response.data.follows
       })
     },
     loadRecentUserPosts () {
