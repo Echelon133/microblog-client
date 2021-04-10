@@ -8,16 +8,24 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import store from '@/auth'
 
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 
+axios.interceptors.response.use(undefined, (err) => {
+  if (err.response.status === 401) {
+    return Promise.reject(err)
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })

@@ -53,15 +53,15 @@
         </b-row>
         <hr>
         <b-row>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="toggleResponseBox()">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(toggleResponseBox)">
             <b-icon icon="chat-dots" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.responses }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="toggleQuoteBox()">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(toggleQuoteBox)">
             <b-icon icon="chat-quote" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.quotes }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="like()">
+          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(like)">
             <b-icon v-if="postInfo.liked" icon="plus-square-fill" scale="1.5"></b-icon>
             <b-icon v-else icon="plus-square" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.likes }}</span>
@@ -134,6 +134,13 @@ export default {
     }
   },
   methods: {
+    executeIfLoggedIn (func) {
+      if (this.$store.getters.userPresent()) {
+        func()
+      } else {
+        alert('Użytkownik nie jest zalogowany')
+      }
+    },
     toggleResponseBox () {
       this.quote.showBox = false
       if (this.response.showBox) {
@@ -143,9 +150,22 @@ export default {
       }
     },
     onNewResponse () {
-      console.log(this.response.content)
-      this.response.content = ''
-      this.response.showBox = false
+      let postUuid = this.$vnode.key
+      let responseContent = this.response.content
+      this.$store.dispatch('check_auth')
+        .then(() => {
+          this.axios.post('http://localhost:8080/api/posts/' + postUuid + '/respond',
+            {content: responseContent},
+            {withCredentials: true})
+            .then((res) => {
+              this.response.content = ''
+              this.response.showBox = false
+              this.goToPost(res.data.uuid)
+            })
+            .catch(() => {
+              alert('Nie można wysłać odpowiedzi')
+            })
+        })
     },
     isResponseLengthInvalid () {
       return this.response.content.length === 0 || this.response.content.length > this.maxContentLength
@@ -159,21 +179,40 @@ export default {
       }
     },
     onNewQuote () {
-      console.log(this.quote.content)
-      this.quote.content = ''
-      this.quote.showBox = false
+      let postUuid = this.$vnode.key
+      let quoteContent = this.quote.content
+      this.$store.dispatch('check_auth')
+        .then(() => {
+          this.axios.post('http://localhost:8080/api/posts/' + postUuid + '/quote',
+            {content: quoteContent},
+            {withCredentials: true})
+            .then((response) => {
+              this.quote.content = ''
+              this.quote.showBox = false
+              this.goToPost(response.data.uuid)
+            })
+            .catch(() => {
+              alert('Nie można wysłać cytatu')
+            })
+        })
     },
     isQuoteLengthInvalid () {
       return this.quote.content.length === 0 || this.quote.content.length > this.maxContentLength
     },
     like () {
-      console.log('Like ' + this.$vnode.key)
-      if (this.postInfo.liked) {
-        this.postInfo.liked = false
-        this.postInfo.likes -= 1
+      let postUuid = this.$vnode.key
+      if (!this.postInfo.liked) {
+        this.axios.post('http://localhost:8080/api/posts/' + postUuid + '/like', {}, {withCredentials: true})
+          .then((response) => {
+            this.postInfo.liked = response.data.liked
+            this.postInfo.likes += 1
+          })
       } else {
-        this.postInfo.liked = true
-        this.postInfo.likes += 1
+        this.axios.post('http://localhost:8080/api/posts/' + postUuid + '/unlike', {}, {withCredentials: true})
+          .then((response) => {
+            this.postInfo.liked = !response.data.unliked
+            this.postInfo.likes -= 1
+          })
       }
     },
     loadQuote () {
@@ -200,6 +239,16 @@ export default {
         this.postInfo.responses = response.data.responses
         this.postInfo.likes = response.data.likes
       })
+    },
+    checkIfLiked () {
+      let postUuid = this.$props.post.uuid
+      // only try to check if the post is liked by the current user if the user is logged in
+      if (this.$store.getters.userPresent()) {
+        this.axios.get('http://localhost:8080/api/posts/' + postUuid + '/like', { withCredentials: true })
+          .then((response) => {
+            this.postInfo.liked = response.data.liked
+          })
+      }
     },
     refreshDateDeltas () {
       this.convertMainPostDateToDeltaText()
@@ -263,6 +312,7 @@ export default {
     this.loadRespondsToPost()
     this.loadPostInfo()
     this.convertMainPostDateToDeltaText()
+    this.checkIfLiked()
     // refresh date deltas every minute
     this.dateDeltaRefreshTimer = setInterval(
       this.refreshDateDeltas,

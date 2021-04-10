@@ -1,6 +1,6 @@
 <template>
-  <div class="pt-5 scrollable">
-    <b-row>
+  <div class="pt-3 scrollable">
+    <b-row v-if="this.$store.getters.userPresent()">
       <b-col xl="9" offset-xl="1">
         <div class="new-post-input">
           <label for="post-content" class="form-label">Treść nowego wpisu: </label>
@@ -16,7 +16,7 @@
         </div>
       </b-col>
     </b-row>
-    <div class="pt-5">
+    <div class="pt-1">
       <PostList :posts="posts"/>
     </div>
   </div>
@@ -39,16 +39,30 @@ export default {
   },
   methods: {
     onNewPost () {
-      console.log(this.newPostContent)
-      this.newPostContent = ''
+      this.$store.dispatch('check_auth')
+        .then(() => {
+          let postContent = this.newPostContent
+          this.axios.post('http://localhost:8080/api/posts', {content: postContent}, { withCredentials: true })
+            .then((response) => {
+              this.$router.push({path: `/post/${response.data.uuid}`})
+            })
+            .catch(() => {
+              alert('Dodanie posta zakończyło się niepowodzeniem')
+            })
+          this.newPostContent = ''
+        })
+        .catch(() => {
+          alert('Dodanie posta zakończyło się niepowodzeniem')
+        })
     },
     isPostLengthInvalid () {
       return this.newPostContent.length === 0 || this.newPostContent.length > this.maxPostLength
     },
     loadPosts () {
-      this.axios.get('http://localhost:8080/api/posts/popular').then((response) => {
-        this.posts = response.data
-      })
+      this.axios.get('http://localhost:8080/api/feed?since=DAY', { withCredentials: true })
+        .then((response) => {
+          this.posts = response.data
+        })
     },
     isCacheNewerThan (cache, seconds) {
       let diffInMilis = (new Date() - new Date(cache.dateCached))
@@ -73,7 +87,10 @@ export default {
     }
   },
   mounted () {
-    this.dispatchPostLoading()
+    this.$store.dispatch('check_auth')
+      .then(() => {
+        this.dispatchPostLoading()
+      })
   },
   destroyed () {
     this.cachePosts()
