@@ -149,7 +149,10 @@ export default {
     }
   },
   mounted () {
-    this.loadFullUserProfile()
+    this.$store.dispatch('check_auth')
+      .then(() => {
+        this.loadFullUserProfile()
+      })
   }
 }
 </script>
