@@ -57,7 +57,10 @@ export default {
     }
   },
   mounted () {
-    this.loadPosts()
+    this.$store.dispatch('check_auth')
+      .then(() => {
+        this.loadPosts()
+      })
   }
 }
 </script>
