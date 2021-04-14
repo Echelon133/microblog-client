@@ -8,8 +8,17 @@
           </b-col>
         </b-row>
       </b-col>
+    </b-row>
+    <b-row>
       <b-col sm="12" md="12" lg="12" xl="12">
         <PostList :posts="posts"/>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col sm="9" offset-sm="1" class="pt-2 pb-5">
+        <b-button class="load-more-btn"
+        @click.prevent="loadPosts()"
+        >Wczytaj więcej postów</b-button>
       </b-col>
     </b-row>
   </div>
@@ -34,9 +43,16 @@ export default {
       let name = this.$route.params.tagname
       this.axios.get('http://localhost:8080/api/tags?name=' + name).then((response) => {
         let tagUuid = response.data.uuid
-        this.axios.get('http://localhost:8080/api/tags/' + tagUuid + '/recentPosts').then((response) => {
-          this.posts = response.data
+        let skip = this.posts.length
+        this.axios.get('http://localhost:8080/api/tags/' + tagUuid + '/recentPosts', {
+          params: {
+            skip: skip,
+            limit: 5
+          }
         })
+          .then((response) => {
+            this.posts.push(...response.data)
+          })
       })
     }
   },
@@ -65,5 +81,11 @@ export default {
 
 .tag-name {
   padding: 20px 20px 20px 20px;
+}
+
+.load-more-btn {
+  margin-top: 15px;
+  width: 100%;
+  margin: 0;
 }
 </style>
