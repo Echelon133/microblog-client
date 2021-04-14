@@ -32,7 +32,7 @@ export default {
     loadPosts () {
       // first - find tag uuid
       let name = this.$route.params.tagname
-      this.axios.get('http://localhost:8080/api/tags?name' + name).then((response) => {
+      this.axios.get('http://localhost:8080/api/tags?name=' + name).then((response) => {
         let tagUuid = response.data.uuid
         this.axios.get('http://localhost:8080/api/tags/' + tagUuid + '/recentPosts').then((response) => {
           this.posts = response.data
