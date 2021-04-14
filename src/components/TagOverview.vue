@@ -61,6 +61,15 @@ export default {
       .then(() => {
         this.loadPosts()
       })
+  },
+  watch: {
+    '$route.params.tagname': function () {
+      this.$store.dispatch('check_auth')
+        .then(() => {
+          this.posts = []
+          this.loadPosts()
+        })
+    }
   }
 }
 </script>
