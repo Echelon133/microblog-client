@@ -20,7 +20,7 @@
         </b-col>
       </b-row>
       <hr class="mb-0">
-      <b-row :class="{'followed': followed}">
+      <b-row :class="{'followed': followed}" v-if="!isLoggedUser()">
         <b-col sm="12" class="text-center follow-box pt-3" @click.prevent="follow()">
           <span v-if="followed" class="follow-text">Nie Obserwuj</span>
           <span v-else class="follow-text">Obserwuj</span>
@@ -41,12 +41,45 @@ export default {
   },
   methods: {
     follow () {
-      this.followed = !this.followed
-      console.log('Follow user with uuid: ' + this.$vnode.key)
+      let uuid = this.$props.user.uuid
+      if (this.followed) {
+        this.axios.post('http://localhost:8080/api/users/' + uuid + '/unfollow', {}, { withCredentials: true })
+          .then((response) => {
+            this.followed = !response.data.unfollowed
+          })
+          .catch(() => {
+            alert('Nie udało się anulować obserwowania')
+          })
+      } else {
+        this.axios.post('http://localhost:8080/api/users/' + uuid + '/follow', {}, { withCredentials: true })
+          .then((response) => {
+            this.followed = response.data.followed
+          })
+          .catch(() => {
+            alert('Nie udało się obserwować użytkownika')
+          })
+      }
     },
     goToUser (username) {
       this.$router.push({path: `/user/${username}`})
+    },
+    checkIfFollowed () {
+      let uuid = this.$props.user.uuid
+      if (this.$store.getters.userPresent()) {
+        this.axios.get('http://localhost:8080/api/users/' + uuid + '/follow', { withCredentials: true })
+          .then((response) => {
+            this.followed = response.data.followed
+          })
+      }
+    },
+    isLoggedUser () {
+      let loggedUserUuid = this.$store.state.user.uuid
+      let userProfileUuid = this.$props.user.uuid
+      return loggedUserUuid === userProfileUuid
     }
+  },
+  mounted () {
+    this.checkIfFollowed()
   }
 }
 </script>
