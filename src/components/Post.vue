@@ -171,6 +171,7 @@ export default {
             this.axios.delete('http://localhost:8080/api/posts/' + postUuid,
               {withCredentials: true})
               .then(() => {
+                alert('Usunięto post')
                 setTimeout(() => this.$router.go(), 500)
               })
               .catch(() => {
