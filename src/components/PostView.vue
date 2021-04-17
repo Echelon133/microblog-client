@@ -47,6 +47,8 @@ export default {
         if (this.mainPost.respondsTo) {
           this.loadParent()
         }
+      }).catch(() => {
+        this.$router.push({path: '/404'})
       })
     },
     loadResponses () {
