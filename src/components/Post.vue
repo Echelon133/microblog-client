@@ -1,5 +1,23 @@
 <template>
   <b-row>
+    <b-col class="delete-button" v-if="isPostOwnedByCurrentlyLoggedUser()"
+      offset-sm="10" sm="1"
+      offset-md="11" md="1">
+      <span v-b-hover="hoverDeleteButton">
+        <b-icon v-if="isDeleteButtonHovered"
+        class="delete-button"
+        icon="file-x-fill"
+        scale="2"
+        @click.prevent="deletePost"
+        ></b-icon>
+        <b-icon v-else
+        class="delete-button"
+        icon="file-x"
+        scale="2"
+        @click.prevent="deletePost"
+        ></b-icon>
+      </span>
+    </b-col>
     <b-col>
       <div class="post my-3 mx-5 pb-2" @click.stop.prevent="goToPost(post.uuid)">
         <b-row class="pt-2">
@@ -7,13 +25,13 @@
             <img :src="post.author.aviURL" class="img-fluid rounded-circle avi" v-if="post.author.aviURL">
             <img src="/static/avi.png" class="img-fluid rounded-circle avi" v-else/>
           </b-col>
-          <b-col sm="4" md="7" lg="7" xl="7" class="user-info">
+          <b-col sm="4" md="6" lg="7" xl="7" class="user-info">
             <p class="mb-0"> {{ post.author.displayedUsername }} </p>
             <a class="profile-link"
             @click.stop.prevent="goToUser(post.author.username)"
             >@{{ post.author.username }}</a>
           </b-col>
-          <b-col sm="3" md="2" lg="3" xl="3">
+          <b-col sm="3" md="3" lg="3" xl="3">
             <p class="mt-3 pr-4 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
           </b-col>
         </b-row>
@@ -102,14 +120,14 @@
 </template>
 
 <script>
-import { BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote } from 'bootstrap-vue'
+import { BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconFileX, BIconFileXFill } from 'bootstrap-vue'
 import PostContent from '@/components/PostContent'
 
 export default {
   name: 'Post',
   props: ['post'],
   components: {
-    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, PostContent
+    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconFileX, BIconFileXFill, PostContent
   },
   data () {
     return {
@@ -131,10 +149,36 @@ export default {
         showBox: false
       },
       maxContentLength: 300,
-      dateDeltaRefreshTimer: null
+      dateDeltaRefreshTimer: null,
+      isDeleteButtonHovered: false
     }
   },
   methods: {
+    hoverDeleteButton (status) {
+      this.isDeleteButtonHovered = status
+    },
+    isPostOwnedByCurrentlyLoggedUser () {
+      let loggedUserUsername = this.$store.state.user.username
+      let postAuthorUsername = this.$props.post.author.username
+      return loggedUserUsername === postAuthorUsername
+    },
+    deletePost () {
+      let confirmed = confirm('Czy na pewno chcesz usunąć post?')
+      if (confirmed) {
+        this.$store.dispatch('check_auth')
+          .then(() => {
+            let postUuid = this.$vnode.key
+            this.axios.delete('http://localhost:8080/api/posts/' + postUuid,
+              {withCredentials: true})
+              .then(() => {
+                setTimeout(() => this.$router.go(), 500)
+              })
+              .catch(() => {
+                alert('Nie udało się usunąć postu')
+              })
+          })
+      }
+    },
     executeIfLoggedIn (func) {
       if (this.$store.getters.userPresent()) {
         func()
@@ -401,5 +445,13 @@ export default {
   height: 60px;
   margin-left: 10px;
   margin-top: 10px;
+}
+
+.delete-button {
+  color: red;
+}
+
+.delete-button:hover {
+  cursor: pointer;
 }
 </style>
