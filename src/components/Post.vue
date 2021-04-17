@@ -3,16 +3,17 @@
     <b-col>
       <div class="post my-3 mx-5 pb-2" @click.stop.prevent="goToPost(post.uuid)">
         <b-row class="pt-2">
-          <b-col sm="4" md="2" lg="1" xl="1">
-            <img src="/static/avi.png" class="img-fluid rounded-circle post-avi">
+          <b-col sm="5" md="3" lg="2" xl="2">
+            <img :src="post.author.aviURL" class="img-fluid rounded-circle avi" v-if="post.author.aviURL">
+            <img src="/static/avi.png" class="img-fluid rounded-circle avi" v-else/>
           </b-col>
-          <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
+          <b-col sm="4" md="7" lg="7" xl="7" class="user-info">
             <p class="mb-0"> {{ post.author.displayedUsername }} </p>
             <a class="profile-link"
             @click.stop.prevent="goToUser(post.author.username)"
             >@{{ post.author.username }}</a>
           </b-col>
-          <b-col sm="4" md="2" lg="4" xl="4">
+          <b-col sm="3" md="2" lg="3" xl="3">
             <p class="mt-3 pr-4 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
           </b-col>
         </b-row>
@@ -393,5 +394,12 @@ export default {
 
 .length-counter {
   float: right;
+}
+
+.avi {
+  width: 60px;
+  height: 60px;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 </style>
