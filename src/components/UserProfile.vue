@@ -177,6 +177,8 @@ export default {
         this.loadUserProfileInfo()
         this.loadRecentUserPosts()
         this.checkIfFollowed()
+      }).catch(() => {
+        this.$router.push({path: '/404'})
       })
     },
     loadUserProfileInfo () {
@@ -304,6 +306,7 @@ export default {
 }
 
 .avi {
+  object-fit: cover;
   width: 170px;
   height: 170px;
 }
