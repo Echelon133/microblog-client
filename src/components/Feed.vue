@@ -16,6 +16,12 @@
         </div>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col offset-sm="8" sm="4" class="pt-5">
+        <p v-if="showPopular" @click.prevent="flipFilter" class="feed-filter">Pokazywane <span class="filter-text">najpopularniejsze</span></p>
+        <p v-else @click.prevent="flipFilter" class="feed-filter">Pokazywane <span class="filter-text">najnowsze</span></p>
+      </b-col>
+    </b-row>
     <div class="pt-1">
       <PostList :posts="posts"/>
     </div>
@@ -23,21 +29,29 @@
 </template>
 
 <script>
+import { BIcon, BIconStar, BIconStarFill } from 'bootstrap-vue'
 import PostList from '@/components/PostList'
+import Vue from 'vue'
 
 export default {
   name: 'Feed',
   components: {
-    PostList
+    PostList, BIcon, BIconStar, BIconStarFill
   },
   data () {
     return {
       newPostContent: '',
       maxPostLength: 300,
-      posts: []
+      posts: [],
+      showPopular: false
     }
   },
   methods: {
+    flipFilter () {
+      this.showPopular = !this.showPopular
+      Vue.$cookies.set('showPopular', this.showPopular)
+      this.loadPosts()
+    },
     onNewPost () {
       this.$store.dispatch('check_auth')
         .then(() => {
@@ -59,13 +73,31 @@ export default {
       return this.newPostContent.length === 0 || this.newPostContent.length > this.maxPostLength
     },
     loadPosts () {
-      this.axios.get('http://localhost:8080/api/feed?since=DAY', { withCredentials: true })
+      let params = {}
+      if (this.showPopular) {
+        params = {
+          since: 'DAY',
+          by: 'POPULARITY'
+        }
+      } else {
+        params = {
+          since: 'DAY'
+        }
+      }
+
+      this.axios.get('http://localhost:8080/api/feed', {params: params, withCredentials: true})
         .then((response) => {
           this.posts = response.data
         })
     }
   },
   mounted () {
+    if (Vue.$cookies.get('showPopular') == null) {
+      Vue.$cookies.set('showPopular', this.showPopular)
+    } else {
+      this.showPopular = Vue.$cookies.get('showPopular') === 'true'
+    }
+
     this.$store.dispatch('check_auth')
       .then(() => {
         this.loadPosts()
@@ -88,5 +120,17 @@ export default {
 
 .scrollable::-webkit-scrollbar {
   display: none;
+}
+
+.feed-filter {
+  font-size: 18px;
+}
+
+.feed-filter:hover {
+  cursor: pointer;
+}
+
+.filter-text {
+  font-weight: bold;
 }
 </style>
