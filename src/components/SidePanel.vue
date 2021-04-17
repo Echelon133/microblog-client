@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
 export default {
   name: 'SidePanel',
   data () {
@@ -29,23 +31,16 @@ export default {
   },
   methods: {
     timeFilter (filter) {
-      switch (filter.toUpperCase()) {
-        case 'HOUR':
-          this.getTags('HOUR')
-          break
-        case 'DAY':
-          this.getTags('DAY')
-          break
-        case 'WEEK':
-          this.getTags('WEEK')
-          break
-        default:
-          this.getTags('HOUR')
-          break
-      }
+      Vue.$cookies.set('tagFilter', filter)
+      this.getTags()
     },
-    getTags (filter) {
+    getTags () {
       this.tags = []
+      let filter = Vue.$cookies.get('tagFilter')
+      if (filter == null) {
+        Vue.$cookies.set('tagFilter', 'hour')
+        filter = Vue.$cookies.get('tagFilter')
+      }
       this.axios.get('http://localhost:8080/api/tags/popular?since=' + filter).then((response) => {
         this.tags = response.data
       })
@@ -55,7 +50,7 @@ export default {
     }
   },
   mounted () {
-    this.getTags('HOUR')
+    this.getTags()
   }
 }
 </script>
