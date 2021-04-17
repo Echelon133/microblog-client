@@ -63,37 +63,13 @@ export default {
         .then((response) => {
           this.posts = response.data
         })
-    },
-    isCacheNewerThan (cache, seconds) {
-      let diffInMilis = (new Date() - new Date(cache.dateCached))
-      return (diffInMilis) <= (seconds * 1000)
-    },
-    cachePosts () {
-      let cache = {
-        posts: this.posts,
-        dateCached: new Date()
-      }
-      localStorage.setItem('cachedPosts', JSON.stringify(cache))
-    },
-    dispatchPostLoading () {
-      let cache = JSON.parse(localStorage.getItem('cachedPosts'))
-      // if cache entry exists and it's not older than 3 minutes
-      // load posts from the cache
-      if (cache && this.isCacheNewerThan(cache, 3 * 60)) {
-        this.posts = cache.posts
-      } else {
-        this.loadPosts()
-      }
     }
   },
   mounted () {
     this.$store.dispatch('check_auth')
       .then(() => {
-        this.dispatchPostLoading()
+        this.loadPosts()
       })
-  },
-  destroyed () {
-    this.cachePosts()
   }
 }
 </script>
