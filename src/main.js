@@ -24,6 +24,15 @@ axios.interceptors.response.use(undefined, (err) => {
   }
 })
 
+router.beforeEach((to, from, next) => {
+  // if user is logged in and wants to visit 'Login' or 'Register', redirect to 'Feed'
+  if ((to.name === 'Login' || to.name === 'Register') && store.getters.userPresent()) {
+    next({name: 'Feed'})
+  } else {
+    next()
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
