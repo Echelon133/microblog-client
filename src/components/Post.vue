@@ -66,6 +66,12 @@
             >@{{ postInfo.respondsToPost.author.username }}</a>
           </b-col>
         </b-row>
+        <b-row v-if="postInfo.respondsToDeletedPost">
+          <b-col lg="12" class="ml-5">
+            <span class="response-info">W odpowiedzi do </span>
+            <a class="profile-link">[post usunięty]</a>
+          </b-col>
+        </b-row>
         <b-row class="pt-2 px-5">
           <b-col>
             <PostContent :content="post.content"/>
@@ -139,6 +145,7 @@ export default {
         liked: false,
         quotedPost: {post: null, dateDelta: null},
         respondsToPost: null,
+        respondsToDeletedPost: false,
         dateDelta: null
       },
       response: {
@@ -276,6 +283,10 @@ export default {
       if (respondsToPostUuid) {
         this.axios.get('http://localhost:8080/api/posts/' + respondsToPostUuid).then((response) => {
           this.postInfo.respondsToPost = response.data
+        }).catch((err) => {
+          if (err.response.status === 404) {
+            this.postInfo.respondsToDeletedPost = true
+          }
         })
       }
     },

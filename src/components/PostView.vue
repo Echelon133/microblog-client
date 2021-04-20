@@ -4,6 +4,13 @@
       <b-col xl="9" offset-xl="1">
         <div class="pt-0 mx-5">
           <Post v-if="parent" :post="parent" :key="parent.uuid"/>
+          <b-row v-if="parentDeleted">
+            <b-col>
+              <div class="deleted-post my-3 mx-5 pb-2 text-center">
+                <h3 class="py-5 deleted-post-msg">Post usunięty</h3>
+              </div>
+            </b-col>
+          </b-row>
         </div>
         <div class="pt-3">
           <Post v-if="mainPost" :post="mainPost" :key="mainPost.uuid"/>
@@ -28,7 +35,8 @@ export default {
     return {
       parent: null,
       mainPost: null,
-      responses: []
+      responses: [],
+      parentDeleted: false
     }
   },
   methods: {
@@ -36,6 +44,10 @@ export default {
       let parentUuid = this.mainPost.respondsTo
       this.axios.get('http://localhost:8080/api/posts/' + parentUuid).then((response) => {
         this.parent = response.data
+      }).catch((err) => {
+        if (err.response.status === 404) {
+          this.parentDeleted = true
+        }
       })
     },
     loadPost () {
@@ -95,5 +107,14 @@ export default {
 
 .no-content-text {
   font-size: 40px;
+}
+
+.deleted-post {
+  background-color:#555555;
+  border-radius: 15px;
+}
+
+.deleted-post-msg {
+  color: #333333;
 }
 </style>
