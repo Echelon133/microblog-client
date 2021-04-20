@@ -39,7 +39,8 @@
         <div v-if="postInfo.quotedPost.post" class="quoted-post my-1 mx-4" @click.stop.prevent="goToPost(postInfo.quotedPost.post.uuid)">
           <b-row class="pt-2">
             <b-col sm="4" md="2" lg="1" xl="1">
-              <img src="/static/avi.png" class="img-fluid rounded-circle post-avi p-2">
+              <img :src="postInfo.quotedPost.post.author.aviURL" class="img-fluid rounded-circle avi" v-if="postInfo.quotedPost.post.author.aviURL">
+              <img src="/static/avi.png" class="img-fluid rounded-circle avi" v-else/>
             </b-col>
             <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
               <p class="mb-0"> {{ postInfo.quotedPost.post.author.displayedUsername }} </p>
