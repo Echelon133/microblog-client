@@ -73,6 +73,9 @@ export default {
       }
     },
     isLoggedUser () {
+      if (this.$store.state.user == null) {
+        return false
+      }
       let loggedUserUuid = this.$store.state.user.uuid
       let userProfileUuid = this.$props.user.uuid
       return loggedUserUuid === userProfileUuid
