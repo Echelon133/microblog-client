@@ -166,6 +166,9 @@ export default {
       this.isDeleteButtonHovered = status
     },
     isPostOwnedByCurrentlyLoggedUser () {
+      if (this.$store.state.user == null) {
+        return false
+      }
       let loggedUserUsername = this.$store.state.user.username
       let postAuthorUsername = this.$props.post.author.username
       return loggedUserUsername === postAuthorUsername
