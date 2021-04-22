@@ -16,7 +16,7 @@
         </div>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row v-if="this.$store.getters.userPresent()">
       <b-col offset-sm="8" sm="4" class="pt-5">
         <p v-if="showPopular" @click.prevent="flipFilter" class="feed-filter">{{ $t('feed.showing') }} <span class="filter-text">{{ $t('feed.mostPopular') }}</span></p>
         <p v-else @click.prevent="flipFilter" class="feed-filter">{{ $t('feed.showing') }} <span class="filter-text">{{ $t('feed.mostRecent') }}</span></p>
