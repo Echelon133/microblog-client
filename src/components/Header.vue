@@ -25,6 +25,10 @@
               <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" to="/register">{{ $t('header.register') }}</b-button>
             </b-button-group>
           </span>
+          <b-nav-item-dropdown toggle-class="nav-link-custom" right>
+            <b-dropdown-item @click.prevent="setLang('en')"><img src="/static/en.png" class="flag"/> en</b-dropdown-item>
+            <b-dropdown-item @click.prevent="setLang('pl')"><img src="/static/pl.png" class="flag"/> pl</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
     </b-navbar>
   </header>
@@ -32,6 +36,8 @@
 
 <script>
 import { BIcon, BIconSearch } from 'bootstrap-vue'
+import Vue from 'vue'
+import i18n from '@/i18n'
 
 export default {
   name: 'Header',
@@ -57,7 +63,19 @@ export default {
         .then(() => {
           setTimeout(() => this.$router.go(), 500)
         })
+    },
+    setLang (l) {
+      if (l !== undefined) {
+        Vue.$cookies.set('lang', l)
+      }
+      i18n.locale = Vue.$cookies.get('lang')
     }
+  },
+  mounted () {
+    if (Vue.$cookies.get('lang') == null) {
+      Vue.$cookies.set('lang', 'en')
+    }
+    this.setLang()
   }
 }
 </script>
@@ -71,5 +89,10 @@ nav {
   width: 15px;
   height: 15px;
   border-radius:50%;
+}
+
+.flag {
+  width: 25px;
+  height: 25px;
 }
 </style>
