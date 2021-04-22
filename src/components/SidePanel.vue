@@ -1,11 +1,11 @@
 <template>
   <div class="pt-5">
     <b-card class="tag-list mt-5">
-      <b-card-title class="text-center">Popularne tagi
-        <b-dropdown size="sm" id="tag-time-filter" text="Filtr" class="m-2">
-          <b-dropdown-item @click.prevent="timeFilter('hour')">Ostatnia godzina</b-dropdown-item>
-          <b-dropdown-item @click.prevent="timeFilter('day')">Ostatnie 24h</b-dropdown-item>
-          <b-dropdown-item @click.prevent="timeFilter('week')">Ostatni tydzień</b-dropdown-item>
+      <b-card-title class="text-center">{{ $t('sidePanel.popularTags') }}
+        <b-dropdown size="sm" id="tag-time-filter" :text="$t('sidePanel.filter')" class="m-2">
+          <b-dropdown-item @click.prevent="timeFilter('hour')">{{ $t('sidePanel.lastHour') }}</b-dropdown-item>
+          <b-dropdown-item @click.prevent="timeFilter('day')">{{ $t('sidePanel.lastDay') }}</b-dropdown-item>
+          <b-dropdown-item @click.prevent="timeFilter('week')">{{ $t('sidePanel.lastWeek') }}</b-dropdown-item>
         </b-dropdown>
       </b-card-title>
       <b-list-group flush>

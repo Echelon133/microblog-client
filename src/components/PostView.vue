@@ -7,7 +7,7 @@
           <b-row v-if="parentDeleted">
             <b-col>
               <div class="deleted-post my-3 mx-5 pb-2 text-center">
-                <h3 class="py-5 deleted-post-msg">Post usunięty</h3>
+                <h3 class="py-5 deleted-post-msg">{{ $t('postView.postDeleted') }}</h3>
               </div>
             </b-col>
           </b-row>

@@ -2,7 +2,7 @@
   <b-row>
     <b-col class="text-center not-found-box">
       <p class="not-found-number mb-0">404</p>
-      <p class="not-found-text">Nie znaleziono strony</p>
+      <p class="not-found-text">{{ $t('notFound.notFound') }}</p>
     </b-col>
   </b-row>
 </template>

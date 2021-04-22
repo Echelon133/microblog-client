@@ -9,6 +9,7 @@ import VueAxios from 'vue-axios'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from '@/auth'
+import i18n from '@/i18n'
 
 Vue.config.productionTip = false
 
@@ -39,5 +40,6 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
-  store
+  store,
+  i18n
 })

@@ -60,7 +60,7 @@
         </div>
         <b-row v-if="postInfo.respondsToPost">
           <b-col lg="12" class="ml-5">
-            <span class="response-info">W odpowiedzi do </span>
+            <span class="response-info">{{ $t('post.replyingTo') }} </span>
             <a class="profile-link"
             @click.stop.prevent="goToUser(postInfo.respondsToPost.author.username)"
             >@{{ postInfo.respondsToPost.author.username }}</a>
@@ -68,8 +68,8 @@
         </b-row>
         <b-row v-if="postInfo.respondsToDeletedPost">
           <b-col lg="12" class="ml-5">
-            <span class="response-info">W odpowiedzi do </span>
-            <a class="profile-link">[post usunięty]</a>
+            <span class="response-info">{{ $t('post.replyingTo') }} </span>
+            <a class="profile-link">[{{ $t('post.postRemoved') }}]</a>
           </b-col>
         </b-row>
         <b-row class="pt-2 px-5">
@@ -97,28 +97,28 @@
     </b-col>
     <b-col xl="12" v-if="response.showBox">
       <div class="response-input my-3 mx-5 pb-2">
-        <label for="response-content" class="form-label">Treść odpowiedzi: </label>
+        <label for="response-content" class="form-label">{{ $t('post.responseContent') }}: </label>
         <span class="length-counter">{{ response.content.length }}/{{ maxContentLength }}</span>
         <div class="input-group">
           <b-form-textarea v-model="response.content" class="form-control" rows="4"></b-form-textarea>
           <b-button variant="secondary"
           :disabled="isResponseLengthInvalid()"
           @click.prevent="onNewResponse"
-          >Odpowiedz
+          >{{ $t('post.respond') }}
           </b-button>
         </div>
       </div>
     </b-col>
     <b-col xl="12" v-if="quote.showBox">
       <div class="quote-input my-3 mx-5 pb-2">
-        <label for="quote-content" class="form-label">Treść odpowiedzi cytującej: </label>
+        <label for="quote-content" class="form-label">{{ $t('post.quoteContent') }}: </label>
         <span class="length-counter">{{ quote.content.length }}/{{ maxContentLength }}</span>
         <div class="input-group">
           <b-form-textarea v-model="quote.content" class="form-control" rows="4"></b-form-textarea>
           <b-button variant="secondary"
           :disabled="isQuoteLengthInvalid()"
           @click.prevent="onNewQuote"
-          >Cytuj
+          >{{ $t('post.quote') }}
           </b-button>
         </div>
       </div>
@@ -129,12 +129,13 @@
 <script>
 import { BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconFileX, BIconFileXFill } from 'bootstrap-vue'
 import PostContent from '@/components/PostContent'
+import i18n from '@/i18n'
 
 export default {
   name: 'Post',
   props: ['post'],
   components: {
-    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconFileX, BIconFileXFill, PostContent
+    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconFileX, BIconFileXFill, PostContent, i18n
   },
   data () {
     return {
@@ -174,7 +175,7 @@ export default {
       return loggedUserUsername === postAuthorUsername
     },
     deletePost () {
-      let confirmed = confirm('Czy na pewno chcesz usunąć post?')
+      let confirmed = confirm(i18n.t('post.deleteConfirm'))
       if (confirmed) {
         this.$store.dispatch('check_auth')
           .then(() => {
@@ -182,11 +183,11 @@ export default {
             this.axios.delete('http://localhost:8080/api/posts/' + postUuid,
               {withCredentials: true})
               .then(() => {
-                alert('Usunięto post')
+                alert(i18n.t('post.deleteSuccess'))
                 setTimeout(() => this.$router.go(), 500)
               })
               .catch(() => {
-                alert('Nie udało się usunąć postu')
+                alert(i18n.t('post.deleteFailed'))
               })
           })
       }
@@ -195,7 +196,7 @@ export default {
       if (this.$store.getters.userPresent()) {
         func()
       } else {
-        alert('Użytkownik nie jest zalogowany')
+        alert(i18n.t('post.userNotLogged'))
       }
     },
     toggleResponseBox () {
@@ -220,7 +221,7 @@ export default {
               this.goToPost(res.data.uuid)
             })
             .catch(() => {
-              alert('Nie można wysłać odpowiedzi')
+              alert(i18n.t('post.responseFailed'))
             })
         })
     },
@@ -249,7 +250,7 @@ export default {
               this.goToPost(response.data.uuid)
             })
             .catch(() => {
-              alert('Nie można wysłać cytatu')
+              alert(i18n.t('post.quoteFailed'))
             })
         })
     },
