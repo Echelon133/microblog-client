@@ -3,14 +3,14 @@
     <b-row v-if="this.$store.getters.userPresent()">
       <b-col xl="9" offset-xl="1">
         <div class="new-post-input">
-          <label for="post-content" class="form-label">Treść nowego wpisu: </label>
+          <label for="post-content" class="form-label">{{ $t('feed.postContent') }} </label>
           <span class="length-counter">{{ newPostContent.length }}/{{ maxPostLength }}</span>
           <div class="input-group">
             <b-form-textarea v-model="newPostContent" class="form-control" id="post-content" rows="4"></b-form-textarea>
             <b-button variant="secondary"
             :disabled="isPostLengthInvalid()"
             @click.prevent="onNewPost"
-            >Wyślij
+            >{{ $t('feed.send') }}
             </b-button>
           </div>
         </div>
@@ -18,8 +18,8 @@
     </b-row>
     <b-row>
       <b-col offset-sm="8" sm="4" class="pt-5">
-        <p v-if="showPopular" @click.prevent="flipFilter" class="feed-filter">Pokazywane <span class="filter-text">najpopularniejsze</span></p>
-        <p v-else @click.prevent="flipFilter" class="feed-filter">Pokazywane <span class="filter-text">najnowsze</span></p>
+        <p v-if="showPopular" @click.prevent="flipFilter" class="feed-filter">{{ $t('feed.showing') }} <span class="filter-text">{{ $t('feed.mostPopular') }}</span></p>
+        <p v-else @click.prevent="flipFilter" class="feed-filter">{{ $t('feed.showing') }} <span class="filter-text">{{ $t('feed.mostRecent') }}</span></p>
       </b-col>
     </b-row>
     <div class="pt-1">
@@ -32,11 +32,12 @@
 import { BIcon, BIconStar, BIconStarFill } from 'bootstrap-vue'
 import PostList from '@/components/PostList'
 import Vue from 'vue'
+import i18n from '@/i18n'
 
 export default {
   name: 'Feed',
   components: {
-    PostList, BIcon, BIconStar, BIconStarFill
+    PostList, BIcon, BIconStar, BIconStarFill, i18n
   },
   data () {
     return {
@@ -61,12 +62,12 @@ export default {
               this.$router.push({path: `/post/${response.data.uuid}`})
             })
             .catch(() => {
-              alert('Dodanie posta zakończyło się niepowodzeniem')
+              alert(i18n.t('feed.failure'))
             })
           this.newPostContent = ''
         })
         .catch(() => {
-          alert('Dodanie posta zakończyło się niepowodzeniem')
+          alert(i18n.t('feed.failure'))
         })
     },
     isPostLengthInvalid () {

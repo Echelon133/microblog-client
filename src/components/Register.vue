@@ -1,42 +1,42 @@
 <template>
   <ValidationObserver v-slot="{ invalid }">
     <form class="register" @submit.prevent="onSubmit">
-      <h1 class="h3 mb-3 fw-normal">Zarejestruj</h1>
+      <h1 class="h3 mb-3 fw-normal">{{ $t('register.register') }}</h1>
       <b-alert show v-if="success" variant="success">{{ successMsg }}</b-alert>
       <b-alert show v-if="failure" variant="danger">{{ failureMsg }}</b-alert>
       <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
-        <label for="inputEmail" class="visually-hidden mt-2">Adres email</label>
+        <label for="inputEmail" class="visually-hidden mt-2">{{ $t('register.email') }}</label>
         <span class="field-error">{{ errors[0] }}</span>
         <input
           v-model="registerForm.email"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="email" id="inputEmail" class="form-control" placeholder="Email" autofocus="">
+          type="email" id="inputEmail" class="form-control" :placeholder="$t('register.email')" autofocus="">
       </ValidationProvider>
       <ValidationProvider name="username" rules="required|usernameCorrect" v-slot="{ errors }">
-        <label for="username" class="visually-hidden pt-2">Nazwa użytkownika</label>
+        <label for="username" class="visually-hidden pt-2">{{ $t('register.username') }}</label>
         <span class="field-error">{{ errors[0] }}</span>
         <input
           v-model="registerForm.username"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="text" id="username" class="form-control" placeholder="Nazwa użytkownika" autofocus="">
+          type="text" id="username" class="form-control" :placeholder="$t('register.username')" autofocus="">
       </ValidationProvider>
       <ValidationProvider name="password" rules="required|passwordCorrect|passwordsMatch:@password2" v-slot="{ errors }">
-        <label for="password" class="visually-hidden mt-2">Hasło</label>
+        <label for="password" class="visually-hidden mt-2">{{ $t('register.password') }}</label>
         <span class="field-error">{{ errors[0] }}</span>
         <input
           v-model="registerForm.password"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="password" id="password" class="form-control" placeholder="Hasło">
+          type="password" id="password" class="form-control" :placeholder="$t('register.password')">
       </ValidationProvider>
       <ValidationProvider name="password2" rules="required" v-slot="{ errors }">
-        <label for="password2" class="visually-hidden mt-2">Hasło</label>
+        <label for="password2" class="visually-hidden mt-2">{{ $t('register.password') }}</label>
         <span class="field-error">{{ errors[0] }}</span>
         <input
           v-model="registerForm.password2"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="password" id="password2" class="form-control" placeholder="Powtórz hasło">
+          type="password" id="password2" class="form-control" :placeholder="$t('register.password')">
       </ValidationProvider>
-      <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="invalid">Zarejestruj</button>
+      <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="invalid">{{ $t('register.register') }}</button>
       <p class="mt-5 mb-3 text-muted">© 2021</p>
     </form>
   </ValidationObserver>
@@ -45,15 +45,16 @@
 <script>
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import { required, email } from 'vee-validate/dist/rules'
+import i18n from '@/i18n'
 
 extend('required', {
   ...required,
-  message: 'Pole jest wymagane'
+  message: i18n.t('register.required')
 })
 
 extend('email', {
   ...email,
-  message: 'Adres email jest niepoprawny'
+  message: i18n.t('register.emailInvalid')
 })
 
 extend('usernameCorrect', {
@@ -64,7 +65,7 @@ extend('usernameCorrect', {
     var matchedUsername = value.match(usernameRegex)
     return matchedUsername && (value === matchedUsername[0])
   },
-  message: 'Nazwa użytkownika musi mieć 1-30 znaków, zawierać wyłącznie małe/duże litery oraz cyfry'
+  message: i18n.t('register.usernameRequirements')
 })
 
 extend('passwordsMatch', {
@@ -72,7 +73,7 @@ extend('passwordsMatch', {
   validate (value, { target }) {
     return value === target
   },
-  message: 'Hasła muszą się zgadzać'
+  message: i18n.t('register.passwordsMatch')
 })
 
 extend('passwordCorrect', {
@@ -82,12 +83,12 @@ extend('passwordCorrect', {
     var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/
     return passwordRegex.test(value) && (value.length >= 8 && value.length <= 64)
   },
-  message: 'Hasło musi mieć 8-64 znaków, zawierać wielkie i małe litery, co najmniej jedną cyfrę oraz co najmniej jeden znak specjalny'
+  message: i18n.t('register.passwordRequirements')
 })
 
 export default {
   components: {
-    ValidationProvider, ValidationObserver
+    ValidationProvider, ValidationObserver, i18n
   },
   data () {
     return {
@@ -116,7 +117,7 @@ export default {
         newUserData
       )
         .then((response) => {
-          this.successMsg = 'Rejestracja zakończona powodzeniem'
+          this.successMsg = i18n.t('register.success')
           this.failure = false
           this.success = true
           this.clearForm()
@@ -126,10 +127,10 @@ export default {
           this.success = false
           if (response.status === 400) {
             if (response.data.messages.includes('Username already taken')) {
-              this.failureMsg = 'Nazwa użytkownika jest już zajęta'
+              this.failureMsg = i18n.t('register.usernameTaken')
             }
           } else {
-            this.failureMsg = 'Podczas rejestracji wystąpił błąd'
+            this.failureMsg = i18n.t('register.failureMsg')
           }
           this.failure = true
         })

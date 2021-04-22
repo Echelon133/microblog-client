@@ -1,23 +1,23 @@
 <template>
-  <b-modal title="Edytuj profil" ref="editProfile" id="editProfileModal" hide-footer>
+  <b-modal :title="$t('editUserProfile.editProfile')" ref="editProfile" id="editProfileModal" hide-footer>
     <form class="edit" @submit.prevent="onEdit">
-      <b-alert show v-if="success" variant="success">Edytowanie udane</b-alert>
-      <b-alert show v-if="failure" variant="danger">Edytowanie nieudane</b-alert>
-      <label for="displayedUsername" class="visually-hidden mt-2">Wyświetlana nazwa użytkownika</label>
+      <b-alert show v-if="success" variant="success">{{ $t('editUserProfile.success') }}</b-alert>
+      <b-alert show v-if="failure" variant="danger">{{ $t('editUserProfile.failure') }}</b-alert>
+      <label for="displayedUsername" class="visually-hidden mt-2">{{ $t('editUserProfile.displayedUsername') }}</label>
       <input
         v-model="userUpdate.displayedUsername"
         v-bind:class="{invalidval: displayedUsernameInvalid()}"
-        type="text" id="displayedUsername" class="form-control mt-2" placeholder="Wyświetlana nazwa użytkownika" autofocus="">
-      <label for="description" class="visually-hidden mt-2">Opis użytkownika</label>
+        type="text" id="displayedUsername" class="form-control mt-2" :placeholder="$t('editUserProfile.displayedUsername')" autofocus="">
+      <label for="description" class="visually-hidden mt-2">{{ $t('editUserProfile.description') }}</label>
       <textarea
         v-model="userUpdate.description"
         v-bind:class="{invalidval: descriptionInvalid()}"
-        type="text" id="description" class="form-control mt-2" placeholder="Opis użytkownika" autofocus="" rows="5"></textarea>
-      <label for="aviURL" class="visually-hidden mt-2">URL avatara</label>
+        type="text" id="description" class="form-control mt-2" :placeholder="$t('editUserProfile.description')" autofocus="" rows="5"></textarea>
+      <label for="aviURL" class="visually-hidden mt-2">{{ $t('editUserProfile.aviURL') }}</label>
       <input
         v-model="userUpdate.aviURL"
-        type="text" id="aviURL" class="form-control mt-2" placeholder="URL avatara" autofocus="">
-      <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="disableEdit()">Zapisz edycje</button>
+        type="text" id="aviURL" class="form-control mt-2" :placeholder="$t('editUserProfile.aviURL')" autofocus="">
+      <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="disableEdit()">{{ $t('editUserProfile.saveEdit') }}</button>
     </form>
   </b-modal>
 </template>

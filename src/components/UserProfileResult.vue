@@ -22,8 +22,8 @@
       <hr class="mb-0">
       <b-row :class="{'followed': followed}" v-if="!isLoggedUser()">
         <b-col sm="12" class="text-center follow-box pt-3" @click.prevent="follow()">
-          <span v-if="followed" class="follow-text">Nie Obserwuj</span>
-          <span v-else class="follow-text">Obserwuj</span>
+          <span v-if="followed" class="follow-text">{{ $t('userProfile.unfollow') }}</span>
+          <span v-else class="follow-text">{{ $t('userProfile.follow') }}</span>
         </b-col>
       </b-row>
     </b-col>
@@ -31,8 +31,13 @@
 </template>
 
 <script>
+import i18n from '@/i18n'
+
 export default {
   name: 'UserProfileResult',
+  components: {
+    i18n
+  },
   props: ['user'],
   data () {
     return {
@@ -48,7 +53,7 @@ export default {
             this.followed = !response.data.unfollowed
           })
           .catch(() => {
-            alert('Nie udało się anulować obserwowania')
+            alert(i18n.t('userProfile.failedToCancelFollow'))
           })
       } else {
         this.axios.post('http://localhost:8080/api/users/' + uuid + '/follow', {}, { withCredentials: true })
@@ -56,7 +61,7 @@ export default {
             this.followed = response.data.followed
           })
           .catch(() => {
-            alert('Nie udało się obserwować użytkownika')
+            alert(i18n.t('userProfile.failedToFollow'))
           })
       }
     },

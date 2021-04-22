@@ -1,24 +1,24 @@
 <template>
   <ValidationObserver v-slot="{ invalid }">
     <form class="signin" @submit.prevent="onSubmit">
-      <h1 class="h3 mb-3 fw-normal">Zaloguj</h1>
-      <b-alert show v-if="success" variant="success">Logowanie udane</b-alert>
-      <b-alert show v-if="failure" variant="danger">Logowanie nieudane</b-alert>
+      <h1 class="h3 mb-3 fw-normal">{{ $t("login.login") }}</h1>
+      <b-alert show v-if="success" variant="success">{{ $t('login.success') }}</b-alert>
+      <b-alert show v-if="failure" variant="danger">{{ $t('login.failure') }}</b-alert>
       <ValidationProvider name="username" rules="required" v-slot="{ errors }">
-        <label for="inputUsername" class="visually-hidden mt-2">Nazwa użytkownika</label>
+        <label for="inputUsername" class="visually-hidden mt-2">{{ $t('login.username') }}</label>
         <input
           v-model="username"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="text" id="inputUsername" class="form-control mt-2" placeholder="Nazwa użytkownika" autofocus="">
+          type="text" id="inputUsername" class="form-control mt-2" :placeholder="$t('login.username')" autofocus="">
       </ValidationProvider>
       <ValidationProvider name="password" rules="required" v-slot="{ errors }">
-        <label for="inputPassword" class="visually-hidden mt-2">Hasło</label>
+        <label for="inputPassword" class="visually-hidden mt-2">{{ $t('login.password') }}</label>
         <input
           v-model="password"
           v-bind:class="{invalidval: errors.length > 0}"
-          type="password" id="inputPassword" class="form-control  mt-2" placeholder="Hasło">
+          type="password" id="inputPassword" class="form-control  mt-2" :placeholder="$t('login.password')">
       </ValidationProvider>
-      <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="invalid">Zaloguj</button>
+      <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="invalid">{{ $t('login.login') }}</button>
       <p class="mt-5 mb-3 text-muted">© 2021</p>
     </form>
   </ValidationObserver>

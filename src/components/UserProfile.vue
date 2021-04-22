@@ -9,17 +9,17 @@
           </b-col>
           <b-col sm="2" class="pt-5" v-if="isLoggedUserProfile()">
             <b-button
-            @click.prevent="showEditProfileModal()" ref="btnShowEditProfile">Edytuj profil</b-button>
+            @click.prevent="showEditProfileModal()" ref="btnShowEditProfile">{{ $t('userProfile.editProfile') }}</b-button>
             <EditUserProfile/>
           </b-col>
           <b-col sm="2" class="pt-5" v-else>
             <b-button v-if="user.followed"
             @click.prevent="executeIfLoggedIn(followUser)"
-            >Nie obserwuj
+            >{{ $t('userProfile.unfollow') }}
             </b-button>
             <b-button v-else
             @click.prevent="executeIfLoggedIn(followUser)"
-            >Obserwuj
+            >{{ $t('userProfile.follow') }}
             </b-button>
           </b-col>
         </b-row>
@@ -43,13 +43,13 @@
                 <UserProfileResultSmall v-for="user in following" :key="user.uuid" :user="user"/>
                 <b-button class="load-more-btn"
                 @click.prevent="loadMoreFollowing()"
-                >Wczytaj więcej</b-button>
+                >{{ $t('userProfile.loadMore') }}</b-button>
               </b-container>
             </b-modal>
             <p
             @click="showFollowingModal()"
             class="clickable-item"
-            >Obserwowani: {{ user.following }}</p>
+            >{{ $t('userProfile.following') }}: {{ user.following }}</p>
           </b-col>
           <b-col sm="6" class="text-center counter">
             <b-modal body-class="modal-height" title="Lista obserwujących" ref="followedBy" hide-footer>
@@ -57,13 +57,13 @@
                 <UserProfileResultSmall v-for="user in followedBy" :key="user.uuid" :user="user"/>
                 <b-button class="load-more-btn"
                 @click.prevent="loadMoreFollowedBy()"
-                >Wczytaj więcej</b-button>
+                >{{ $t('userProfile.loadMore') }}</b-button>
               </b-container>
             </b-modal>
             <p
             @click="showFollowedByModal()"
             class="clickable-item"
-            >Obserwujący: {{ user.followedBy }}</p>
+            >{{ $t('userProfile.followedBy') }}: {{ user.followedBy }}</p>
           </b-col>
         </b-row>
       </b-col>
@@ -77,7 +77,7 @@
       <b-col sm="9" offset-sm="1" class="my-3 px-5">
         <b-button class="load-more-btn"
         @click.prevent="loadMoreUserPosts()"
-        >Wczytaj więcej postów</b-button>
+        >{{ $t('userProfile.loadMorePosts') }}</b-button>
       </b-col>
     </b-row>
   </div>
@@ -87,11 +87,12 @@
 import PostList from '@/components/PostList'
 import UserProfileResultSmall from '@/components/UserProfileResultSmall'
 import EditUserProfile from '@/components/EditUserProfile'
+import i18n from '@/i18n'
 
 export default {
   name: 'UserProfile',
   components: {
-    PostList, UserProfileResultSmall, EditUserProfile
+    PostList, UserProfileResultSmall, EditUserProfile, i18n
   },
   data () {
     return {
@@ -111,7 +112,7 @@ export default {
       if (this.$store.getters.userPresent()) {
         func()
       } else {
-        alert('Użytkownik nie jest zalogowany')
+        alert(i18n.t('userProfile.userNotLogged'))
       }
     },
     followUser () {
@@ -122,7 +123,7 @@ export default {
             this.user.followed = !response.data.unfollowed
           })
           .catch(() => {
-            alert('Nie udało się anulować obserwowania')
+            alert(i18n.t('userProfile.failedToCancelFollow'))
           })
       } else {
         this.axios.post('http://localhost:8080/api/users/' + uuid + '/follow', {}, { withCredentials: true })
@@ -130,7 +131,7 @@ export default {
             this.user.followed = response.data.followed
           })
           .catch(() => {
-            alert('Nie udało się obserwować użytkownika')
+            alert(i18n.t('userProfile.failedToFollow'))
           })
       }
     },

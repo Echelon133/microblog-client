@@ -18,7 +18,7 @@
       <b-col sm="9" offset-sm="1" class="pt-2 pb-5">
         <b-button class="load-more-btn"
         @click.prevent="loadPosts()"
-        >Wczytaj więcej postów</b-button>
+        >{{ $t('tagOverview.loadMore') }}</b-button>
       </b-col>
     </b-row>
   </div>
