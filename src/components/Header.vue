@@ -9,6 +9,7 @@
               <b-icon icon="search"></b-icon>
             </b-button>
           </b-nav-form>
+          <NotificationDropdown/>
           <span v-if="user">
             <b-button-group size="sm">
               <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" @click.prevent="goToUserProfile">
@@ -35,6 +36,7 @@
 </template>
 
 <script>
+import NotificationDropdown from '@/components/NotificationDropdown'
 import { BIcon, BIconSearch } from 'bootstrap-vue'
 import Vue from 'vue'
 import i18n from '@/i18n'
@@ -42,7 +44,7 @@ import i18n from '@/i18n'
 export default {
   name: 'Header',
   components: {
-    BIcon, BIconSearch
+    BIcon, BIconSearch, NotificationDropdown
   },
   props: ['user'],
   data () {
