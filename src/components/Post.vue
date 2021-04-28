@@ -58,6 +58,9 @@
             </b-col>
           </b-row>
         </div>
+        <div v-if="postInfo.quotesDeletedPost" class="quoted-post my-1 mx-4 text-center">
+          <h3 class="py-5 deleted-post-msg">{{ $t('postView.postDeleted') }}</h3>
+        </div>
         <b-row v-if="postInfo.respondsToPost">
           <b-col lg="12" class="ml-5">
             <span class="response-info">{{ $t('post.replyingTo') }} </span>
@@ -147,6 +150,7 @@ export default {
         quotedPost: {post: null, dateDelta: null},
         respondsToPost: null,
         respondsToDeletedPost: false,
+        quotesDeletedPost: false,
         dateDelta: null
       },
       response: {
@@ -279,6 +283,10 @@ export default {
         this.axios.get('http://localhost:8080/api/posts/' + quoteUuid).then((response) => {
           this.postInfo.quotedPost.post = response.data
           this.convertQuotedPostDateToDeltaText()
+        }).catch((err) => {
+          if (err.response.status === 404) {
+            this.postInfo.quotesDeletedPost = true
+          }
         })
       }
     },
@@ -470,5 +478,9 @@ export default {
 
 .delete-button:hover {
   cursor: pointer;
+}
+
+.deleted-post-msg {
+  color: #333333;
 }
 </style>
