@@ -108,7 +108,8 @@ export default new Vuex.Store({
               resolve(res)
             })
         } else {
-          // user was not present, simply resolve without doing anything
+          // user is anonymous or access token is already present
+          // therefore there is no need to renew the token
           resolve()
         }
       })
