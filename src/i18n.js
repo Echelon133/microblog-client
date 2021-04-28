@@ -94,6 +94,16 @@ const messages = {
       userNotLogged: 'User not logged in',
       failedToCancelFollow: 'Failed to cancel the follow',
       failedToFollow: 'Failed to follow'
+    },
+    notificationDropdown: {
+      markAll: 'Mark all as',
+      read: 'read',
+      viewMore: 'View more'
+    },
+    notificationItem: {
+      quote: 'quoted your post',
+      mention: 'mentioned you in a post',
+      response: 'responded to your post'
     }
   },
   pl: {
@@ -186,6 +196,16 @@ const messages = {
       userNotLogged: 'Użytkownik nie jest zalogwany',
       failedToCancelFollow: 'Nie udało się anulować obserwowania',
       failedToFollow: 'Nie udało się obserwować użytkownika'
+    },
+    notificationDropdown: {
+      markAll: 'Oznacz wszystkie jako',
+      read: 'przeczytane',
+      viewMore: 'Zobacz wszystkie'
+    },
+    notificationItem: {
+      quote: 'zacytował Twój post',
+      mention: 'wspomniał o Tobie w poście',
+      response: 'odpowiedział na Twój post'
     }
   }
 }
