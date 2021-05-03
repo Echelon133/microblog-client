@@ -36,6 +36,7 @@ export default {
   },
   methods: {
     viewMore () {
+      this.$router.push({path: `/notifications`})
     },
     loadUnreadCounter () {
       this.axios.get('http://localhost:8080/api/notifications/unreadCounter', {withCredentials: true})

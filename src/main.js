@@ -30,7 +30,12 @@ router.beforeEach((to, from, next) => {
   if ((to.name === 'Login' || to.name === 'Register') && store.getters.userPresent()) {
     next({name: 'Feed'})
   } else {
-    next()
+    // if user is not logged in and wants to see the notification page, redirect to 'Login'
+    if (to.name === 'NotificationView' && !store.getters.userPresent()) {
+      next({name: 'Login'})
+    } else {
+      next()
+    }
   }
 })
 

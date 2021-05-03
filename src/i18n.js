@@ -104,6 +104,16 @@ const messages = {
       quote: 'quoted your post',
       mention: 'mentioned you in a post',
       response: 'responded to your post'
+    },
+    notificationView: {
+      allNotifications: 'All notifications',
+      noNotifications: 'No notifications',
+      moreNotifications: 'More notifications'
+    },
+    notificationItemLarge: {
+      quote: 'quoted your post',
+      mention: 'mentioned you in a post',
+      response: 'responded to your post'
     }
   },
   pl: {
@@ -203,6 +213,16 @@ const messages = {
       viewMore: 'Zobacz wszystkie'
     },
     notificationItem: {
+      quote: 'zacytował Twój post',
+      mention: 'wspomniał o Tobie w poście',
+      response: 'odpowiedział na Twój post'
+    },
+    notificationView: {
+      allNotifications: 'Wszystkie powiadomienia',
+      noNotifications: 'Brak powiadomień',
+      moreNotifications: 'Więcej powiadomień'
+    },
+    notificationItemLarge: {
       quote: 'zacytował Twój post',
       mention: 'wspomniał o Tobie w poście',
       response: 'odpowiedział na Twój post'
