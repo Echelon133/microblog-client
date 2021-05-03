@@ -9,6 +9,7 @@ import TagOverview from '@/components/TagOverview'
 import UserSearch from '@/components/UserSearch'
 import PostView from '@/components/PostView'
 import NotFound from '@/components/NotFound'
+import NotificationView from '@/components/NotificationView'
 
 Vue.use(Router)
 
@@ -53,6 +54,11 @@ export default new Router({
           path: '/post/:uuid',
           name: 'PostView',
           component: PostView
+        },
+        {
+          path: '/notifications',
+          name: 'NotificationView',
+          component: NotificationView
         },
         {
           path: '*',
