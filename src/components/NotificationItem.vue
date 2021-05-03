@@ -30,8 +30,8 @@ export default {
         .then((response) => {
           if (response.data.read) {
             this.$props.notification.read = true
-            this.$router.push({path: `/post/${postUuid}`})
           }
+          this.$router.push({path: `/post/${postUuid}`})
         })
     },
     goToUser () {
