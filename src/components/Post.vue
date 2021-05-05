@@ -22,10 +22,10 @@
                 <b-icon icon="three-dots" class="post-dropdown"></b-icon>
               </template>
               <b-dropdown-item-button @click.stop.prevent="deletePost" v-if="isPostOwnedByCurrentlyLoggedUser()">
-                <span class="item-color"><b-icon icon="trash-fill"></b-icon>Delete</span>
+                <span class="item-color"><b-icon icon="trash-fill"></b-icon>{{ $t('post.delete') }}</span>
               </b-dropdown-item-button>
               <b-dropdown-item-button @click.stop.prevent="reportPost" ref="btnShowReportModal" v-else>
-                <span class="item-color"><b-icon icon="flag-fill"></b-icon>Report</span>
+                <span class="item-color"><b-icon icon="flag-fill"></b-icon>{{ $t('post.report') }}</span>
                 </b-dropdown-item-button>
                 <ReportPost :uuid="post.uuid"/>
             </b-dropdown>

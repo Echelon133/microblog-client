@@ -65,7 +65,9 @@ const messages = {
       deleteFailed: 'Failed to delete the post',
       userNotLogged: 'User not logged in',
       responseFailed: 'Failed to send the response',
-      quoteFailed: 'Failed to send the quote'
+      quoteFailed: 'Failed to send the quote',
+      delete: 'Delete',
+      report: 'Report'
     },
     postList: {
       noPosts: 'No posts'
@@ -114,6 +116,17 @@ const messages = {
       quote: 'quoted your post',
       mention: 'mentioned you in a post',
       response: 'responded to your post'
+    },
+    reportPost: {
+      reportPost: 'Report post',
+      success: 'Post reported',
+      failure: 'Failed to report post',
+      reason: 'Report reason',
+      spam: 'Spam',
+      abusive: 'Abusive towards me/others',
+      againstTos: 'Against Terms of Service',
+      description: 'Additional details of this report (optional)',
+      report: 'Report'
     }
   },
   pl: {
@@ -177,7 +190,9 @@ const messages = {
       deleteFailed: 'Nie udało się usunąć postu',
       userNotLogged: 'Użytkownik nie jest zalogowany',
       responseFailed: 'Nie można wysłać odpowiedzi',
-      quoteFailed: 'Nie można wysłać cytatu'
+      quoteFailed: 'Nie można wysłać cytatu',
+      delete: 'Usuń',
+      report: 'Zgłoś'
     },
     postList: {
       noPosts: 'Brak postów'
@@ -226,6 +241,17 @@ const messages = {
       quote: 'zacytował Twój post',
       mention: 'wspomniał o Tobie w poście',
       response: 'odpowiedział na Twój post'
+    },
+    reportPost: {
+      reportPost: 'Zgłoś post',
+      success: 'Post zgłoszony',
+      failure: 'Zgłoszenie posta nieudane',
+      reason: 'Powód zgłoszenia',
+      spam: 'Spam',
+      abusive: 'Treść obrażająca mnie/innych',
+      againstTos: 'Przeciwko regulaminowi strony',
+      description: 'Dodatkowe detale zgłoszenia (opcjonalne)',
+      report: 'Zgłoś'
     }
   }
 }

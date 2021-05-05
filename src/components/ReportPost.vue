@@ -1,19 +1,19 @@
 <template>
-  <b-modal title="Report post" ref="reportPost" id="reportPostModal" hide-footer>
+  <b-modal :title="$t('reportPost.reportPost')" ref="reportPost" id="reportPostModal" hide-footer>
     <form class="report" @submit.prevent="onReport">
-      <b-alert show v-if="success" variant="success">Post reported</b-alert>
-      <b-alert show v-if="failure" variant="danger">Failed to report post</b-alert>
-      <b-form-group label="Report reason">
-        <b-form-radio v-model="report.reason" value="spam">Spam</b-form-radio>
-        <b-form-radio v-model="report.reason" value="abusive">Abusive</b-form-radio>
-        <b-form-radio v-model="report.reason" value="against_tos">Against ToS</b-form-radio>
+      <b-alert show v-if="success" variant="success">{{ $t('reportPost.success') }}</b-alert>
+      <b-alert show v-if="failure" variant="danger">{{ $t('reportPost.failure') }}</b-alert>
+      <b-form-group :label="$t('reportPost.reason')">
+        <b-form-radio v-model="report.reason" value="spam">{{ $t('reportPost.spam') }}</b-form-radio>
+        <b-form-radio v-model="report.reason" value="abusive">{{ $t('reportPost.abusive') }}</b-form-radio>
+        <b-form-radio v-model="report.reason" value="against_tos">{{ $t('reportPost.againstTos') }}</b-form-radio>
       </b-form-group>
-      <label for="displayedUsername" class="visually-hidden mt-2">Description</label>
+      <label for="displayedUsername" class="visually-hidden mt-2">{{ $t('reportPost.description') }}</label>
       <textarea
         v-model="report.description"
         v-bind:class="{invalidval: descriptionInvalid()}"
-        type="text" id="description" class="form-control mt-2" placeholder="Description" autofocus="" rows="5"></textarea>
-      <b-button class="w-100 mt-5" variant="danger" type="submit">Report</b-button>
+        type="text" id="description" class="form-control mt-2" autofocus="" rows="5"></textarea>
+      <b-button class="w-100 mt-5" variant="danger" type="submit">{{ $t('reportPost.report') }}</b-button>
     </form>
   </b-modal>
 </template>
@@ -25,8 +25,13 @@
 </style>
 
 <script>
+import i18n from '@/i18n'
+
 export default {
   props: ['uuid'],
+  components: {
+    i18n
+  },
   methods: {
     descriptionInvalid () {
       return this.report.description.length > 300
