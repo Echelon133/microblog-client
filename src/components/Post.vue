@@ -1,23 +1,5 @@
 <template>
   <b-row>
-    <b-col class="delete-button" v-if="isPostOwnedByCurrentlyLoggedUser()"
-      offset-sm="10" sm="1"
-      offset-md="11" md="1">
-      <span v-b-hover="hoverDeleteButton">
-        <b-icon v-if="isDeleteButtonHovered"
-        class="delete-button"
-        icon="file-x-fill"
-        scale="2"
-        @click.prevent="deletePost"
-        ></b-icon>
-        <b-icon v-else
-        class="delete-button"
-        icon="file-x"
-        scale="2"
-        @click.prevent="deletePost"
-        ></b-icon>
-      </span>
-    </b-col>
     <b-col>
       <div class="post my-3 mx-5 pb-2" @click.stop.prevent="goToPost(post.uuid)">
         <b-row class="pt-2">
@@ -31,8 +13,21 @@
             @click.stop.prevent="goToUser(post.author.username)"
             >@{{ post.author.username }}</a>
           </b-col>
-          <b-col sm="3" md="3" lg="3" xl="3">
-            <p class="mt-3 pr-4 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
+          <b-col sm="2" md="2" lg="2" xl="2">
+            <p class="mt-3 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
+          </b-col>
+          <b-col sm="1" md="1" lg="1" xl="1">
+            <b-dropdown class="mt-3" size="sm" variant="link" toggle-class="text-decoration-none" no-caret>
+              <template slot="button-content">
+                <b-icon icon="three-dots" class="post-dropdown"></b-icon>
+              </template>
+              <b-dropdown-item @click.stop.prevent="deletePost" v-if="isPostOwnedByCurrentlyLoggedUser()">
+                <span class="item-color"><b-icon icon="trash-fill"></b-icon>Delete</span>
+              </b-dropdown-item>
+              <b-dropdown-item @click.stop.prevent="reportPost" v-else>
+                <span class="item-color"><b-icon icon="flag-fill"></b-icon>Report</span>
+                </b-dropdown-item>
+            </b-dropdown>
           </b-col>
         </b-row>
         <hr>
@@ -130,7 +125,7 @@
 </template>
 
 <script>
-import { BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconFileX, BIconFileXFill } from 'bootstrap-vue'
+import { BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconTrashFill, BIconFlagFill, BIconThreeDots } from 'bootstrap-vue'
 import PostContent from '@/components/PostContent'
 import i18n from '@/i18n'
 
@@ -138,7 +133,7 @@ export default {
   name: 'Post',
   props: ['post'],
   components: {
-    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconFileX, BIconFileXFill, PostContent, i18n
+    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconTrashFill, BIconFlagFill, BIconThreeDots, PostContent, i18n
   },
   data () {
     return {
@@ -162,14 +157,10 @@ export default {
         showBox: false
       },
       maxContentLength: 300,
-      dateDeltaRefreshTimer: null,
-      isDeleteButtonHovered: false
+      dateDeltaRefreshTimer: null
     }
   },
   methods: {
-    hoverDeleteButton (status) {
-      this.isDeleteButtonHovered = status
-    },
     isPostOwnedByCurrentlyLoggedUser () {
       if (this.$store.state.user == null) {
         return false
@@ -195,6 +186,8 @@ export default {
               })
           })
       }
+    },
+    reportPost () {
     },
     executeIfLoggedIn (func) {
       if (this.$store.getters.userPresent()) {
@@ -482,5 +475,13 @@ export default {
 
 .deleted-post-msg {
   color: #333333;
+}
+
+.post-dropdown {
+  color: white;
+}
+
+.item-color {
+  color: red;
 }
 </style>
