@@ -16,17 +16,18 @@
           <b-col sm="2" md="2" lg="2" xl="2">
             <p class="mt-3 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
           </b-col>
-          <b-col sm="1" md="1" lg="1" xl="1">
+          <b-col sm="1" md="1" lg="1" xl="1" v-if="this.$store.getters.userPresent()">
             <b-dropdown class="mt-3" size="sm" variant="link" toggle-class="text-decoration-none" no-caret>
               <template slot="button-content">
                 <b-icon icon="three-dots" class="post-dropdown"></b-icon>
               </template>
-              <b-dropdown-item @click.stop.prevent="deletePost" v-if="isPostOwnedByCurrentlyLoggedUser()">
+              <b-dropdown-item-button @click.stop.prevent="deletePost" v-if="isPostOwnedByCurrentlyLoggedUser()">
                 <span class="item-color"><b-icon icon="trash-fill"></b-icon>Delete</span>
-              </b-dropdown-item>
-              <b-dropdown-item @click.stop.prevent="reportPost" v-else>
+              </b-dropdown-item-button>
+              <b-dropdown-item-button @click.stop.prevent="reportPost" ref="btnShowReportModal" v-else>
                 <span class="item-color"><b-icon icon="flag-fill"></b-icon>Report</span>
-                </b-dropdown-item>
+                </b-dropdown-item-button>
+                <ReportPost :uuid="post.uuid"/>
             </b-dropdown>
           </b-col>
         </b-row>
@@ -127,13 +128,14 @@
 <script>
 import { BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconTrashFill, BIconFlagFill, BIconThreeDots } from 'bootstrap-vue'
 import PostContent from '@/components/PostContent'
+import ReportPost from '@/components/ReportPost'
 import i18n from '@/i18n'
 
 export default {
   name: 'Post',
   props: ['post'],
   components: {
-    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconTrashFill, BIconFlagFill, BIconThreeDots, PostContent, i18n
+    BIcon, BIconPlusSquare, BIconPlusSquareFill, BIconChatDots, BIconChatQuote, BIconTrashFill, BIconFlagFill, BIconThreeDots, PostContent, ReportPost, i18n
   },
   data () {
     return {
@@ -188,6 +190,7 @@ export default {
       }
     },
     reportPost () {
+      this.$root.$emit('bv::show::modal', 'reportPostModal', '#btnShowReportModal')
     },
     executeIfLoggedIn (func) {
       if (this.$store.getters.userPresent()) {
