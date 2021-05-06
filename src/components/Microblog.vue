@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :user="user"/>
+    <Header :user="this.$store.state.user"/>
     <main>
       <b-container fluid>
         <b-row>
@@ -42,7 +42,6 @@ export default {
   },
   data () {
     return {
-      user: null,
       isBackButtonHovered: false
     }
   },
@@ -53,9 +52,6 @@ export default {
     hoverBackButton (status) {
       this.isBackButtonHovered = status
     }
-  },
-  mounted () {
-    this.user = this.$store.state.user
   }
 }
 </script>
