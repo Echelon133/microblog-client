@@ -20,6 +20,11 @@ axios.interceptors.response.use(undefined, (err) => {
   if (err.response.status === 401) {
     return Promise.reject(err)
   }
+
+  if (err.response.status === 403) {
+    return Promise.reject(err)
+  }
+
   if (err.response.status === 404) {
     return Promise.reject(err)
   }
