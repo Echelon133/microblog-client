@@ -24,10 +24,10 @@
               <b-dropdown-item-button @click.stop.prevent="deletePost" v-if="isPostOwnedByCurrentlyLoggedUser()">
                 <span class="item-color"><b-icon icon="trash-fill"></b-icon>{{ $t('post.delete') }}</span>
               </b-dropdown-item-button>
-              <b-dropdown-item-button @click.stop.prevent="reportPost" ref="btnShowReportModal" v-else>
+              <b-dropdown-item-button @click.stop.prevent="reportPost" v-else>
                 <span class="item-color"><b-icon icon="flag-fill"></b-icon>{{ $t('post.report') }}</span>
                 </b-dropdown-item-button>
-                <ReportPost :uuid="post.uuid"/>
+                <ReportPost :uuid="post.uuid" :showModal="showReportModal"/>
             </b-dropdown>
           </b-col>
         </b-row>
@@ -159,7 +159,8 @@ export default {
         showBox: false
       },
       maxContentLength: 300,
-      dateDeltaRefreshTimer: null
+      dateDeltaRefreshTimer: null,
+      showReportModal: false
     }
   },
   methods: {
@@ -190,7 +191,7 @@ export default {
       }
     },
     reportPost () {
-      this.$root.$emit('bv::show::modal', 'reportPostModal', '#btnShowReportModal')
+      this.$bvModal.show(this.$props.post.uuid)
     },
     executeIfLoggedIn (func) {
       if (this.$store.getters.userPresent()) {

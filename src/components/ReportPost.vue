@@ -1,5 +1,5 @@
 <template>
-  <b-modal :title="$t('reportPost.reportPost')" ref="reportPost" id="reportPostModal" hide-footer>
+  <b-modal :title="$t('reportPost.reportPost')" :id="uuid" hide-footer>
     <form class="report" @submit.prevent="onReport">
       <b-alert show v-if="success" variant="success">{{ $t('reportPost.success') }}</b-alert>
       <b-alert show v-if="failure" variant="danger">{{ $t('reportPost.failure') }}</b-alert>
@@ -52,7 +52,8 @@ export default {
               this.failure = true
             })
           setTimeout(() => {
-            this.$root.$emit('bv::hide::modal', 'reportPostModal', '#btnShowReportModal')
+            let uuid = this.$props.uuid
+            this.$bvModal.hide(uuid)
           }, 2000)
         })
     }
