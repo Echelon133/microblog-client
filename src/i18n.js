@@ -127,6 +127,26 @@ const messages = {
       againstTos: 'Against Terms of Service',
       description: 'Additional details of this report (optional)',
       report: 'Report'
+    },
+    reportsPanel: {
+      reportsPanel: 'Reports panel',
+      showAlreadyModerated: 'Show already moderated',
+      loadMore: 'Load more reports',
+      reportedBy: 'Reported by',
+      postAuthor: 'Post author',
+      postContent: 'Post content',
+      deleted: 'Deleted',
+      reason: 'Reason',
+      description: 'Description',
+      reportChecked: 'Report checked',
+      action: 'Action'
+    },
+    reportsPanelRow: {
+      accept: 'Accept',
+      reject: 'Reject',
+      spam: 'Spam',
+      againstTos: 'Against ToS',
+      abusive: 'Abusive'
     }
   },
   pl: {
@@ -252,6 +272,26 @@ const messages = {
       againstTos: 'Przeciwko regulaminowi strony',
       description: 'Dodatkowe detale zgłoszenia (opcjonalne)',
       report: 'Zgłoś'
+    },
+    reportsPanel: {
+      reportsPanel: 'Panel zgłoszeń',
+      showAlreadyModerated: 'Pokaż już sprawdzone',
+      loadMore: 'Załaduj więcej zgłoszeń',
+      reportedBy: 'Zgłoszone przez',
+      postAuthor: 'Autor posta',
+      postContent: 'Treść posta',
+      deleted: 'Post usunięty',
+      reason: 'Powód zgłoszenia',
+      description: 'Opis',
+      reportChecked: 'Sprawdzone',
+      action: 'Akcja'
+    },
+    reportsPanelRow: {
+      accept: 'Zgłoszenie poprawne',
+      reject: 'Zgłoszenie niepoprawne',
+      spam: 'Spam',
+      againstTos: 'Przeciwko regulaminowi',
+      abusive: 'Obraźliwa treść'
     }
   }
 }
