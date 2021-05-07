@@ -65,7 +65,9 @@ const messages = {
       deleteFailed: 'Failed to delete the post',
       userNotLogged: 'User not logged in',
       responseFailed: 'Failed to send the response',
-      quoteFailed: 'Failed to send the quote'
+      quoteFailed: 'Failed to send the quote',
+      delete: 'Delete',
+      report: 'Report'
     },
     postList: {
       noPosts: 'No posts'
@@ -114,6 +116,37 @@ const messages = {
       quote: 'quoted your post',
       mention: 'mentioned you in a post',
       response: 'responded to your post'
+    },
+    reportPost: {
+      reportPost: 'Report post',
+      success: 'Post reported',
+      failure: 'Failed to report post',
+      reason: 'Report reason',
+      spam: 'Spam',
+      abusive: 'Abusive towards me/others',
+      againstTos: 'Against Terms of Service',
+      description: 'Additional details of this report (optional)',
+      report: 'Report'
+    },
+    reportsPanel: {
+      reportsPanel: 'Reports panel',
+      showAlreadyModerated: 'Show already moderated',
+      loadMore: 'Load more reports',
+      reportedBy: 'Reported by',
+      postAuthor: 'Post author',
+      postContent: 'Post content',
+      deleted: 'Deleted',
+      reason: 'Reason',
+      description: 'Description',
+      reportChecked: 'Report checked',
+      action: 'Action'
+    },
+    reportsPanelRow: {
+      accept: 'Accept',
+      reject: 'Reject',
+      spam: 'Spam',
+      againstTos: 'Against ToS',
+      abusive: 'Abusive'
     }
   },
   pl: {
@@ -177,7 +210,9 @@ const messages = {
       deleteFailed: 'Nie udało się usunąć postu',
       userNotLogged: 'Użytkownik nie jest zalogowany',
       responseFailed: 'Nie można wysłać odpowiedzi',
-      quoteFailed: 'Nie można wysłać cytatu'
+      quoteFailed: 'Nie można wysłać cytatu',
+      delete: 'Usuń',
+      report: 'Zgłoś'
     },
     postList: {
       noPosts: 'Brak postów'
@@ -226,6 +261,37 @@ const messages = {
       quote: 'zacytował Twój post',
       mention: 'wspomniał o Tobie w poście',
       response: 'odpowiedział na Twój post'
+    },
+    reportPost: {
+      reportPost: 'Zgłoś post',
+      success: 'Post zgłoszony',
+      failure: 'Zgłoszenie posta nieudane',
+      reason: 'Powód zgłoszenia',
+      spam: 'Spam',
+      abusive: 'Treść obrażająca mnie/innych',
+      againstTos: 'Przeciwko regulaminowi strony',
+      description: 'Dodatkowe detale zgłoszenia (opcjonalne)',
+      report: 'Zgłoś'
+    },
+    reportsPanel: {
+      reportsPanel: 'Panel zgłoszeń',
+      showAlreadyModerated: 'Pokaż już sprawdzone',
+      loadMore: 'Załaduj więcej zgłoszeń',
+      reportedBy: 'Zgłoszone przez',
+      postAuthor: 'Autor posta',
+      postContent: 'Treść posta',
+      deleted: 'Post usunięty',
+      reason: 'Powód zgłoszenia',
+      description: 'Opis',
+      reportChecked: 'Sprawdzone',
+      action: 'Akcja'
+    },
+    reportsPanelRow: {
+      accept: 'Zgłoszenie poprawne',
+      reject: 'Zgłoszenie niepoprawne',
+      spam: 'Spam',
+      againstTos: 'Przeciwko regulaminowi',
+      abusive: 'Obraźliwa treść'
     }
   }
 }

@@ -10,6 +10,7 @@ import UserSearch from '@/components/UserSearch'
 import PostView from '@/components/PostView'
 import NotFound from '@/components/NotFound'
 import NotificationView from '@/components/NotificationView'
+import ReportsPanel from '@/components/ReportsPanel'
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/reports',
+      name: 'ReportsPanel',
+      component: ReportsPanel
     },
     {
       path: '',
