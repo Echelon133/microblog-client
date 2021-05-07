@@ -16,7 +16,7 @@
               </b-form-checkbox>
               <b-button @click.prevent="loadReports" class="ml-3">{{ $t('reportsPanel.loadMore') }}</b-button>
             </b-form>
-            <b-table-simple responsive hover fixed sticky-header="1200px" class="mt-2">
+            <b-table-simple responsive hover fixed sticky-header="700px" class="mt-2">
               <b-thead>
                 <b-tr>
                   <b-th>{{ $t('reportsPanel.reportedBy') }}</b-th>
