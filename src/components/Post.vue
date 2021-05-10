@@ -3,22 +3,24 @@
     <b-col>
       <div class="post my-3 pb-2" @click.stop.prevent="goToPost(post.uuid)">
         <b-row class="pt-2">
-          <b-col sm="3" md="3" lg="2" xl="2">
-            <div class="p-1">
-              <b-avatar variant="primary" size="3rem" :src="post.author.aviURL" v-if="post.author.aviURL"></b-avatar>
-              <b-avatar variant="primary" size="3rem" src="/static/avi.png" v-else></b-avatar>
-            </div>
+          <b-col sm="8" md="9" lg="10">
+            <b-media>
+              <template #aside>
+                <div class="p-1">
+                  <b-avatar variant="primary" size="3rem" :src="post.author.aviURL" v-if="post.author.aviURL"></b-avatar>
+                  <b-avatar variant="primary" size="3rem" src="/static/avi.png" v-else></b-avatar>
+                </div>
+              </template>
+              <p class="mb-0"> {{ post.author.displayedUsername }} </p>
+              <a class="profile-link"
+              @click.stop.prevent="goToUser(post.author.username)"
+              >@{{ post.author.username }}</a>
+            </b-media>
           </b-col>
-          <b-col sm="5" md="5" lg="7" xl="8" class="user-info">
-            <p class="mb-0"> {{ post.author.displayedUsername }} </p>
-            <a class="profile-link"
-            @click.stop.prevent="goToUser(post.author.username)"
-            >@{{ post.author.username }}</a>
-          </b-col>
-          <b-col sm="2" md="2" lg="1" xl="1">
+          <b-col sm="2" md="1" lg="1">
             <p class="mt-3 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
           </b-col>
-          <b-col sm="2" md="2" lg="2" xl="1" v-if="this.$store.getters.userPresent()">
+          <b-col sm="2" md="2" lg="1" v-if="this.$store.getters.userPresent()">
             <b-dropdown class="mt-3" size="sm" variant="link" toggle-class="text-decoration-none" no-caret>
               <template slot="button-content">
                 <b-icon icon="three-dots" class="post-dropdown"></b-icon>
@@ -36,19 +38,21 @@
         <hr>
         <div v-if="postInfo.quotedPost.post" class="quoted-post my-1 mx-4" @click.stop.prevent="goToPost(postInfo.quotedPost.post.uuid)">
           <b-row class="pt-2">
-            <b-col sm="3" md="3" lg="2" xl="2">
-              <div class="p-1">
-                <b-avatar variant="primary" size="3rem" :src="post.author.aviURL" v-if="post.author.aviURL"></b-avatar>
-                <b-avatar variant="primary" size="3rem" src="/static/avi.png" v-else></b-avatar>
-              </div>
+            <b-col sm="8">
+              <b-media>
+                <template #aside>
+                  <div class="p-1">
+                    <b-avatar variant="primary" size="3rem" :src="postInfo.quotedPost.post.author.aviURL" v-if="postInfo.quotedPost.post.author.aviURL"></b-avatar>
+                    <b-avatar variant="primary" size="3rem" src="/static/avi.png" v-else></b-avatar>
+                  </div>
+                </template>
+                <p class="mb-0"> {{ postInfo.quotedPost.post.author.displayedUsername }} </p>
+                <a class="profile-link"
+                @click.stop.prevent="goToUser(postInfo.quotedPost.post.author.username)"
+                >@{{ postInfo.quotedPost.post.author.username }}</a>
+              </b-media>
             </b-col>
-            <b-col sm="5" md="5" lg="8" xl="8" class="user-info">
-              <p class="mb-0"> {{ postInfo.quotedPost.post.author.displayedUsername }} </p>
-              <a class="profile-link"
-              @click.stop.prevent="goToUser(postInfo.quotedPost.post.author.username)"
-              >@{{ postInfo.quotedPost.post.author.username }}</a>
-            </b-col>
-            <b-col sm="4" md="4" lg="2" xl="2">
+            <b-col sm="4">
               <p class="mt-3 pr-3 date-info" :title="new Date(postInfo.quotedPost.post.date)">{{ postInfo.quotedPost.dateDelta }}</p>
             </b-col>
           </b-row>
