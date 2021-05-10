@@ -2,6 +2,8 @@
   <header>
     <b-navbar toggleable="lg" fixed="top">
       <b-navbar-brand href="/">{{ $t('header.microblog') }}</b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-form class="d-flex me-4 mr-2" @submit.prevent="onSubmit">
             <b-form-input size="sm" v-model="searchedUsername" type="search" :placeholder="$t('header.username')" aria-label="Search"/>
@@ -31,6 +33,7 @@
             <b-dropdown-item @click.prevent="setLang('pl')"><img src="/static/pl.png" class="flag"/> pl</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
+      </b-collapse>
     </b-navbar>
   </header>
 </template>
