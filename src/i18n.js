@@ -26,6 +26,9 @@ const messages = {
       username: 'Username',
       password: 'Password'
     },
+    microblog: {
+      showPopular: 'Show popular'
+    },
     editUserProfile: {
       editProfile: 'Edit profile',
       success: 'Changes saved',
@@ -174,6 +177,9 @@ const messages = {
       email: 'Adres email',
       username: 'Nazwa użytkownika',
       password: 'Hasło'
+    },
+    microblog: {
+      showPopular: 'Pokaż popularne'
     },
     editUserProfile: {
       editProfile: 'Edytuj profil',

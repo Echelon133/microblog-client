@@ -3,11 +3,12 @@
     <Header :user="this.$store.state.user"/>
     <main>
       <b-container fluid>
+        <div>
+          <b-button v-b-toggle.popular variant="primary">{{ $t('microblog.showPopular') }}</b-button>
+          <SidePanel/>
+        </div>
         <b-row>
-          <b-col sm="4" md="3" lg="3" xl="2" offset-xl="1">
-            <SidePanel/>
-          </b-col>
-          <b-col sm="8" md="9" lg="9" xl="9">
+          <b-col offset-sm="1" sm="10">
             <span v-b-hover="hoverBackButton">
               <b-icon v-if="isBackButtonHovered"
               class="back-button"
