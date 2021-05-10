@@ -24,6 +24,11 @@
     </b-row>
     <div class="pt-1">
       <PostList :posts="posts"/>
+      <b-col sm="9" offset-sm="1" class="my-3 px-5" v-if="posts.length > 0">
+        <b-button class="load-more-btn"
+        @click.prevent="loadPosts()"
+        >{{ $t('feed.morePosts') }}</b-button>
+      </b-col>
     </div>
   </div>
 </template>
@@ -51,6 +56,7 @@ export default {
     flipFilter () {
       this.showPopular = !this.showPopular
       Vue.$cookies.set('showPopular', this.showPopular)
+      this.posts = []
       this.loadPosts()
     },
     onNewPost () {
@@ -75,20 +81,23 @@ export default {
     },
     loadPosts () {
       let params = {}
+      let skip = this.posts.length
       if (this.showPopular) {
         params = {
           since: 'DAY',
-          by: 'POPULARITY'
+          by: 'POPULARITY',
+          skip: skip
         }
       } else {
         params = {
-          since: 'DAY'
+          since: 'DAY',
+          skip: skip
         }
       }
 
       this.axios.get('http://localhost:8080/api/feed', {params: params, withCredentials: true})
         .then((response) => {
-          this.posts = response.data
+          this.posts.push(...response.data)
         })
     }
   },
@@ -133,5 +142,11 @@ export default {
 
 .filter-text {
   font-weight: bold;
+}
+
+.load-more-btn {
+  margin-top: 15px;
+  width: 100%;
+  margin: 0;
 }
 </style>

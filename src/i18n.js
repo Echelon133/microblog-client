@@ -41,7 +41,8 @@ const messages = {
       showing: 'Showing',
       mostPopular: 'most popular',
       mostRecent: 'most recent',
-      failure: 'Failed to add a new post'
+      failure: 'Failed to add a new post',
+      morePosts: 'Load more posts'
     },
     header: {
       microblog: 'Microblog',
@@ -188,7 +189,8 @@ const messages = {
       showing: 'Pokazywane',
       mostPopular: 'najpopularniejsze',
       mostRecent: 'najnowsze',
-      failure: 'Dodawanie posta zakończyło się niepowodzeniem'
+      failure: 'Dodawanie posta zakończyło się niepowodzeniem',
+      morePosts: 'Wczytaj więcej postów'
     },
     header: {
       microblog: 'Mikroblog',
