@@ -1,22 +1,24 @@
 <template>
   <b-row>
     <b-col>
-      <div class="post my-3 mx-5 pb-2" @click.stop.prevent="goToPost(post.uuid)">
+      <div class="post my-3 pb-2" @click.stop.prevent="goToPost(post.uuid)">
         <b-row class="pt-2">
-          <b-col sm="5" md="3" lg="2" xl="2">
-            <img :src="post.author.aviURL" class="img-fluid rounded-circle avi" v-if="post.author.aviURL">
-            <img src="/static/avi.png" class="img-fluid rounded-circle avi" v-else/>
+          <b-col sm="3" md="3" lg="2" xl="2">
+            <div class="p-1">
+              <b-avatar variant="primary" size="3rem" :src="post.author.aviURL" v-if="post.author.aviURL"></b-avatar>
+              <b-avatar variant="primary" size="3rem" src="/static/avi.png" v-else></b-avatar>
+            </div>
           </b-col>
-          <b-col sm="4" md="6" lg="7" xl="7" class="user-info">
+          <b-col sm="5" md="5" lg="7" xl="8" class="user-info">
             <p class="mb-0"> {{ post.author.displayedUsername }} </p>
             <a class="profile-link"
             @click.stop.prevent="goToUser(post.author.username)"
             >@{{ post.author.username }}</a>
           </b-col>
-          <b-col sm="2" md="2" lg="2" xl="2">
+          <b-col sm="2" md="2" lg="1" xl="1">
             <p class="mt-3 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
           </b-col>
-          <b-col sm="1" md="1" lg="1" xl="1" v-if="this.$store.getters.userPresent()">
+          <b-col sm="2" md="2" lg="2" xl="1" v-if="this.$store.getters.userPresent()">
             <b-dropdown class="mt-3" size="sm" variant="link" toggle-class="text-decoration-none" no-caret>
               <template slot="button-content">
                 <b-icon icon="three-dots" class="post-dropdown"></b-icon>
@@ -34,17 +36,19 @@
         <hr>
         <div v-if="postInfo.quotedPost.post" class="quoted-post my-1 mx-4" @click.stop.prevent="goToPost(postInfo.quotedPost.post.uuid)">
           <b-row class="pt-2">
-            <b-col sm="4" md="2" lg="1" xl="1">
-              <img :src="postInfo.quotedPost.post.author.aviURL" class="img-fluid rounded-circle avi" v-if="postInfo.quotedPost.post.author.aviURL">
-              <img src="/static/avi.png" class="img-fluid rounded-circle avi" v-else/>
+            <b-col sm="3" md="3" lg="2" xl="2">
+              <div class="p-1">
+                <b-avatar variant="primary" size="3rem" :src="post.author.aviURL" v-if="post.author.aviURL"></b-avatar>
+                <b-avatar variant="primary" size="3rem" src="/static/avi.png" v-else></b-avatar>
+              </div>
             </b-col>
-            <b-col sm="4" md="8" lg="7" xl="7" class="user-info">
+            <b-col sm="5" md="5" lg="8" xl="8" class="user-info">
               <p class="mb-0"> {{ postInfo.quotedPost.post.author.displayedUsername }} </p>
               <a class="profile-link"
               @click.stop.prevent="goToUser(postInfo.quotedPost.post.author.username)"
               >@{{ postInfo.quotedPost.post.author.username }}</a>
             </b-col>
-            <b-col sm="4" md="2" lg="4" xl="4">
+            <b-col sm="4" md="4" lg="2" xl="2">
               <p class="mt-3 pr-3 date-info" :title="new Date(postInfo.quotedPost.post.date)">{{ postInfo.quotedPost.dateDelta }}</p>
             </b-col>
           </b-row>
@@ -58,7 +62,7 @@
           <h3 class="py-5 deleted-post-msg">{{ $t('postView.postDeleted') }}</h3>
         </div>
         <b-row v-if="postInfo.respondsToPost">
-          <b-col lg="12" class="ml-5">
+          <b-col sm="12" class="ml-5">
             <span class="response-info">{{ $t('post.replyingTo') }} </span>
             <a class="profile-link"
             @click.stop.prevent="goToUser(postInfo.respondsToPost.author.username)"
@@ -66,7 +70,7 @@
           </b-col>
         </b-row>
         <b-row v-if="postInfo.respondsToDeletedPost">
-          <b-col lg="12" class="ml-5">
+          <b-col sm="12" class="ml-5">
             <span class="response-info">{{ $t('post.replyingTo') }} </span>
             <a class="profile-link">[{{ $t('post.postRemoved') }}]</a>
           </b-col>
@@ -78,15 +82,15 @@
         </b-row>
         <hr>
         <b-row>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(toggleResponseBox)">
+          <b-col sm="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(toggleResponseBox)">
             <b-icon icon="chat-dots" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.responses }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(toggleQuoteBox)">
+          <b-col sm="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(toggleQuoteBox)">
             <b-icon icon="chat-quote" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.quotes }}</span>
           </b-col>
-          <b-col sm="4" md="4" lg="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(like)">
+          <b-col sm="4" class="text-center post-stats-item" @click.stop.prevent="executeIfLoggedIn(like)">
             <b-icon v-if="postInfo.liked" icon="plus-square-fill" scale="1.5"></b-icon>
             <b-icon v-else icon="plus-square" scale="1.5"></b-icon>
             <span class="stats-number p-2">{{ postInfo.likes }}</span>
@@ -94,13 +98,13 @@
         </b-row>
       </div>
     </b-col>
-    <b-col xl="12" v-if="response.showBox">
+    <b-col sm="12" v-if="response.showBox">
       <div class="response-input my-3 mx-5 pb-2">
         <label for="response-content" class="form-label">{{ $t('post.responseContent') }}: </label>
         <span class="length-counter">{{ response.content.length }}/{{ maxContentLength }}</span>
         <div class="input-group">
           <b-form-textarea v-model="response.content" class="form-control" rows="4"></b-form-textarea>
-          <b-button variant="secondary"
+          <b-button variant="primary"
           :disabled="isResponseLengthInvalid()"
           @click.prevent="onNewResponse"
           >{{ $t('post.respond') }}
@@ -108,13 +112,13 @@
         </div>
       </div>
     </b-col>
-    <b-col xl="12" v-if="quote.showBox">
+    <b-col sm="12" v-if="quote.showBox">
       <div class="quote-input my-3 mx-5 pb-2">
         <label for="quote-content" class="form-label">{{ $t('post.quoteContent') }}: </label>
         <span class="length-counter">{{ quote.content.length }}/{{ maxContentLength }}</span>
         <div class="input-group">
           <b-form-textarea v-model="quote.content" class="form-control" rows="4"></b-form-textarea>
-          <b-button variant="secondary"
+          <b-button variant="primary"
           :disabled="isQuoteLengthInvalid()"
           @click.prevent="onNewQuote"
           >{{ $t('post.quote') }}
@@ -391,26 +395,23 @@ export default {
 
 <style scoped>
 .post {
-  background-color:#555555;
+  background-color:#f7f7f7;
+  border: 1px solid #0275d8;
   border-radius: 15px;
 }
 
 .post:hover {
-  background-color: #646363;
-}
-
-.post-avi {
-  max-width: 70px;
-  padding: 10px;
+  background-color: #f1f1f1;
 }
 
 .quoted-post {
-  background-color: #444444;
+  background-color:#f7f7f7;
+  border: 1px solid #0275d8;
   border-radius: 15px;
 }
 
 .quoted-post:hover {
-  background-color: #535252;
+  background-color: #f1f1f1;
 }
 
 .stats-icon {
@@ -423,6 +424,7 @@ export default {
 
 .post-stats-item {
   margin-bottom: 20px;
+  color: #0275d8;
 }
 
 .post-stats-item:hover {
@@ -431,11 +433,9 @@ export default {
 
 .user-info {
   margin-top: 10px;
-  padding-left: 20px;
 }
 
 .date-info {
-  color: grey;
   float: right;
 }
 
@@ -455,18 +455,11 @@ export default {
 }
 
 .response-info {
-    font-style: italic;
+  font-style: italic;
 }
 
 .length-counter {
   float: right;
-}
-
-.avi {
-  width: 60px;
-  height: 60px;
-  margin-left: 10px;
-  margin-top: 10px;
 }
 
 .delete-button {
@@ -482,7 +475,7 @@ export default {
 }
 
 .post-dropdown {
-  color: white;
+  color: black;
 }
 
 .item-color {
