@@ -74,7 +74,8 @@ const messages = {
       noPosts: 'No posts'
     },
     postView: {
-      postDeleted: 'Deleted post'
+      postDeleted: 'Deleted post',
+      moreResponses: 'Load more responses'
     },
     sidePanel: {
       popularTags: 'Popular tags',
@@ -222,7 +223,8 @@ const messages = {
       noPosts: 'Brak postów'
     },
     postView: {
-      postDeleted: 'Post usunięty'
+      postDeleted: 'Post usunięty',
+      moreResponses: 'Wczytaj więcej odpowiedzi'
     },
     sidePanel: {
       popularTags: 'Popularne',

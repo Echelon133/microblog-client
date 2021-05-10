@@ -17,6 +17,11 @@
         </div>
         <div class="pt-0 mx-5">
           <Post v-for="response in responses" :key="response.uuid" :post="response"/>
+          <b-col sm="10" offset-sm="1" v-if="responses.length > 0">
+            <b-button class="load-more-btn"
+            @click.prevent="loadResponses()"
+            >{{ $t('postView.moreResponses') }}</b-button>
+          </b-col>
         </div>
       </b-col>
     </b-row>
@@ -65,9 +70,14 @@ export default {
     },
     loadResponses () {
       let postUuid = this.$route.params.uuid
-      this.axios.get('http://localhost:8080/api/posts/' + postUuid + '/responses').then((response) => {
-        this.responses = response.data
-      })
+      let skip = this.responses.length
+      let params = {
+        skip: skip
+      }
+      this.axios.get('http://localhost:8080/api/posts/' + postUuid + '/responses', {params: params})
+        .then((response) => {
+          this.responses.push(...response.data)
+        })
     },
     init () {
       this.loadPost()
@@ -116,5 +126,11 @@ export default {
 
 .deleted-post-msg {
   color: #333333;
+}
+
+.load-more-btn {
+  margin-top: 15px;
+  width: 100%;
+  margin: 0;
 }
 </style>
