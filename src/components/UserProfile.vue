@@ -38,7 +38,7 @@
         <hr v-show="user.user.description">
         <b-row>
           <b-col sm="6" class="text-center counter">
-            <b-modal body-class="modal-height" title="Lista obserwowanych" ref="following" hide-footer>
+            <b-modal body-class="modal-height" :title="$t('userProfile.followingModal')" ref="following" hide-footer>
               <b-container fluid class="scrollable-modal">
                 <UserProfileResultSmall v-for="user in following" :key="user.uuid" :user="user"/>
                 <b-button class="load-more-btn"
@@ -52,7 +52,7 @@
             >{{ $t('userProfile.following') }}: {{ user.following }}</p>
           </b-col>
           <b-col sm="6" class="text-center counter">
-            <b-modal body-class="modal-height" title="Lista obserwujących" ref="followedBy" hide-footer>
+            <b-modal body-class="modal-height" :title="$t('userProfile.followedByModal')" ref="followedBy" hide-footer>
               <b-container fluid class="scrollable-modal">
                 <UserProfileResultSmall v-for="user in followedBy" :key="user.uuid" :user="user"/>
                 <b-button class="load-more-btn"

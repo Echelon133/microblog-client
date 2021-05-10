@@ -95,7 +95,9 @@ const messages = {
       loadMorePosts: 'Load more posts',
       userNotLogged: 'User not logged in',
       failedToCancelFollow: 'Failed to cancel the follow',
-      failedToFollow: 'Failed to follow'
+      failedToFollow: 'Failed to follow',
+      followedByModal: 'Users who follow me',
+      followingModal: 'Users followed by me'
     },
     notificationDropdown: {
       markAll: 'Mark all as',
@@ -240,7 +242,9 @@ const messages = {
       loadMorePosts: 'Wczytaj więcej postów',
       userNotLogged: 'Użytkownik nie jest zalogwany',
       failedToCancelFollow: 'Nie udało się anulować obserwowania',
-      failedToFollow: 'Nie udało się obserwować użytkownika'
+      failedToFollow: 'Nie udało się obserwować użytkownika',
+      followedByModal: 'Lista obserwujących',
+      followingModal: 'Lista obserwowanych'
     },
     notificationDropdown: {
       markAll: 'Oznacz wszystkie jako',
