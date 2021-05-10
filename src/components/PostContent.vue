@@ -106,7 +106,7 @@ export default {
 <style scoped>
 /deep/ .clickable {
   cursor: pointer;
-  color: #bbbbbb;
+  color: #0275d8;
 }
 
 .post-content-text {
