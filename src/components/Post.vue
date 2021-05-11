@@ -6,12 +6,12 @@
           <b-col sm="8" md="9" lg="10">
             <b-media>
               <template #aside>
-                <div class="p-1">
-                  <b-avatar variant="primary" size="3rem" :src="post.author.aviURL" v-if="post.author.aviURL"></b-avatar>
-                  <b-avatar variant="primary" size="3rem" src="/static/avi.png" v-else></b-avatar>
+                <div class="pl-4 pt-2">
+                  <b-avatar variant="primary" size="4rem" :src="post.author.aviURL" v-if="post.author.aviURL"></b-avatar>
+                  <b-avatar variant="primary" size="4rem" src="/static/avi.png" v-else></b-avatar>
                 </div>
               </template>
-              <p class="mb-0"> {{ post.author.displayedUsername }} </p>
+              <p class="mb-0 pt-2"> {{ post.author.displayedUsername }} </p>
               <a class="profile-link"
               @click.stop.prevent="goToUser(post.author.username)"
               >@{{ post.author.username }}</a>
