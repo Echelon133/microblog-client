@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver v-slot="{ invalid }">
     <form class="signin" @submit.prevent="onSubmit">
-      <h1 class="h3 mb-3 fw-normal">{{ $t("login.login") }}</h1>
+      <h1 class="h3 mb-3 fw-normal text-center">{{ $t("login.login") }}</h1>
       <b-alert show v-if="success" variant="success">{{ $t('login.success') }}</b-alert>
       <b-alert show v-if="failure" variant="danger">{{ $t('login.failure') }}</b-alert>
       <ValidationProvider name="username" rules="required" v-slot="{ errors }">
@@ -19,7 +19,7 @@
           type="password" id="inputPassword" class="form-control  mt-2" :placeholder="$t('login.password')">
       </ValidationProvider>
       <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="invalid">{{ $t('login.login') }}</button>
-      <p class="mt-5 mb-3 text-muted">© 2021</p>
+      <p class="mt-5 mb-3 text-muted text-center">© 2021</p>
     </form>
   </ValidationObserver>
 </template>
