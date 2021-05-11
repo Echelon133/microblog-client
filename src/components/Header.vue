@@ -12,22 +12,18 @@
             </b-button>
           </b-nav-form>
           <NotificationDropdown/>
-          <span v-if="user">
-            <b-button-group size="sm">
-              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" @click.prevent="goToUserProfile">
-                @{{ user.username }}
-                <img :src="user.aviURL" class="avi" v-if="user.aviURL">
-                <img src="/static/avi.png" class="avi" v-else/>
-                </b-button>
-              <b-button @click.prevent="logout" variant="outline-primary" size="sm" class="my-2 my-sm-0">{{ $t('header.logout') }}</b-button>
-            </b-button-group>
-          </span>
-          <span v-else>
-            <b-button-group size="sm">
-              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" to="/login">{{ $t('header.login') }}</b-button>
-              <b-button variant="outline-primary" size="sm" class="my-2 my-sm-0" to="/register">{{ $t('header.register') }}</b-button>
-            </b-button-group>
-          </span>
+          <b-button-group size="sm" class="my-1" v-if="user">
+            <b-button variant="outline-primary" @click.prevent="goToUserProfile">
+              @{{ user.username }}
+              <img :src="user.aviURL" class="avi" v-if="user.aviURL">
+              <img src="/static/avi.png" class="avi" v-else/>
+              </b-button>
+            <b-button @click.prevent="logout" variant="outline-primary">{{ $t('header.logout') }}</b-button>
+          </b-button-group>
+          <b-button-group size="sm" class="my-1" v-else>
+            <b-button variant="outline-primary" to="/login">{{ $t('header.login') }}</b-button>
+            <b-button variant="outline-primary" to="/register">{{ $t('header.register') }}</b-button>
+          </b-button-group>
           <b-nav-item-dropdown toggle-class="nav-link-custom" right>
             <b-dropdown-item @click.prevent="setLang('en')"><img src="/static/en.png" class="flag"/> en</b-dropdown-item>
             <b-dropdown-item @click.prevent="setLang('pl')"><img src="/static/pl.png" class="flag"/> pl</b-dropdown-item>
