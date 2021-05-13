@@ -14,7 +14,7 @@
               <b-form-checkbox @change="reloadReports" v-model="checked" name="check-button" switch>
                 <b>{{ $t('reportsPanel.showAlreadyModerated') }}</b>
               </b-form-checkbox>
-              <b-button @click.prevent="loadReports" class="ml-3">{{ $t('reportsPanel.loadMore') }}</b-button>
+              <b-button variant="primary" @click.prevent="loadReports" class="ml-3">{{ $t('reportsPanel.loadMore') }}</b-button>
             </b-form>
             <b-table-simple responsive hover fixed sticky-header="700px" class="mt-2">
               <b-thead>
@@ -87,11 +87,13 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 main {
   margin-top: 55px;
-  background-color:#303030;
+  background-color:#f7f7f7;
   font-family: 'Roboto', sans-serif;
-  color: white;
+  color: black;
   min-height: calc(100vh - 55px); /* full vh - margin-top of this block */
 }
 
