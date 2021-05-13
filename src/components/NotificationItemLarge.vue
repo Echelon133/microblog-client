@@ -1,6 +1,6 @@
 <template>
-  <b-row class="text-center mt-2">
-    <b-col offset-sm="3" sm="6" class="notification-item py-1"
+  <b-row class="mt-2">
+    <b-col offset-sm="1" sm="10" class="notification-item py-2"
     @click.prevent="readNotification()"
     :class="{read: this.$props.notification.read}">
       <a class="clickable-username" @click.prevent.stop="goToUser()">@{{ this.$props.notification.notifiedBy }}</a>
@@ -56,10 +56,14 @@ export default {
 
 .notification-item {
   min-height: 50px;
-  color: white;
-  background-color: #555555;
+  background-color: #f7f7f7;
   font-size: 25px;
   cursor: pointer;
+  border: 1px solid #0275d8;
   border-radius: 15px;
+}
+
+.notification-item:hover {
+  background-color: #f1f1f1;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="pt-5 scrollable">
     <b-row>
-      <b-col sm="9" offset-sm="1" class="tag-box">
+      <b-col sm="10" offset-sm="1" class="tag-box">
         <b-row>
           <b-col sm="12">
             <h1 class="notifications-text">{{ $t("notificationView.allNotifications") }}</h1>
@@ -18,8 +18,9 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col sm="9" offset-sm="1" class="pt-2 pb-5">
+      <b-col sm="10" offset-sm="1" class="pt-2 pb-5">
         <b-button class="load-more-btn"
+        variant="primary"
         @click.prevent="loadNotifications()"
         >{{ $t("notificationView.moreNotifications") }}</b-button>
       </b-col>
@@ -72,7 +73,8 @@ export default {
 }
 
 .tag-box {
-  background-color:#555555;
+  background-color:#f7f7f7;
+  border: 1px solid #0275d8;
   border-radius: 15px;
 }
 
