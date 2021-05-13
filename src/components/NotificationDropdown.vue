@@ -2,13 +2,16 @@
   <b-nav-item-dropdown
   v-if="this.$store.getters.userPresent()"
   :no-caret='true'
+  class="mr-3 bell-box"
   toggle-class="nav-link-custom" right>
     <template slot="button-content">
-      <b-icon icon="bell-fill"></b-icon>
-      <b-badge
-      v-if="this.unreadCounter !== 0"
-      variant="danger"
-      >{{ this.unreadCounter }}</b-badge>
+      <div class="mb-0">
+        <b-icon class="bell" icon="bell-fill"></b-icon>
+        <b-badge class="bell-badge"
+        v-if="this.unreadCounter !== 0"
+        variant="danger"
+        >{{ this.unreadCounter }}</b-badge>
+      </div>
     </template>
     <NotificationItem v-for="n in notifications" :key="n.uuid" :notification="n"/>
     <b-dropdown-divider></b-dropdown-divider>
@@ -63,3 +66,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.bell {
+  position: relative;
+}
+
+.bell-badge {
+  position: absolute;
+  top: 0px;
+  left: 15px;
+}
+
+.bell-box {
+  min-width: 35px;
+}
+</style>
