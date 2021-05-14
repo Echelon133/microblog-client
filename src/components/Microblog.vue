@@ -3,11 +3,12 @@
     <Header :user="this.$store.state.user"/>
     <main>
       <b-container fluid>
+        <div>
+          <b-button v-b-toggle.popular variant="primary">{{ $t('microblog.showPopular') }}</b-button>
+          <SidePanel/>
+        </div>
         <b-row>
-          <b-col sm="4" md="3" lg="3" xl="2" offset-xl="1">
-            <SidePanel/>
-          </b-col>
-          <b-col sm="8" md="9" lg="9" xl="9">
+          <b-col offset-sm="1" sm="10" md="8" offset-md="2">
             <span v-b-hover="hoverBackButton">
               <b-icon v-if="isBackButtonHovered"
               class="back-button"
@@ -61,9 +62,9 @@ export default {
 
 main {
   margin-top: 55px;
-  background-color:#303030;
+  background-color:#f7f7f7;
   font-family: 'Roboto', sans-serif;
-  color: white;
+  color: black;
   min-height: calc(100vh - 55px); /* full vh - margin-top of this block */
 }
 
@@ -71,5 +72,6 @@ main {
   cursor: pointer;
   margin-top: 45px;
   margin-left: 15px;
+  color: #0275d8;
 }
 </style>

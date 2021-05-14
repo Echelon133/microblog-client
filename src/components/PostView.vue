@@ -1,7 +1,7 @@
 <template>
   <div class="pt-5 scrollable">
     <b-row>
-      <b-col xl="9" offset-xl="1">
+      <b-col sm="12" md="10" offset-md="1">
         <div class="pt-0 mx-5">
           <Post v-if="parent" :post="parent" :key="parent.uuid"/>
           <b-row v-if="parentDeleted">
@@ -17,9 +17,10 @@
         </div>
         <div class="pt-0 mx-5">
           <Post v-for="response in responses" :key="response.uuid" :post="response"/>
-          <b-col sm="10" offset-sm="1" v-if="responses.length > 0">
+          <b-col sm="12" v-if="responses.length > 0">
             <b-button class="load-more-btn"
             @click.prevent="loadResponses()"
+            variant="primary"
             >{{ $t('postView.moreResponses') }}</b-button>
           </b-col>
         </div>

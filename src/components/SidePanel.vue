@@ -1,22 +1,18 @@
 <template>
-  <div class="pt-5">
-    <b-card class="tag-list mt-5">
-      <b-card-title class="text-center">{{ $t('sidePanel.popularTags') }}
-        <b-dropdown size="sm" id="tag-time-filter" :text="$t('sidePanel.filter')" class="m-2">
-          <b-dropdown-item @click.prevent="timeFilter('hour')">{{ $t('sidePanel.lastHour') }}</b-dropdown-item>
-          <b-dropdown-item @click.prevent="timeFilter('day')">{{ $t('sidePanel.lastDay') }}</b-dropdown-item>
-          <b-dropdown-item @click.prevent="timeFilter('week')">{{ $t('sidePanel.lastWeek') }}</b-dropdown-item>
-        </b-dropdown>
-      </b-card-title>
-      <b-list-group flush>
-        <b-list-group-item
-        class="tag-item text-center"
-        v-for="tag in tags" :key="tag.uuid"
-        @click.prevent="goToTag(tag.name)"
-        >#{{ tag.name }}</b-list-group-item>
-      </b-list-group>
-    </b-card>
-  </div>
+  <b-sidebar id="popular" :title="$t('sidePanel.popularTags')" shadow>
+    <b-dropdown size="sm" id="tag-time-filter" :text="$t('sidePanel.filter')" class="m-2" variant="primary">
+      <b-dropdown-item @click.prevent="timeFilter('hour')">{{ $t('sidePanel.lastHour') }}</b-dropdown-item>
+      <b-dropdown-item @click.prevent="timeFilter('day')">{{ $t('sidePanel.lastDay') }}</b-dropdown-item>
+      <b-dropdown-item @click.prevent="timeFilter('week')">{{ $t('sidePanel.lastWeek') }}</b-dropdown-item>
+    </b-dropdown>
+    <b-list-group flush>
+      <b-list-group-item
+      class="tag-item text-center"
+      v-for="tag in tags" :key="tag.uuid"
+      @click.prevent="goToTag(tag.name)"
+      >#{{ tag.name }}</b-list-group-item>
+    </b-list-group>
+  </b-sidebar>
 </template>
 
 <script>
@@ -56,21 +52,16 @@ export default {
 </script>
 
 <style scoped>
-.tag-list {
-  background-color:#555555;
-  border-radius: 15px;
-}
-
 .tag-item {
-  background-color: #696464;
   border-radius: 5px;
   font-size: 25px;
   cursor: pointer;
 }
 
 .tag-item:hover {
-  background-color:#555555;
-  border: 1px solid #696464;
+  background-color:white;
+  border: 1px solid #0275d8;
+  color: #0275d8;
   text-decoration: underline;
 }
 </style>

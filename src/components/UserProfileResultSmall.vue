@@ -1,12 +1,14 @@
 <template>
-  <b-row class="pt-2 pb-2 result-box">
+  <b-row class="py-1 result-box">
     <b-col sm="12" class="profile-box">
       <b-row>
-        <b-col sm="3" md="3" lg="3" xl="3">
-          <img :src="user.aviURL" class="avi img-fluid rounded-circle avi-pos" v-if="user.aviURL">
-          <img src="/static/avi.png" class="avi img-fluid rounded-circle avi-pos" v-else/>
+        <b-col sm="3">
+          <div class="pl-2 pt-3">
+            <b-avatar variant="primary" size="4rem" :src="user.aviURL" v-if="user.aviURL"></b-avatar>
+            <b-avatar variant="primary" size="4rem" src="/static/avi.png" v-else></b-avatar>
+          </div>
         </b-col>
-        <b-col sm="9" md="9" lg="9" xl="9" class="profile-usernames-box">
+        <b-col sm="9" class="profile-usernames-box">
           <p class="displayed-username">{{ user.displayedUsername }}</p>
           <p class="username profile-link"
           @click.stop.prevent="goToUser(user.username)"
@@ -93,7 +95,8 @@ export default {
 }
 
 .profile-box {
-  background-color:#555555;
+  background-color:#f7f7f7;
+  border: 1px solid #0275d8;
   border-radius: 15px;
 }
 
@@ -105,7 +108,6 @@ export default {
 .displayed-username {
   font-size: 35px;
   margin-bottom: 0px;
-  color: white;
 }
 
 .username {
@@ -133,11 +135,12 @@ export default {
 
 .follow-text {
   font-size: 20px;
+  color: black;
 }
 
 .followed {
   border: 2px solid white;
-  background-color:#303030;
+  background-color:#0275d8;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }

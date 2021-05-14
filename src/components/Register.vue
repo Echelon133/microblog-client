@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver v-slot="{ invalid }">
     <form class="register" @submit.prevent="onSubmit">
-      <h1 class="h3 mb-3 fw-normal">{{ $t('register.register') }}</h1>
+      <h1 class="h3 mb-3 fw-normal text-center">{{ $t('register.register') }}</h1>
       <b-alert show v-if="success" variant="success">{{ successMsg }}</b-alert>
       <b-alert show v-if="failure" variant="danger">{{ failureMsg }}</b-alert>
       <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
@@ -37,7 +37,7 @@
           type="password" id="password2" class="form-control" :placeholder="$t('register.password')">
       </ValidationProvider>
       <button class="w-100 btn btn-lg btn-primary mt-5" type="submit" :disabled="invalid">{{ $t('register.register') }}</button>
-      <p class="mt-5 mb-3 text-muted">© 2021</p>
+      <p class="mt-5 mb-3 text-muted text-center">© 2021</p>
     </form>
   </ValidationObserver>
 </template>

@@ -1,23 +1,23 @@
 <template>
   <div class="pt-5 scrollable">
     <b-row>
-      <b-col sm="9" offset-sm="1" class="profile-box">
+      <b-col sm="10" offset-sm="1" class="profile-box px-5">
         <b-row>
           <b-col sm="10">
             <img :src="user.user.aviURL" class="avi img-fluid rounded-circle p-4" v-if="user.user.aviURL">
             <img src="/static/avi.png" class="avi img-fluid rounded-circle p-4" v-else/>
           </b-col>
           <b-col sm="2" class="pt-5" v-if="isLoggedUserProfile()">
-            <b-button
+            <b-button variant="primary"
             @click.prevent="showEditProfileModal()" ref="btnShowEditProfile">{{ $t('userProfile.editProfile') }}</b-button>
             <EditUserProfile/>
           </b-col>
           <b-col sm="2" class="pt-5" v-else>
-            <b-button v-if="user.followed"
+            <b-button v-if="user.followed" variant="primary"
             @click.prevent="executeIfLoggedIn(followUser)"
             >{{ $t('userProfile.unfollow') }}
             </b-button>
-            <b-button v-else
+            <b-button v-else variant="primary"
             @click.prevent="executeIfLoggedIn(followUser)"
             >{{ $t('userProfile.follow') }}
             </b-button>
@@ -41,7 +41,7 @@
             <b-modal body-class="modal-height" :title="$t('userProfile.followingModal')" ref="following" hide-footer>
               <b-container fluid class="scrollable-modal">
                 <UserProfileResultSmall v-for="user in following" :key="user.uuid" :user="user"/>
-                <b-button class="load-more-btn"
+                <b-button class="load-more-btn" variant="primary"
                 @click.prevent="loadMoreFollowing()"
                 >{{ $t('userProfile.loadMore') }}</b-button>
               </b-container>
@@ -55,7 +55,7 @@
             <b-modal body-class="modal-height" :title="$t('userProfile.followedByModal')" ref="followedBy" hide-footer>
               <b-container fluid class="scrollable-modal">
                 <UserProfileResultSmall v-for="user in followedBy" :key="user.uuid" :user="user"/>
-                <b-button class="load-more-btn"
+                <b-button class="load-more-btn" variant="primary"
                 @click.prevent="loadMoreFollowedBy()"
                 >{{ $t('userProfile.loadMore') }}</b-button>
               </b-container>
@@ -69,13 +69,13 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col sm="12" md="12" lg="12" xl="12">
+      <b-col sm="12">
         <PostList :posts="posts"/>
       </b-col>
     </b-row>
     <b-row>
-      <b-col sm="9" offset-sm="1" class="my-3 px-5">
-        <b-button class="load-more-btn"
+      <b-col sm="10" offset-sm="1" class="my-3 px-5">
+        <b-button class="load-more-btn" variant="primary"
         @click.prevent="loadMoreUserPosts()"
         >{{ $t('userProfile.loadMorePosts') }}</b-button>
       </b-col>
@@ -262,7 +262,8 @@ export default {
 }
 
 .profile-box {
-  background-color:#555555;
+  background-color:#f7f7f7;
+  border: 1px solid #0275d8;
   border-radius: 15px;
 }
 

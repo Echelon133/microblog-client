@@ -1,13 +1,13 @@
 <template>
   <div class="pt-3 scrollable">
     <b-row v-if="this.$store.getters.userPresent()">
-      <b-col xl="9" offset-xl="1">
+      <b-col sm="12">
         <div class="new-post-input">
           <label for="post-content" class="form-label">{{ $t('feed.postContent') }} </label>
           <span class="length-counter">{{ newPostContent.length }}/{{ maxPostLength }}</span>
           <div class="input-group">
             <b-form-textarea v-model="newPostContent" class="form-control" id="post-content" rows="4"></b-form-textarea>
-            <b-button variant="secondary"
+            <b-button variant="primary"
             :disabled="isPostLengthInvalid()"
             @click.prevent="onNewPost"
             >{{ $t('feed.send') }}
@@ -24,9 +24,10 @@
     </b-row>
     <div class="pt-1">
       <PostList :posts="posts"/>
-      <b-col sm="9" offset-sm="1" class="my-3 px-5" v-if="posts.length > 0">
+      <b-col sm="12" class="my-3 px-5" v-if="posts.length > 0">
         <b-button class="load-more-btn"
         @click.prevent="loadPosts()"
+        variant="primary"
         >{{ $t('feed.morePosts') }}</b-button>
       </b-col>
     </div>

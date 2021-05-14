@@ -1,20 +1,24 @@
 <template>
-  <b-row class="pt-5">
-    <b-col sm="9" offset-sm="1" class="profile-box">
+  <b-row class="mt-5">
+    <b-col sm="8" offset-sm="2" class="profile-box">
       <b-row>
-        <b-col sm="12" md="12" lg="3" xl="2">
-          <img :src="user.aviURL" class="avi img-fluid rounded-circle avi-pos" v-if="user.aviURL">
-          <img src="/static/avi.png" class="avi img-fluid rounded-circle avi-pos" v-else/>
-        </b-col>
-        <b-col sm="12" md="12" lg="9" xl="10" class="profile-usernames-box">
-          <p class="displayed-username">{{ user.displayedUsername }}</p>
-          <p class="username profile-link"
-          @click.stop.prevent="goToUser(user.username)"
-          >@{{ user.username }}</p>
+        <b-col sm="12">
+          <b-media class="pl-3 pt-3">
+            <template #aside>
+              <div class="p-2">
+                <b-avatar variant="primary" size="6rem" :src="user.aviURL" v-if="user.aviURL"></b-avatar>
+                <b-avatar variant="primary" size="6rem" src="/static/avi.png" v-else></b-avatar>
+              </div>
+            </template>
+            <p class="displayed-username">{{ user.displayedUsername }}</p>
+            <p class="username profile-link"
+            @click.stop.prevent="goToUser(user.username)"
+            >@{{ user.username }}</p>
+          </b-media>
         </b-col>
       </b-row>
-      <hr>
-      <b-row>
+      <hr v-if="user.description">
+      <b-row v-if="user.description">
         <b-col sm="12" class="user-description-box">
           <p>{{ user.description }}</p>
         </b-col>
@@ -94,7 +98,8 @@ export default {
 
 <style scoped>
 .profile-box {
-  background-color:#555555;
+  background-color:#f7f7f7;
+  border: 1px solid #0275d8;
   border-radius: 15px;
 }
 
@@ -136,7 +141,7 @@ export default {
 
 .followed {
   border: 2px solid white;
-  background-color:#303030;
+  background-color:#0275d8;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
