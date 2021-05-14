@@ -61,8 +61,10 @@ export default {
     }
   },
   mounted () {
-    this.loadUnreadCounter()
-    this.loadNotifications()
+    if (this.$store.getters.userPresent()) {
+      this.loadUnreadCounter()
+      this.loadNotifications()
+    }
   }
 }
 </script>
