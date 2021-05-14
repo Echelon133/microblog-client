@@ -3,10 +3,10 @@
     <b-col>
       <div class="post my-3 pb-2" @click.stop.prevent="goToPost(post.uuid)">
         <b-row class="pt-2">
-          <b-col sm="8" md="9" lg="10">
+          <b-col sm="9">
             <b-media>
               <template #aside>
-                <div class="pl-4 pt-2">
+                <div class="ml-4 pt-2">
                   <b-avatar variant="primary" size="4rem" :src="post.author.aviURL" v-if="post.author.aviURL"></b-avatar>
                   <b-avatar variant="primary" size="4rem" src="/static/avi.png" v-else></b-avatar>
                 </div>
@@ -17,11 +17,11 @@
               >@{{ post.author.username }}</a>
             </b-media>
           </b-col>
-          <b-col sm="2" md="1" lg="1">
+          <b-col sm="2">
             <p class="mt-3 date-info" :title="new Date(post.date)">{{ this.postInfo.dateDelta }}</p>
           </b-col>
-          <b-col sm="2" md="2" lg="1" v-if="this.$store.getters.userPresent()">
-            <b-dropdown class="mt-3" size="sm" variant="link" toggle-class="text-decoration-none" no-caret>
+          <b-col sm="1" v-if="this.$store.getters.userPresent()">
+            <b-dropdown class="mt-3 post-options mr-1" size="sm" variant="link" toggle-class="text-decoration-none" no-caret>
               <template slot="button-content">
                 <b-icon icon="three-dots" class="post-dropdown"></b-icon>
               </template>
@@ -445,6 +445,14 @@ export default {
 
 .date-info:hover {
   text-decoration: underline;
+}
+
+.post-options {
+  float: right;
+}
+
+.post-options:hover {
+  color: red;
 }
 
 .profile-link {
