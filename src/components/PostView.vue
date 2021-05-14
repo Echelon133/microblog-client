@@ -98,6 +98,7 @@ export default {
       // that is not refreshed and the displayed structure of posts might
       // be inaccurate in some cases
       this.parent = null
+      this.responses = []
       this.init()
     }
   }
