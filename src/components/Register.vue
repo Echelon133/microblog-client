@@ -47,45 +47,6 @@ import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import { required, email } from 'vee-validate/dist/rules'
 import i18n from '@/i18n'
 
-extend('required', {
-  ...required,
-  message: i18n.t('register.required')
-})
-
-extend('email', {
-  ...email,
-  message: i18n.t('register.emailInvalid')
-})
-
-extend('usernameCorrect', {
-  validate (value) {
-    // only allow usernames with alphanumeric characters
-    // length between 1-30
-    var usernameRegex = /^([A-Za-z0-9]{1,30})$/
-    var matchedUsername = value.match(usernameRegex)
-    return matchedUsername && (value === matchedUsername[0])
-  },
-  message: i18n.t('register.usernameRequirements')
-})
-
-extend('passwordsMatch', {
-  params: ['target'],
-  validate (value, { target }) {
-    return value === target
-  },
-  message: i18n.t('register.passwordsMatch')
-})
-
-extend('passwordCorrect', {
-  validate (value) {
-    // accept alphanumeric and special characters
-    // length between 8-64
-    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/
-    return passwordRegex.test(value) && (value.length >= 8 && value.length <= 64)
-  },
-  message: i18n.t('register.passwordRequirements')
-})
-
 export default {
   components: {
     ValidationProvider, ValidationObserver, i18n
@@ -141,6 +102,46 @@ export default {
       this.registerForm.password = ''
       this.registerForm.password2 = ''
     }
+  },
+  mounted () {
+    extend('required', {
+      ...required,
+      message: i18n.t('register.required')
+    })
+
+    extend('email', {
+      ...email,
+      message: i18n.t('register.emailInvalid')
+    })
+
+    extend('usernameCorrect', {
+      validate (value) {
+        // only allow usernames with alphanumeric characters
+        // length between 1-30
+        var usernameRegex = /^([A-Za-z0-9]{1,30})$/
+        var matchedUsername = value.match(usernameRegex)
+        return matchedUsername && (value === matchedUsername[0])
+      },
+      message: i18n.t('register.usernameRequirements')
+    })
+
+    extend('passwordsMatch', {
+      params: ['target'],
+      validate (value, { target }) {
+        return value === target
+      },
+      message: i18n.t('register.passwordsMatch')
+    })
+
+    extend('passwordCorrect', {
+      validate (value) {
+        // accept alphanumeric and special characters
+        // length between 8-64
+        var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/
+        return passwordRegex.test(value) && (value.length >= 8 && value.length <= 64)
+      },
+      message: i18n.t('register.passwordRequirements')
+    })
   }
 }
 </script>
