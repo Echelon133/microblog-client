@@ -47,6 +47,21 @@ import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import { required, email } from 'vee-validate/dist/rules'
 import i18n from '@/i18n'
 
+// this extend has to be outside of mounted() method
+// otherwise 'target' is always undefined and validation does not work
+extend('passwordsMatch', {
+  params: ['target'],
+  validate (value, { target }) {
+    // because this extend clause must be outside of mounted()
+    // the message might be loaded before the language change
+    // and this might cause a bug in which this error message is in an incorrect language
+    // a quick fix is to reload that message here
+    this.message = i18n.t('register.passwordsMatch')
+    return value === target
+  },
+  message: i18n.t('register.passwordsMatch')
+})
+
 export default {
   components: {
     ValidationProvider, ValidationObserver, i18n
@@ -123,14 +138,6 @@ export default {
         return matchedUsername && (value === matchedUsername[0])
       },
       message: i18n.t('register.usernameRequirements')
-    })
-
-    extend('passwordsMatch', {
-      params: ['target'],
-      validate (value, { target }) {
-        return value === target
-      },
-      message: i18n.t('register.passwordsMatch')
     })
 
     extend('passwordCorrect', {
