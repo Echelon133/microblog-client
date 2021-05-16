@@ -103,7 +103,7 @@ const messages = {
       failedToFollow: 'Failed to follow',
       followedByModal: 'Users who follow me',
       followingModal: 'Users followed by me',
-      commonModal: 'Followers I know'
+      knownModal: 'Followers I know'
     },
     notificationDropdown: {
       markAll: 'Mark all as',
@@ -156,7 +156,7 @@ const messages = {
       againstTos: 'Against ToS',
       abusive: 'Abusive'
     },
-    commonFollows: {
+    knownFollowers: {
       followedBy: 'Followed by',
       and: 'and',
       andMore: 'and more'
@@ -261,7 +261,7 @@ const messages = {
       failedToFollow: 'Nie udało się obserwować użytkownika',
       followedByModal: 'Lista obserwujących',
       followingModal: 'Lista obserwowanych',
-      commonModal: 'Obserwujący których znam'
+      knownModal: 'Obserwujący których znam'
     },
     notificationDropdown: {
       markAll: 'Oznacz wszystkie jako',
@@ -314,7 +314,7 @@ const messages = {
       againstTos: 'Przeciwko regulaminowi',
       abusive: 'Obraźliwa treść'
     },
-    commonFollows: {
+    knownFollowers: {
       followedBy: 'Obserwowany przez',
       and: 'i',
       andMore: 'i innych'

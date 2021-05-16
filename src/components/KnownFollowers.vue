@@ -1,6 +1,6 @@
 <template>
-  <span @click="showCommonFollowsModal" class="clickable">
-    {{ $t('commonFollows.followedBy') }}
+  <span @click="showKnownFollowersModal" class="clickable">
+    {{ $t('knownFollowers.followedBy') }}
       <span>
         <template v-if="follows.length >= 1">
           <b-avatar variant="primary" size="1rem" :src="follows[0].aviURL" v-if="follows[0].aviURL"></b-avatar>
@@ -9,7 +9,7 @@
         </template>
         <template v-if="follows.length >= 2">
           <template v-if="follows.length === 2">
-            {{ $t('commonFollows.and') }}
+            {{ $t('knownFollowers.and') }}
           </template>
           <template v-else>
             ,
@@ -19,7 +19,7 @@
           <span class="username">{{ follows[1].displayedUsername }}</span>
         </template>
         <template v-if="follows.length > 2">
-          {{ $t('commonFollows.andMore') }}
+          {{ $t('knownFollowers.andMore') }}
         </template>
       </span>
   </span>
@@ -29,8 +29,8 @@
 export default {
   props: ['follows'],
   methods: {
-    showCommonFollowsModal () {
-      this.$bvModal.show('commonFollows')
+    showKnownFollowersModal () {
+      this.$bvModal.show('knownFollowers')
     }
   }
 }
