@@ -13,6 +13,9 @@
         @click.stop.prevent="goToUser(item.username)"
         >@{{item.username}}</a>{{item.remainder}}
       </template>
+      <template v-else-if="(item instanceof URL)">
+        <a @click.stop.prevent="goToUrl(item.url)" class="clickable" :key="item.url">{{item.url}}</a>
+      </template>
       <template v-else>{{item}}</template>
     </template>
   </p>
@@ -35,8 +38,15 @@ class Mention {
   }
 }
 
+class URL {
+  constructor (url) {
+    this.url = url
+  }
+}
+
 Vue.prototype.Tag = Tag
 Vue.prototype.Mention = Mention
+Vue.prototype.URL = URL
 
 export default {
   name: 'PostContent',
@@ -47,6 +57,9 @@ export default {
     },
     goToUser (username) {
       this.$router.push({path: `/user/${username}`})
+    },
+    goToUrl (url) {
+      window.location.href = '//' + url
     },
     createTagObject (word) {
       let tagPattern = RegExp(/#[a-zA-Z0-9]{2,20}/)
@@ -77,6 +90,16 @@ export default {
         )
       }
       return null
+    },
+    createURLObject (word) {
+      let urlPattern = RegExp(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/)
+      let matchedUrl = word.match(urlPattern)
+      if (matchedUrl) {
+        return new URL(
+          matchedUrl[0].substring(0)
+        )
+      }
+      return null
     }
   },
   computed: {
@@ -86,17 +109,22 @@ export default {
       for (const word of words) {
         let tagObject = this.createTagObject(word)
         let mentionObject = this.createMentionObject(word)
+        let urlObject = this.createURLObject(word)
         // if the word is a tag, add tagObject to the items list
         // if the word is a mention, add mentionObject to the items list
+        // if the word is a URL, add urlObject to the items list
         // otherwise, simply add that word to the list
         if (tagObject) {
           items.push(tagObject)
         } else if (mentionObject) {
           items.push(mentionObject)
+        } else if (urlObject) {
+          items.push(urlObject)
         } else {
           items.push(word)
         }
       }
+      console.table(items)
       return items
     }
   }
@@ -111,5 +139,6 @@ export default {
 
 .post-content-text {
   font-size: 21px;
+  word-wrap: break-word;
 }
 </style>
