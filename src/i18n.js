@@ -102,7 +102,8 @@ const messages = {
       failedToCancelFollow: 'Failed to cancel the follow',
       failedToFollow: 'Failed to follow',
       followedByModal: 'Users who follow me',
-      followingModal: 'Users followed by me'
+      followingModal: 'Users followed by me',
+      commonModal: 'Followers I know'
     },
     notificationDropdown: {
       markAll: 'Mark all as',
@@ -154,6 +155,11 @@ const messages = {
       spam: 'Spam',
       againstTos: 'Against ToS',
       abusive: 'Abusive'
+    },
+    commonFollows: {
+      followedBy: 'Followed by',
+      and: 'and',
+      andMore: 'and more'
     }
   },
   pl: {
@@ -254,7 +260,8 @@ const messages = {
       failedToCancelFollow: 'Nie udało się anulować obserwowania',
       failedToFollow: 'Nie udało się obserwować użytkownika',
       followedByModal: 'Lista obserwujących',
-      followingModal: 'Lista obserwowanych'
+      followingModal: 'Lista obserwowanych',
+      commonModal: 'Obserwujący których znam'
     },
     notificationDropdown: {
       markAll: 'Oznacz wszystkie jako',
@@ -306,6 +313,11 @@ const messages = {
       spam: 'Spam',
       againstTos: 'Przeciwko regulaminowi',
       abusive: 'Obraźliwa treść'
+    },
+    commonFollows: {
+      followedBy: 'Obserwowany przez',
+      and: 'i',
+      andMore: 'i innych'
     }
   }
 }
