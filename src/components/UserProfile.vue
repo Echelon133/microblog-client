@@ -30,12 +30,25 @@
           </b-col>
         </b-row>
         <hr>
-        <b-row v-show="user.user.description">
-          <b-col sm="12" class="user-description-box">
-            <p>{{ user.user.description }}</p>
-          </b-col>
-        </b-row>
-        <hr v-show="user.user.description">
+        <span v-if="user.user.description || commonFollows.length > 0">
+          <b-row>
+            <b-col sm="12" class="user-description-box" v-if="user.user.description">
+              <p>{{ user.user.description }}</p>
+            </b-col>
+            <b-col sm="12" v-if="commonFollows.length > 0">
+              <CommonFollows :follows="commonFollows"/>
+              <b-modal id="commonFollows" body-class="modal-height" :title="$t('userProfile.commonModal')" hide-footer>
+                <b-container fluid class="scrollable-modal">
+                  <UserProfileResultSmall v-for="user in commonFollows" :key="user.uuid" :user="user"/>
+                  <b-button class="load-more-btn" variant="primary"
+                  @click.prevent="loadCommonFollows()"
+                  >{{ $t('userProfile.loadMore') }}</b-button>
+                </b-container>
+              </b-modal>
+            </b-col>
+          </b-row>
+          <hr>
+        </span>
         <b-row>
           <b-col sm="6" class="text-center counter">
             <b-modal body-class="modal-height" :title="$t('userProfile.followingModal')" ref="following" hide-footer>
@@ -87,12 +100,13 @@
 import PostList from '@/components/PostList'
 import UserProfileResultSmall from '@/components/UserProfileResultSmall'
 import EditUserProfile from '@/components/EditUserProfile'
+import CommonFollows from '@/components/CommonFollows'
 import i18n from '@/i18n'
 
 export default {
   name: 'UserProfile',
   components: {
-    PostList, UserProfileResultSmall, EditUserProfile, i18n
+    PostList, UserProfileResultSmall, EditUserProfile, i18n, CommonFollows
   },
   data () {
     return {
@@ -104,6 +118,7 @@ export default {
       },
       followedBy: [],
       following: [],
+      commonFollows: [],
       posts: []
     }
   },
@@ -178,6 +193,7 @@ export default {
         this.loadUserProfileInfo()
         this.loadRecentUserPosts()
         this.checkIfFollowed()
+        this.loadCommonFollows()
       }).catch(() => {
         this.$router.push({path: '/404'})
       })
@@ -212,6 +228,20 @@ export default {
     },
     loadMoreUserPosts () {
       this.loadRecentUserPosts()
+    },
+    loadCommonFollows () {
+      let userUuid = this.user.user.uuid
+      let skip = this.commonFollows.length
+      let params = {
+        skip: skip,
+        limit: 5
+      }
+      if (!this.isLoggedUserProfile()) {
+        this.axios.get('http://localhost:8080/api/users/' + userUuid + '/commonFollows', {params: params, withCredentials: true})
+          .then((response) => {
+            this.commonFollows.push(...response.data)
+          })
+      }
     }
   },
   mounted () {
@@ -227,6 +257,7 @@ export default {
           this.posts = []
           this.followedBy = []
           this.following = []
+          this.commonFollows = []
           this.loadFullUserProfile()
         })
     }
