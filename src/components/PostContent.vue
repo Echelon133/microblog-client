@@ -124,7 +124,6 @@ export default {
           items.push(word)
         }
       }
-      console.table(items)
       return items
     }
   }
