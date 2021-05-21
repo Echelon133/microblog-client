@@ -53,7 +53,7 @@
           <b-col sm="6" class="text-center counter">
             <b-modal body-class="modal-height" :title="$t('userProfile.followingModal')" ref="following" hide-footer>
               <b-container fluid class="scrollable-modal">
-                <UserProfileResultSmall v-for="user in following" :key="user.uuid" :user="user"/>
+                <UserProfileResultSmall @close-modal="closeModal" v-for="user in following" :key="user.uuid" :user="user"/>
                 <b-button class="load-more-btn" variant="primary"
                 @click.prevent="loadMoreFollowing()"
                 >{{ $t('userProfile.loadMore') }}</b-button>
@@ -67,7 +67,7 @@
           <b-col sm="6" class="text-center counter">
             <b-modal body-class="modal-height" :title="$t('userProfile.followedByModal')" ref="followedBy" hide-footer>
               <b-container fluid class="scrollable-modal">
-                <UserProfileResultSmall v-for="user in followedBy" :key="user.uuid" :user="user"/>
+                <UserProfileResultSmall @close-modal="closeModal" v-for="user in followedBy" :key="user.uuid" :user="user"/>
                 <b-button class="load-more-btn" variant="primary"
                 @click.prevent="loadMoreFollowedBy()"
                 >{{ $t('userProfile.loadMore') }}</b-button>
@@ -129,6 +129,10 @@ export default {
       } else {
         alert(i18n.t('userProfile.userNotLogged'))
       }
+    },
+    closeModal () {
+      this.$refs['followedBy'].hide()
+      this.$refs['following'].hide()
     },
     followUser () {
       let uuid = this.user.user.uuid
