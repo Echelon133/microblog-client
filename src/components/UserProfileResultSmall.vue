@@ -62,6 +62,7 @@ export default {
       }
     },
     goToUser (username) {
+      this.$emit('close-modal')
       this.$router.push({path: `/user/${username}`})
     },
     checkIfFollowed () {
