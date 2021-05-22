@@ -256,7 +256,7 @@ const messages = {
       following: 'Obserwowani',
       followedBy: 'Obserwujący',
       loadMorePosts: 'Wczytaj więcej postów',
-      userNotLogged: 'Użytkownik nie jest zalogwany',
+      userNotLogged: 'Użytkownik nie jest zalogowany',
       failedToCancelFollow: 'Nie udało się anulować obserwowania',
       failedToFollow: 'Nie udało się obserwować użytkownika',
       followedByModal: 'Lista obserwujących',
