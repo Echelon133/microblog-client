@@ -17,6 +17,10 @@ Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 
 axios.interceptors.response.use(undefined, (err) => {
+  if (err.response.status === 400) {
+    return Promise.reject(err)
+  }
+
   if (err.response.status === 401) {
     return Promise.reject(err)
   }
