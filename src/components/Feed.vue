@@ -85,13 +85,11 @@ export default {
       let skip = this.posts.length
       if (this.showPopular) {
         params = {
-          since: 'DAY',
           by: 'POPULARITY',
           skip: skip
         }
       } else {
         params = {
-          since: 'DAY',
           skip: skip
         }
       }
