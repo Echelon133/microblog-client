@@ -240,7 +240,9 @@ export default {
         skip: skip,
         limit: 5
       }
-      if (!this.isLoggedUserProfile()) {
+      // only load known followers if the user is logged in and currently viewed
+      // profile is not user's own profile
+      if (this.$store.getters.userPresent() && !this.isLoggedUserProfile()) {
         this.axios.get('http://localhost:8080/api/users/' + userUuid + '/knownFollowers', {params: params, withCredentials: true})
           .then((response) => {
             this.knownFollowers.push(...response.data)
