@@ -16,7 +16,7 @@
         </b-col>
       </b-row>
       <hr class="mb-0">
-      <b-row :class="{'followed': followed}" v-if="!isLoggedUser()">
+      <b-row :class="{'followed': followed}" v-if="showFollowOption()">
         <b-col sm="12" class="text-center follow-box pt-3" @click.prevent="follow()">
           <span v-if="followed" class="follow-text">{{ $t('userProfile.unfollow') }}</span>
           <span v-else class="follow-text">{{ $t('userProfile.follow') }}</span>
@@ -41,6 +41,17 @@ export default {
     }
   },
   methods: {
+    showFollowOption () {
+      // don't show follow option if the user is not logged in
+      if (!this.$store.getters.userPresent()) {
+        return false
+      }
+      // don't show follow option if the user result is of the same
+      // user as the currently logged in user
+      let loggedUserUuid = this.$store.state.user.uuid
+      let userProfileUuid = this.$props.user.uuid
+      return loggedUserUuid !== userProfileUuid
+    },
     follow () {
       let uuid = this.$props.user.uuid
       if (this.followed) {
@@ -73,14 +84,6 @@ export default {
             this.followed = response.data.followed
           })
       }
-    },
-    isLoggedUser () {
-      if (this.$store.state.user == null) {
-        return false
-      }
-      let loggedUserUuid = this.$store.state.user.uuid
-      let userProfileUuid = this.$props.user.uuid
-      return loggedUserUuid === userProfileUuid
     }
   },
   mounted () {
