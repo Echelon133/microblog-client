@@ -16,6 +16,8 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueAxios, axios)
 
+axios.defaults.baseURL = 'http://localhost:8080/api'
+
 axios.interceptors.response.use(undefined, (err) => {
   if (err.response.status === 400) {
     return Promise.reject(err)
