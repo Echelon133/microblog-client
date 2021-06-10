@@ -186,7 +186,7 @@ export default {
         this.$store.dispatch('check_auth')
           .then(() => {
             let postUuid = this.$vnode.key
-            this.axios.delete('http://localhost:8080/api/posts/' + postUuid,
+            this.axios.delete('/posts/' + postUuid,
               {withCredentials: true})
               .then(() => {
                 alert(i18n.t('post.deleteSuccess'))
@@ -221,7 +221,7 @@ export default {
       let responseContent = this.response.content
       this.$store.dispatch('check_auth')
         .then(() => {
-          this.axios.post('http://localhost:8080/api/posts/' + postUuid + '/respond',
+          this.axios.post('/posts/' + postUuid + '/respond',
             {content: responseContent},
             {withCredentials: true})
             .then((res) => {
@@ -250,7 +250,7 @@ export default {
       let quoteContent = this.quote.content
       this.$store.dispatch('check_auth')
         .then(() => {
-          this.axios.post('http://localhost:8080/api/posts/' + postUuid + '/quote',
+          this.axios.post('/posts/' + postUuid + '/quote',
             {content: quoteContent},
             {withCredentials: true})
             .then((response) => {
@@ -269,13 +269,13 @@ export default {
     like () {
       let postUuid = this.$vnode.key
       if (!this.postInfo.liked) {
-        this.axios.post('http://localhost:8080/api/posts/' + postUuid + '/like', {}, {withCredentials: true})
+        this.axios.post('/posts/' + postUuid + '/like', {}, {withCredentials: true})
           .then((response) => {
             this.postInfo.liked = response.data.liked
             this.postInfo.likes += 1
           })
       } else {
-        this.axios.post('http://localhost:8080/api/posts/' + postUuid + '/unlike', {}, {withCredentials: true})
+        this.axios.post('/posts/' + postUuid + '/unlike', {}, {withCredentials: true})
           .then((response) => {
             this.postInfo.liked = !response.data.unliked
             this.postInfo.likes -= 1
@@ -285,7 +285,7 @@ export default {
     loadQuote () {
       let quoteUuid = this.$props.post.quotes
       if (quoteUuid) {
-        this.axios.get('http://localhost:8080/api/posts/' + quoteUuid).then((response) => {
+        this.axios.get('/posts/' + quoteUuid).then((response) => {
           this.postInfo.quotedPost.post = response.data
           this.convertQuotedPostDateToDeltaText()
         }).catch((err) => {
@@ -298,7 +298,7 @@ export default {
     loadRespondsToPost () {
       let respondsToPostUuid = this.$props.post.respondsTo
       if (respondsToPostUuid) {
-        this.axios.get('http://localhost:8080/api/posts/' + respondsToPostUuid).then((response) => {
+        this.axios.get('/posts/' + respondsToPostUuid).then((response) => {
           this.postInfo.respondsToPost = response.data
         }).catch((err) => {
           if (err.response.status === 404) {
@@ -309,7 +309,7 @@ export default {
     },
     loadPostInfo () {
       let postUuid = this.$props.post.uuid
-      this.axios.get('http://localhost:8080/api/posts/' + postUuid + '/info').then((response) => {
+      this.axios.get('/posts/' + postUuid + '/info').then((response) => {
         this.postInfo.quotes = response.data.quotes
         this.postInfo.responses = response.data.responses
         this.postInfo.likes = response.data.likes
@@ -319,7 +319,7 @@ export default {
       let postUuid = this.$props.post.uuid
       // only try to check if the post is liked by the current user if the user is logged in
       if (this.$store.getters.userPresent()) {
-        this.axios.get('http://localhost:8080/api/posts/' + postUuid + '/like', { withCredentials: true })
+        this.axios.get('/posts/' + postUuid + '/like', { withCredentials: true })
           .then((response) => {
             this.postInfo.liked = response.data.liked
           })

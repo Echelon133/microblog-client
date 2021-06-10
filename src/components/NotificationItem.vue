@@ -26,7 +26,7 @@ export default {
       let notificationUuid = this.$props.notification.uuid
       let postUuid = this.$props.notification.notificationPost
 
-      this.axios.post('http://localhost:8080/api/notifications/' + notificationUuid + '/read', {}, {withCredentials: true})
+      this.axios.post('/notifications/' + notificationUuid + '/read', {}, {withCredentials: true})
         .then((response) => {
           if (response.data.read) {
             this.$props.notification.read = true

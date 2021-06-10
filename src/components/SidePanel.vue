@@ -37,7 +37,7 @@ export default {
         Vue.$cookies.set('tagFilter', 'hour')
         filter = Vue.$cookies.get('tagFilter')
       }
-      this.axios.get('http://localhost:8080/api/tags/popular?since=' + filter).then((response) => {
+      this.axios.get('/tags/popular?since=' + filter).then((response) => {
         this.tags = response.data
       })
     },

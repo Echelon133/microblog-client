@@ -36,7 +36,7 @@ export default {
   methods: {
     search () {
       let phrase = this.$route.params.searchname
-      this.axios.get('http://localhost:8080/api/users?search=' + phrase).then((response) => {
+      this.axios.get('/users?search=' + phrase).then((response) => {
         this.users = response.data
       })
     }

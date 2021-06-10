@@ -44,7 +44,7 @@ export default {
       this.$store.dispatch('check_auth')
         .then(() => {
           let userUpdate = this.userUpdate
-          this.axios.put('http://localhost:8080/api/users/me',
+          this.axios.put('/users/me',
             userUpdate,
             { withCredentials: true })
             .then(() => {

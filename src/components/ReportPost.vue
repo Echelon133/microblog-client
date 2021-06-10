@@ -40,9 +40,7 @@ export default {
       this.$store.dispatch('check_auth')
         .then(() => {
           let report = this.report
-          this.axios.post('http://localhost:8080/api/reports',
-            report,
-            { withCredentials: true })
+          this.axios.post('/reports', report, { withCredentials: true })
             .then(() => {
               this.failure = false
               this.success = true

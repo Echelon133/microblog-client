@@ -42,10 +42,10 @@ export default {
     loadPosts () {
       // first - find tag uuid
       let name = this.$route.params.tagname
-      this.axios.get('http://localhost:8080/api/tags?name=' + name).then((response) => {
+      this.axios.get('/tags?name=' + name).then((response) => {
         let tagUuid = response.data.uuid
         let skip = this.posts.length
-        this.axios.get('http://localhost:8080/api/tags/' + tagUuid + '/recentPosts', {
+        this.axios.get('/tags/' + tagUuid + '/recentPosts', {
           params: {
             skip: skip,
             limit: 5
