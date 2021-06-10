@@ -34,7 +34,7 @@ export default new Vuex.Store({
     auth_attempt: ({commit, dispatch}, user) => {
       return new Promise((resolve, reject) => {
         // send an authentication request to the auth server
-        axios.post('http://localhost:8090/api/token', {}, {
+        axios.post('/token', {}, {
           withCredentials: true,
           auth: {
             username: user.username,
@@ -63,7 +63,7 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         // request empty refresh/access token cookies from the auth server
         // this overwrites actual token cookies that the client might have
-        axios.post('http://localhost:8090/api/token/clearTokens', {}, { withCredentials: true })
+        axios.post('/token/clearTokens', {}, { withCredentials: true })
           .then(() => {
             // received empty token cookies, finish the process of logging out
             commit('clear_auth_state')
@@ -74,7 +74,7 @@ export default new Vuex.Store({
     renew_token: ({commit}) => {
       return new Promise((resolve, reject) => {
         // send the refreshToken and get a new accessToken
-        axios.post('http://localhost:8090/api/token/renew', {}, { withCredentials: true })
+        axios.post('/token/renew', {}, { withCredentials: true })
           .then((response) => {
             resolve(response)
           })
@@ -86,7 +86,7 @@ export default new Vuex.Store({
     },
     get_user: ({commit}) => {
       return new Promise((resolve, reject) => {
-        axios.get('http://localhost:8080/api/users/me', { withCredentials: true })
+        axios.get('/users/me', { withCredentials: true })
           .then((response) => {
             resolve(response)
             commit('auth_success', response.data)
