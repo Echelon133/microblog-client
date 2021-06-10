@@ -88,10 +88,7 @@ export default {
         password: this.registerForm.password,
         password2: this.registerForm.password2
       }
-      this.axios.post(
-        'http://localhost:8080/api/users/register',
-        newUserData
-      )
+      this.axios.post('/users/register', newUserData)
         .then((response) => {
           this.successMsg = i18n.t('register.success')
           this.failure = false

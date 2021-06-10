@@ -48,7 +48,7 @@ export default {
   methods: {
     loadParent () {
       let parentUuid = this.mainPost.respondsTo
-      this.axios.get('http://localhost:8080/api/posts/' + parentUuid).then((response) => {
+      this.axios.get('/posts/' + parentUuid).then((response) => {
         this.parent = response.data
       }).catch((err) => {
         if (err.response.status === 404) {
@@ -58,7 +58,7 @@ export default {
     },
     loadPost () {
       let postUuid = this.$route.params.uuid
-      this.axios.get('http://localhost:8080/api/posts/' + postUuid).then((response) => {
+      this.axios.get('/posts/' + postUuid).then((response) => {
         this.mainPost = response.data
         // if the loaded mainPost is a post that responds to some other post
         // try to load that other post
@@ -75,7 +75,7 @@ export default {
       let params = {
         skip: skip
       }
-      this.axios.get('http://localhost:8080/api/posts/' + postUuid + '/responses', {params: params})
+      this.axios.get('/posts/' + postUuid + '/responses', {params: params})
         .then((response) => {
           this.responses.push(...response.data)
         })

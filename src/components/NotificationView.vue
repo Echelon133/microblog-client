@@ -48,7 +48,7 @@ export default {
         limit: 20,
         skip: length
       }
-      this.axios.get('http://localhost:8080/api/notifications', {params: params, withCredentials: true})
+      this.axios.get('/notifications', {params: params, withCredentials: true})
         .then((response) => {
           this.notifications.push(...response.data)
         })

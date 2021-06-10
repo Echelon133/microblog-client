@@ -55,7 +55,7 @@ export default {
     follow () {
       let uuid = this.$props.user.uuid
       if (this.followed) {
-        this.axios.post('http://localhost:8080/api/users/' + uuid + '/unfollow', {}, { withCredentials: true })
+        this.axios.post('/users/' + uuid + '/unfollow', {}, { withCredentials: true })
           .then((response) => {
             this.followed = !response.data.unfollowed
           })
@@ -63,7 +63,7 @@ export default {
             alert(i18n.t('userProfile.failedToCancelFollow'))
           })
       } else {
-        this.axios.post('http://localhost:8080/api/users/' + uuid + '/follow', {}, { withCredentials: true })
+        this.axios.post('/users/' + uuid + '/follow', {}, { withCredentials: true })
           .then((response) => {
             this.followed = response.data.followed
           })
@@ -79,7 +79,7 @@ export default {
     checkIfFollowed () {
       let uuid = this.$props.user.uuid
       if (this.$store.getters.userPresent()) {
-        this.axios.get('http://localhost:8080/api/users/' + uuid + '/follow', { withCredentials: true })
+        this.axios.get('/users/' + uuid + '/follow', { withCredentials: true })
           .then((response) => {
             this.followed = response.data.followed
           })

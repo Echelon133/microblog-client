@@ -42,19 +42,19 @@ export default {
       this.$router.push({path: `/notifications`})
     },
     loadUnreadCounter () {
-      this.axios.get('http://localhost:8080/api/notifications/unreadCounter', {withCredentials: true})
+      this.axios.get('/notifications/unreadCounter', {withCredentials: true})
         .then((response) => {
           this.unreadCounter = response.data.unreadCounter
         })
     },
     loadNotifications () {
-      this.axios.get('http://localhost:8080/api/notifications', {withCredentials: true})
+      this.axios.get('/notifications', {withCredentials: true})
         .then((response) => {
           this.notifications = response.data
         })
     },
     markAllAsRead () {
-      this.axios.post('http://localhost:8080/api/notifications/readAll', {}, {withCredentials: true})
+      this.axios.post('/notifications/readAll', {}, {withCredentials: true})
         .then(() => {
           this.loadUnreadCounter()
         })

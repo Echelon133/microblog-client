@@ -137,7 +137,7 @@ export default {
     followUser () {
       let uuid = this.user.user.uuid
       if (this.user.followed) {
-        this.axios.post('http://localhost:8080/api/users/' + uuid + '/unfollow', {}, { withCredentials: true })
+        this.axios.post('/users/' + uuid + '/unfollow', {}, { withCredentials: true })
           .then((response) => {
             this.user.followed = !response.data.unfollowed
           })
@@ -145,7 +145,7 @@ export default {
             alert(i18n.t('userProfile.failedToCancelFollow'))
           })
       } else {
-        this.axios.post('http://localhost:8080/api/users/' + uuid + '/follow', {}, { withCredentials: true })
+        this.axios.post('/users/' + uuid + '/follow', {}, { withCredentials: true })
           .then((response) => {
             this.user.followed = response.data.followed
           })
@@ -157,7 +157,7 @@ export default {
     checkIfFollowed () {
       let uuid = this.user.user.uuid
       if (this.$store.getters.userPresent()) {
-        this.axios.get('http://localhost:8080/api/users/' + uuid + '/follow', { withCredentials: true })
+        this.axios.get('/users/' + uuid + '/follow', { withCredentials: true })
           .then((response) => {
             this.user.followed = response.data.followed
           })
@@ -192,7 +192,7 @@ export default {
     },
     loadFullUserProfile () {
       let username = this.$route.params.username
-      this.axios.get('http://localhost:8080/api/users?username=' + username).then((response) => {
+      this.axios.get('/users?username=' + username).then((response) => {
         this.user.user = response.data[0]
         this.loadUserProfileInfo()
         this.loadRecentUserPosts()
@@ -204,7 +204,7 @@ export default {
     },
     loadUserProfileInfo () {
       let userUuid = this.user.user.uuid
-      this.axios.get('http://localhost:8080/api/users/' + userUuid + '/profile').then((response) => {
+      this.axios.get('/users/' + userUuid + '/profile').then((response) => {
         this.user.followedBy = response.data.followers
         this.user.following = response.data.follows
       })
@@ -212,21 +212,21 @@ export default {
     loadRecentUserPosts () {
       let userUuid = this.user.user.uuid
       this.axios
-        .get('http://localhost:8080/api/users/' + userUuid + '/recentPosts?skip=' + this.posts.length).then((response) => {
+        .get('/users/' + userUuid + '/recentPosts?skip=' + this.posts.length).then((response) => {
           this.posts.push(...response.data)
         })
     },
     loadFollowedBy () {
       let userUuid = this.user.user.uuid
       this.axios
-        .get('http://localhost:8080/api/users/' + userUuid + '/followers?skip=' + this.followedBy.length).then((response) => {
+        .get('/users/' + userUuid + '/followers?skip=' + this.followedBy.length).then((response) => {
           this.followedBy.push(...response.data)
         })
     },
     loadFollowing () {
       let userUuid = this.user.user.uuid
       this.axios
-        .get('http://localhost:8080/api/users/' + userUuid + '/follows?skip=' + this.following.length).then((response) => {
+        .get('/users/' + userUuid + '/follows?skip=' + this.following.length).then((response) => {
           this.following.push(...response.data)
         })
     },
@@ -243,7 +243,7 @@ export default {
       // only load known followers if the user is logged in and currently viewed
       // profile is not user's own profile
       if (this.$store.getters.userPresent() && !this.isLoggedUserProfile()) {
-        this.axios.get('http://localhost:8080/api/users/' + userUuid + '/knownFollowers', {params: params, withCredentials: true})
+        this.axios.get('/users/' + userUuid + '/knownFollowers', {params: params, withCredentials: true})
           .then((response) => {
             this.knownFollowers.push(...response.data)
           })

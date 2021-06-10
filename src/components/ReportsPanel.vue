@@ -67,7 +67,7 @@ export default {
         checked: checked,
         skip: skip
       }
-      this.axios.get('http://localhost:8080/api/reports', {params: params, withCredentials: true})
+      this.axios.get('/reports', {params: params, withCredentials: true})
         .then((response) => {
           this.reports.push(...response.data)
         }).catch((err) => {

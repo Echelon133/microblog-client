@@ -64,7 +64,7 @@ export default {
       this.$store.dispatch('check_auth')
         .then(() => {
           let postContent = this.newPostContent
-          this.axios.post('http://localhost:8080/api/posts', {content: postContent}, { withCredentials: true })
+          this.axios.post('/posts', {content: postContent}, { withCredentials: true })
             .then((response) => {
               this.$router.push({path: `/post/${response.data.uuid}`})
             })
@@ -94,7 +94,7 @@ export default {
         }
       }
 
-      this.axios.get('http://localhost:8080/api/feed', {params: params, withCredentials: true})
+      this.axios.get('/feed', {params: params, withCredentials: true})
         .then((response) => {
           this.posts.push(...response.data)
         })

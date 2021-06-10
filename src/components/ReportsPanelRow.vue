@@ -46,7 +46,7 @@ export default {
   methods: {
     acceptReport () {
       let uuid = this.report.uuid
-      this.axios.post('http://localhost:8080/api/reports/' + uuid + '?accept=true',
+      this.axios.post('/reports/' + uuid + '?accept=true',
         {}, {withCredentials: true})
         .then((response) => {
           if (response.data.checked) {
@@ -56,7 +56,7 @@ export default {
     },
     rejectReport () {
       let uuid = this.report.uuid
-      this.axios.post('http://localhost:8080/api/reports/' + uuid + '?accept=false',
+      this.axios.post('/reports/' + uuid + '?accept=false',
         {}, {withCredentials: true})
         .then((response) => {
           if (response.data.checked) {
