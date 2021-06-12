@@ -63,7 +63,7 @@ export default {
 <style scoped>
 .scrollable {
   overflow-y: auto;
-  height: 90vh;
+  height: 80vh;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
