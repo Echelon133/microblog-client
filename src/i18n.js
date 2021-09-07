@@ -6,6 +6,7 @@ Vue.use(VueI18n)
 const messages = {
   en: {
     login: {
+      title: 'Log in',
       login: 'Login',
       username: 'Username',
       password: 'Password',
@@ -13,6 +14,7 @@ const messages = {
       failure: 'Login failed'
     },
     register: {
+      title: 'Register',
       register: 'Register',
       required: 'Field required',
       emailInvalid: 'Email is incorrect',
@@ -39,6 +41,7 @@ const messages = {
       saveEdit: 'Save'
     },
     feed: {
+      title: 'Feed',
       postContent: 'New post content',
       send: 'Send',
       showing: 'Showing',
@@ -55,6 +58,7 @@ const messages = {
       register: 'Register'
     },
     notFound: {
+      title: '404 Page Not Found',
       notFound: 'Page not found'
     },
     post: {
@@ -91,6 +95,7 @@ const messages = {
       loadMore: 'Load more posts'
     },
     userProfile: {
+      title: '@{username}\'s profile',
       editProfile: 'Edit profile',
       unfollow: 'Unfollow',
       follow: 'Follow',
@@ -137,6 +142,7 @@ const messages = {
       report: 'Report'
     },
     reportsPanel: {
+      title: 'Reports Panel',
       reportsPanel: 'Reports panel',
       showAlreadyModerated: 'Show already moderated',
       loadMore: 'Load more reports',
@@ -160,10 +166,14 @@ const messages = {
       followedBy: 'Followed by',
       and: 'and',
       andMore: 'and more'
+    },
+    userSearch: {
+      title: 'Searching for: {phrase}'
     }
   },
   pl: {
     login: {
+      title: 'Panel logowania',
       login: 'Zaloguj',
       username: 'Nazwa użytkownika',
       password: 'Hasło',
@@ -171,6 +181,7 @@ const messages = {
       failure: 'Logowanie nieudane'
     },
     register: {
+      title: 'Panel rejestracji',
       register: 'Zarejestruj',
       required: 'Pole jest wymagane',
       emailInvalid: 'Adres email jest niepoprawny',
@@ -197,6 +208,7 @@ const messages = {
       saveEdit: 'Zapisz'
     },
     feed: {
+      title: 'Mikroblog',
       postContent: 'Treść nowego wpisu',
       send: 'Wyślij',
       showing: 'Pokazywane',
@@ -213,6 +225,7 @@ const messages = {
       register: 'Zarejestruj'
     },
     notFound: {
+      title: 'Błąd 404 - Nie znaleziono strony',
       notFound: 'Nie znaleziono strony'
     },
     post: {
@@ -249,6 +262,7 @@ const messages = {
       loadMore: 'Wczytaj więcej postów'
     },
     userProfile: {
+      title: 'Profil @{username}',
       editProfile: 'Edytuj profil',
       unfollow: 'Nie obserwuj',
       follow: 'Obserwuj',
@@ -295,6 +309,7 @@ const messages = {
       report: 'Zgłoś'
     },
     reportsPanel: {
+      title: 'Panel Zgłoszeń',
       reportsPanel: 'Panel zgłoszeń',
       showAlreadyModerated: 'Pokaż już sprawdzone',
       loadMore: 'Załaduj więcej zgłoszeń',
@@ -318,6 +333,9 @@ const messages = {
       followedBy: 'Obserwowany przez',
       and: 'i',
       andMore: 'i innych'
+    },
+    userSearch: {
+      title: 'Wyszukiwanie frazy: {phrase}'
     }
   }
 }
