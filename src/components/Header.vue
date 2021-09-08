@@ -38,7 +38,6 @@
 import NotificationDropdown from '@/components/NotificationDropdown'
 import { BIcon, BIconSearch } from 'bootstrap-vue'
 import Vue from 'vue'
-import i18n from '@/i18n'
 
 export default {
   name: 'Header',
@@ -69,7 +68,7 @@ export default {
       if (l !== undefined) {
         Vue.$cookies.set('lang', l)
       }
-      i18n.locale = Vue.$cookies.get('lang')
+      this.$i18n.locale = Vue.$cookies.get('lang')
     }
   },
   mounted () {
