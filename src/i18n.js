@@ -168,7 +168,9 @@ const messages = {
       andMore: 'and more'
     },
     userSearch: {
-      title: 'Searching for: {phrase}'
+      title: 'Searching for: {phrase}',
+      searchingFor: 'Searching for: ',
+      noResults: 'No results'
     }
   },
   pl: {
@@ -335,7 +337,9 @@ const messages = {
       andMore: 'i innych'
     },
     userSearch: {
-      title: 'Wyszukiwanie frazy: {phrase}'
+      title: 'Wyszukiwanie frazy: {phrase}',
+      searchingFor: 'Szukana fraza: ',
+      noResults: 'Brak rezultatów'
     }
   }
 }
