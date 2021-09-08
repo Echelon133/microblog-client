@@ -101,12 +101,14 @@ import PostList from '@/components/PostList'
 import UserProfileResultSmall from '@/components/UserProfileResultSmall'
 import EditUserProfile from '@/components/EditUserProfile'
 import KnownFollowers from '@/components/KnownFollowers'
-import i18n from '@/i18n'
 
 export default {
   name: 'UserProfile',
+  title () {
+    return this.$i18n.t('userProfile.title', { username: this.$route.params.username })
+  },
   components: {
-    PostList, UserProfileResultSmall, EditUserProfile, i18n, KnownFollowers
+    PostList, UserProfileResultSmall, EditUserProfile, KnownFollowers
   },
   data () {
     return {
@@ -127,7 +129,7 @@ export default {
       if (this.$store.getters.userPresent()) {
         func()
       } else {
-        alert(i18n.t('userProfile.userNotLogged'))
+        alert(this.$i18n.t('userProfile.userNotLogged'))
       }
     },
     closeModal () {
@@ -142,7 +144,7 @@ export default {
             this.user.followed = !response.data.unfollowed
           })
           .catch(() => {
-            alert(i18n.t('userProfile.failedToCancelFollow'))
+            alert(this.$i18n.t('userProfile.failedToCancelFollow'))
           })
       } else {
         this.axios.post('/users/' + uuid + '/follow', {}, { withCredentials: true })
@@ -150,7 +152,7 @@ export default {
             this.user.followed = response.data.followed
           })
           .catch(() => {
-            alert(i18n.t('userProfile.failedToFollow'))
+            alert(this.$i18n.t('userProfile.failedToFollow'))
           })
       }
     },

@@ -31,6 +31,9 @@ import { required } from 'vee-validate/dist/rules'
 extend('required', required)
 
 export default {
+  title () {
+    return this.$i18n.t('login.title')
+  },
   components: {
     ValidationProvider, ValidationObserver
   },

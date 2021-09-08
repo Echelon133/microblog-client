@@ -30,6 +30,9 @@ import PostList from '@/components/PostList'
 
 export default {
   name: 'TagOverview',
+  title () {
+    return 'Tag #' + this.$route.params.tagname
+  },
   components: {
     PostList
   },
