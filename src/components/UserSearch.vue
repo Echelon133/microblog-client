@@ -4,7 +4,7 @@
       <b-col sm="10" offset-sm="1" class="searchname-box">
         <b-row>
           <b-col sm="12">
-            <h1 class="searched-name">Szukana fraza: "{{ $route.params.searchname }}"</h1>
+            <h1 class="searched-name">{{ $t('userSearch.searchingFor') }} "{{ $route.params.searchname }}"</h1>
           </b-col>
         </b-row>
       </b-col>
@@ -12,7 +12,7 @@
         <UserProfileResult v-for="user in users" :key="user.uuid" :user="user"/>
         <b-row>
           <b-col sm="10" offset-sm="1" class="text-center mt-5">
-            <span v-if="users.length === 0" class="no-content-text">Brak wyników</span>
+            <span v-if="users.length === 0" class="no-content-text">{{ $t('userSearch.noResults') }}</span>
           </b-col>
         </b-row>
       </b-col>
