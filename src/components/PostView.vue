@@ -60,6 +60,7 @@ export default {
       let postUuid = this.$route.params.uuid
       this.axios.get('/posts/' + postUuid).then((response) => {
         this.mainPost = response.data
+        this.setTitle(this.mainPost.content)
         // if the loaded mainPost is a post that responds to some other post
         // try to load that other post
         if (this.mainPost.respondsTo) {
@@ -79,6 +80,13 @@ export default {
         .then((response) => {
           this.responses.push(...response.data)
         })
+    },
+    setTitle (postContent) {
+      let title = postContent
+      if (title.length > 15) {
+        title = title.substring(0, 15) + '...'
+      }
+      document.title = title
     },
     init () {
       this.loadPost()

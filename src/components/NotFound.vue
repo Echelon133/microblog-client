@@ -9,7 +9,10 @@
 
 <script>
 export default {
-  name: 'NotFound'
+  name: 'NotFound',
+  title () {
+    return this.$i18n.t('notFound.title')
+  }
 }
 </script>
 

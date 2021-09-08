@@ -25,6 +25,9 @@ import UserProfileResult from '@/components/UserProfileResult'
 
 export default {
   name: 'UserSearch',
+  title () {
+    return this.$i18n.t('userSearch.title', { phrase: this.$route.params.searchname })
+  },
   components: {
     UserProfileResult
   },

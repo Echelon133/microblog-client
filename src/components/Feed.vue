@@ -38,12 +38,14 @@
 import { BIcon, BIconStar, BIconStarFill } from 'bootstrap-vue'
 import PostList from '@/components/PostList'
 import Vue from 'vue'
-import i18n from '@/i18n'
 
 export default {
   name: 'Feed',
+  title () {
+    return this.$i18n.t('feed.title')
+  },
   components: {
-    PostList, BIcon, BIconStar, BIconStarFill, i18n
+    PostList, BIcon, BIconStar, BIconStarFill
   },
   data () {
     return {
@@ -69,12 +71,12 @@ export default {
               this.$router.push({path: `/post/${response.data.uuid}`})
             })
             .catch(() => {
-              alert(i18n.t('feed.failure'))
+              alert(this.$i18n.t('feed.failure'))
             })
           this.newPostContent = ''
         })
         .catch(() => {
-          alert(i18n.t('feed.failure'))
+          alert(this.$i18n.t('feed.failure'))
         })
     },
     isPostLengthInvalid () {

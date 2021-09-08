@@ -63,6 +63,9 @@ extend('passwordsMatch', {
 })
 
 export default {
+  title () {
+    return this.$i18n.t('register.title')
+  },
   components: {
     ValidationProvider, ValidationObserver, i18n
   },
@@ -90,7 +93,7 @@ export default {
       }
       this.axios.post('/users/register', newUserData)
         .then((response) => {
-          this.successMsg = i18n.t('register.success')
+          this.successMsg = this.$i18n.t('register.success')
           this.failure = false
           this.success = true
           this.clearForm()
@@ -100,10 +103,10 @@ export default {
           this.success = false
           if (response.status === 400) {
             if (response.data.messages.includes('Username already taken')) {
-              this.failureMsg = i18n.t('register.usernameTaken')
+              this.failureMsg = this.$i18n.t('register.usernameTaken')
             }
           } else {
-            this.failureMsg = i18n.t('register.failureMsg')
+            this.failureMsg = this.$i18n.t('register.failureMsg')
           }
           this.failure = true
         })

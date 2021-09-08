@@ -46,6 +46,9 @@ import Header from '@/components/Header'
 
 export default {
   name: 'ReportsPanel',
+  title () {
+    return this.$i18n.t('reportsPanel.title')
+  },
   components: {
     ReportsPanelRow, Header
   },

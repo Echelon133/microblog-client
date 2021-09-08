@@ -50,6 +50,25 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+Vue.mixin({
+  methods: {
+    getTitle (vm) {
+      const { title } = vm.$options
+      if (title) {
+        return typeof title === 'function'
+          ? title.call(vm)
+          : title
+      }
+    }
+  },
+  created: function () {
+    const title = this.getTitle(this)
+    if (title) {
+      document.title = title
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
