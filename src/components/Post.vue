@@ -275,9 +275,9 @@ export default {
             this.postInfo.likes += 1
           })
       } else {
-        this.axios.post('/posts/' + postUuid + '/unlike', {}, {withCredentials: true})
+        this.axios.delete('/posts/' + postUuid + '/like', {withCredentials: true})
           .then((response) => {
-            this.postInfo.liked = !response.data.unliked
+            this.postInfo.liked = response.data.liked
             this.postInfo.likes -= 1
           })
       }
