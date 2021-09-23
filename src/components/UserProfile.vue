@@ -139,9 +139,9 @@ export default {
     followUser () {
       let uuid = this.user.user.uuid
       if (this.user.followed) {
-        this.axios.post('/users/' + uuid + '/unfollow', {}, { withCredentials: true })
+        this.axios.delete('/users/' + uuid + '/follow', { withCredentials: true })
           .then((response) => {
-            this.user.followed = !response.data.unfollowed
+            this.user.followed = response.data.follows
           })
           .catch(() => {
             alert(this.$i18n.t('userProfile.failedToCancelFollow'))
@@ -149,7 +149,7 @@ export default {
       } else {
         this.axios.post('/users/' + uuid + '/follow', {}, { withCredentials: true })
           .then((response) => {
-            this.user.followed = response.data.followed
+            this.user.followed = response.data.follows
           })
           .catch(() => {
             alert(this.$i18n.t('userProfile.failedToFollow'))
