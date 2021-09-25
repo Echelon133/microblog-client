@@ -65,12 +65,12 @@
         <div v-if="postInfo.quotesDeletedPost" class="quoted-post my-1 mx-4 text-center">
           <h3 class="py-5 deleted-post-msg">{{ $t('postView.postDeleted') }}</h3>
         </div>
-        <b-row v-if="postInfo.respondsToPost">
+        <b-row v-if="post.respondsTo">
           <b-col sm="12" class="ml-5">
             <span class="response-info">{{ $t('post.replyingTo') }} </span>
             <a class="profile-link"
-            @click.stop.prevent="goToUser(postInfo.respondsToPost.author.username)"
-            >@{{ postInfo.respondsToPost.author.username }}</a>
+            @click.stop.prevent="goToUser(post.respondsToUsername)"
+            >@{{ post.respondsToUsername }}</a>
           </b-col>
         </b-row>
         <b-row v-if="postInfo.respondsToDeletedPost">
@@ -153,7 +153,6 @@ export default {
         likes: 0,
         liked: false,
         quotedPost: {post: null, dateDelta: null},
-        respondsToPost: null,
         respondsToDeletedPost: false,
         quotesDeletedPost: false,
         dateDelta: null
@@ -295,18 +294,6 @@ export default {
         })
       }
     },
-    loadRespondsToPost () {
-      let respondsToPostUuid = this.$props.post.respondsTo
-      if (respondsToPostUuid) {
-        this.axios.get('/posts/' + respondsToPostUuid).then((response) => {
-          this.postInfo.respondsToPost = response.data
-        }).catch((err) => {
-          if (err.response.status === 404) {
-            this.postInfo.respondsToDeletedPost = true
-          }
-        })
-      }
-    },
     loadPostInfo () {
       let postUuid = this.$props.post.uuid
       this.axios.get('/posts/' + postUuid + '/info').then((response) => {
@@ -384,7 +371,6 @@ export default {
   },
   mounted () {
     this.loadQuote()
-    this.loadRespondsToPost()
     this.loadPostInfo()
     this.convertMainPostDateToDeltaText()
     this.checkIfLiked()
