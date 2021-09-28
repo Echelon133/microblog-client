@@ -88,7 +88,7 @@ export default {
       if (this.$store.getters.userPresent()) {
         this.axios.get('/users/' + uuid + '/follow', { withCredentials: true })
           .then((response) => {
-            this.followed = response.data.followed
+            this.followed = response.data.follows
           })
       }
     }
