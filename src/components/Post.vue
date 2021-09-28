@@ -270,13 +270,13 @@ export default {
       if (!this.postInfo.liked) {
         this.axios.post('/posts/' + postUuid + '/like', {}, {withCredentials: true})
           .then((response) => {
-            this.postInfo.liked = response.data.liked
+            this.postInfo.liked = response.data.likes
             this.postInfo.likes += 1
           })
       } else {
         this.axios.delete('/posts/' + postUuid + '/like', {withCredentials: true})
           .then((response) => {
-            this.postInfo.liked = response.data.liked
+            this.postInfo.liked = response.data.likes
             this.postInfo.likes -= 1
           })
       }
@@ -308,7 +308,7 @@ export default {
       if (this.$store.getters.userPresent()) {
         this.axios.get('/posts/' + postUuid + '/like', { withCredentials: true })
           .then((response) => {
-            this.postInfo.liked = response.data.liked
+            this.postInfo.liked = response.data.likes
           })
       }
     },
