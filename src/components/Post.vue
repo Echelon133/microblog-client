@@ -220,7 +220,7 @@ export default {
       let responseContent = this.response.content
       this.$store.dispatch('check_auth')
         .then(() => {
-          this.axios.post('/posts/' + postUuid + '/respond',
+          this.axios.post('/posts/' + postUuid + '/responses',
             {content: responseContent},
             {withCredentials: true})
             .then((res) => {
@@ -249,7 +249,7 @@ export default {
       let quoteContent = this.quote.content
       this.$store.dispatch('check_auth')
         .then(() => {
-          this.axios.post('/posts/' + postUuid + '/quote',
+          this.axios.post('/posts/' + postUuid + '/quotes',
             {content: quoteContent},
             {withCredentials: true})
             .then((response) => {
