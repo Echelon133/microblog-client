@@ -51,7 +51,7 @@
         </span>
         <b-row>
           <b-col sm="6" class="text-center counter">
-            <b-modal body-class="modal-height" :title="$t('userProfile.followingModal')" ref="following" hide-footer>
+            <b-modal body-class="modal-height" :title="$t('userProfile.followingModal', { user: this.$route.params.username } )" ref="following"  hide-footer>
               <b-container fluid class="scrollable-modal">
                 <UserProfileResultSmall @close-modal="closeModal" v-for="user in following" :key="user.uuid" :user="user"/>
                 <b-button class="load-more-btn" variant="primary"
@@ -65,7 +65,7 @@
             >{{ $t('userProfile.following') }}: {{ user.following }}</p>
           </b-col>
           <b-col sm="6" class="text-center counter">
-            <b-modal body-class="modal-height" :title="$t('userProfile.followedByModal')" ref="followedBy" hide-footer>
+            <b-modal body-class="modal-height" :title="$t('userProfile.followedByModal', { user: this.$route.params.username } )" ref="followedBy" hide-footer>
               <b-container fluid class="scrollable-modal">
                 <UserProfileResultSmall @close-modal="closeModal" v-for="user in followedBy" :key="user.uuid" :user="user"/>
                 <b-button class="load-more-btn" variant="primary"
