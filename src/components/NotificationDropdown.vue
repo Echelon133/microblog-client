@@ -13,7 +13,7 @@
         >{{ this.unreadCounter }}</b-badge>
       </div>
     </template>
-    <NotificationItem v-for="n in notifications" :key="n.uuid" :notification="n"/>
+    <NotificationItem @readNotification="updateNotificationCounter" v-for="n in notifications" :key="n.uuid" :notification="n"/>
     <b-dropdown-divider></b-dropdown-divider>
     <b-dropdown-item @click.prevent="markAllAsRead()">
       {{ $t("notificationDropdown.markAll") }} <i>{{ $t("notificationDropdown.read") }}</i>
@@ -58,6 +58,9 @@ export default {
         .then(() => {
           this.loadUnreadCounter()
         })
+    },
+    updateNotificationCounter () {
+      this.unreadCounter -= 1
     }
   },
   mounted () {
