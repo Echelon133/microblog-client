@@ -32,6 +32,7 @@ export default {
         .then((response) => {
           if (response.data.read) {
             this.$props.notification.read = true
+            this.$emit('readNotification')
           }
           this.$router.push({path: `/post/${postUuid}`})
         })
