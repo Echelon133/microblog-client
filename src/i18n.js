@@ -106,8 +106,8 @@ const messages = {
       userNotLogged: 'User not logged in',
       failedToCancelFollow: 'Failed to cancel the follow',
       failedToFollow: 'Failed to follow',
-      followedByModal: 'Users who follow \@{user}',
-      followingModal: 'Users followed by \@{user}',
+      followedByModal: 'Users who follow @{user}',
+      followingModal: 'Users followed by @{user}',
       knownModal: 'Followers I know'
     },
     notificationDropdown: {
@@ -275,8 +275,8 @@ const messages = {
       userNotLogged: 'Użytkownik nie jest zalogowany',
       failedToCancelFollow: 'Nie udało się anulować obserwowania',
       failedToFollow: 'Nie udało się obserwować użytkownika',
-      followedByModal: 'Lista obserwujących \@{user}',
-      followingModal: 'Lista obserwowanych przez \@{user}',
+      followedByModal: 'Lista obserwujących @{user}',
+      followingModal: 'Lista obserwowanych przez @{user}',
       knownModal: 'Obserwujący których znam'
     },
     notificationDropdown: {
