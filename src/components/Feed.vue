@@ -83,23 +83,30 @@ export default {
       return this.newPostContent.length === 0 || this.newPostContent.length > this.maxPostLength
     },
     loadPosts () {
-      let params = {}
       let skip = this.posts.length
-      if (this.showPopular) {
-        params = {
-          by: 'POPULARITY',
-          skip: skip
+      let params = {
+        skip: skip
+      }
+      if (this.$store.getters.userPresent()) {
+        // if the user is logged in, either let them get the most popular posts or the most recent posts
+        if (this.showPopular) {
+          this.axios.get('/feed/popular', {params: params, withCredentials: true})
+            .then((response) => {
+              this.posts.push(...response.data)
+            })
+        } else {
+          this.axios.get('/feed/', {params: params, withCredentials: true})
+            .then((response) => {
+              this.posts.push(...response.data)
+            })
         }
       } else {
-        params = {
-          skip: skip
-        }
+        // if the user is anonymous, show the most popular posts
+        this.axios.get('/feed/popular', {params: params})
+          .then((response) => {
+            this.posts.push(...response.data)
+          })
       }
-
-      this.axios.get('/feed', {params: params, withCredentials: true})
-        .then((response) => {
-          this.posts.push(...response.data)
-        })
     }
   },
   mounted () {
